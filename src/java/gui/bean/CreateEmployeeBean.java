@@ -6,12 +6,16 @@
 package gui.bean;
 
 import businessLogic.controller.HandleEmployee;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import java.util.Date;
 
 /**
  *
  * @author afacunaa
  */
+@ManagedBean
+@ViewScoped
 public class CreateEmployeeBean {
     private Integer employeeId;
     private String name;
