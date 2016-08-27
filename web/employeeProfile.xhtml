@@ -19,12 +19,13 @@ and open the template in the editor.
                 <h:panelGrid columns="2">
                     <label>Nombre:</label>
                     <h:inputText value="#{createEmployeeBean.name}" required="true" requiredMessage="¡El nombre es requerido!"/>
+                    <label>Apellido:</label>
+                    <h:inputText value="#{createEmployeeBean.lastName}" required="true" requiredMessage="¡El nombre es requerido!"/>
                     <label>Documento:</label>
-                    <h:inputText value="#{createEmployeeBean.document}" required="true" requiredMessage="¡El documento es requerido!"/>
-                    <label>Contraseña:</label>
-                    <h:inputSecret value="#{createEmployeeBean.passwordAccount}" required="true" requiredMessage="¡La contraseña es requerida!"/>                                                </h:panelGrid>
+                    <h:inputText value="#{createEmployeeBean.documentId}" required="true" requiredMessage="¡El documento es requerido!"/>
+                </h:panelGrid>
                 <br/>
-                <h:commandButton action="#{createEmployeeBean.createAccount()}" value="Crear"/>
+                <h:commandButton action="#{createEmployeeBean.createEmployee()}" value="Crear"/>
                 <br/><br/>
                 <label>Mensaje: </label>
                 <br/><br/>

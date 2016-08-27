@@ -5,6 +5,7 @@
  */
 package gui.bean;
 
+import businessLogic.controller.HandleEmployee;
 import java.util.Date;
 
 /**
@@ -59,6 +60,7 @@ public class CreateEmployeeBean {
     }
     
     public void createEmployee(){
-        
+        HandleEmployee createEmployee = new HandleEmployee();
+        createEmployee.createEmployee(10, name, lastName, documentId, new Date());
     }
 }
