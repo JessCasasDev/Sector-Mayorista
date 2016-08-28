@@ -6,7 +6,6 @@
 package gui.bean;
 
 import businessLogic.controller.HandleAutoSell;
-import dataSourceManagement.DAO.ShopOrderDAO;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.Discount;
 import dataSourceManagement.entities.ShopOrder;
@@ -26,7 +25,7 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class ShoppingCartBean {
     
-    private Integer orderId=100;
+    private Integer orderId;
     private Date orderDate;
     private Date deliveryDate;
     private String state; //Finalizada, en espera (pagos parciales), seleccionada (carrito)

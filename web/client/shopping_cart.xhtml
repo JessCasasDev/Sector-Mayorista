@@ -45,11 +45,12 @@
                         </tr>
                     </ui:repeat>
                 </table>
-                <p>Escoger el metodo de pago</p>
-                <h:selectOneListbox>
-                    <f:selectItem itemValue="Efectivo" itemLabel="Efectivo"/>
-                    <f:selectItem itemValue="Tarjeta" itemLabel="Tarjeta"/>
-                </h:selectOneListbox>
+                <div class="input-field col s12">
+                    <h:selectOneListbox label="Escoja uno">
+                        <f:selectItem itemValue="Efectivo" itemLabel="Efectivo"/>
+                        <f:selectItem itemValue="Tarjeta" itemLabel="Tarjeta"/>
+                    </h:selectOneListbox>
+                </div>    
                 <h:commandButton action="#" value="Pagar"/>
             </h:form>
         </center>
