@@ -5,7 +5,7 @@
  */
 package gui.bean;
 
-import dataSourceManagement.DAO.OrderDAO;
+import dataSourceManagement.DAO.ShopOrderDAO;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.Discount;
 import dataSourceManagement.entities.ShopOrder;
@@ -35,7 +35,7 @@ public class ShoppingCartBean {
     private Client clientId;
     
     public Collection<ShopOrder> displayCart(){
-        OrderDAO orderDAO = new OrderDAO();
+        ShopOrderDAO orderDAO = new ShopOrderDAO();
         Collection<ShopOrder> orderCollection = orderDAO.searchGroupByState("Seleccionada");
         return orderCollection;
     }

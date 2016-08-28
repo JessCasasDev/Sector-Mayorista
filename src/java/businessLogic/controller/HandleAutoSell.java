@@ -5,7 +5,7 @@
  */
 package businessLogic.controller;
 
-import dataSourceManagement.DAO.OrderDAO;
+import dataSourceManagement.DAO.ShopOrderDAO;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.Discount;
 import dataSourceManagement.entities.ShopOrder;
@@ -22,7 +22,7 @@ public class HandleAutoSell {
       
     public void addToCart(Collection<StockElement> stockElementCollection){ //crear una orden
         
-        OrderDAO orderDAO = new OrderDAO();
+        ShopOrderDAO orderDAO = new ShopOrderDAO();
         
         Integer orderId = orderDAO.newOrderId();
         Date orderDate = new Date();
@@ -50,7 +50,7 @@ public class HandleAutoSell {
     
     public void payOrder(Integer orderId){
         
-        OrderDAO orderDAO = new OrderDAO();
+        ShopOrderDAO orderDAO = new ShopOrderDAO();
         ShopOrder order = orderDAO.searchByOrderId(orderId);
         orderDAO.buyAutos(order);
         

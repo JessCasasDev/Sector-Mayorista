@@ -18,7 +18,7 @@ import javax.persistence.Query;
  *
  * @author afacunaa
  */
-public class OrderDAO {
+public class ShopOrderDAO {
     
     public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("autoMarketPU");
     
@@ -69,7 +69,7 @@ public class OrderDAO {
         EntityManager em = emf1.createEntityManager();
         Collection<ShopOrder> orderCollection = null;
         Query q = em.createNamedQuery("ShopOrder.findByState");
-        q.setParameter(1, state);
+        q.setParameter("state", state);
         try {
             orderCollection = q.getResultList();
         } catch (Exception e){
