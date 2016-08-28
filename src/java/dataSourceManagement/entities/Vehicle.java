@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Familia Casas
+ * @author mssg_
  */
 @Entity
 @Table(name = "vehicle")
@@ -36,37 +36,36 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Vehicle.findByModel", query = "SELECT v FROM Vehicle v WHERE v.model = :model"),
     @NamedQuery(name = "Vehicle.findByColor", query = "SELECT v FROM Vehicle v WHERE v.color = :color"),
     @NamedQuery(name = "Vehicle.findByBrand", query = "SELECT v FROM Vehicle v WHERE v.brand = :brand"),
-    @NamedQuery(name = "Vehicle.findBySellPrice", query = "SELECT v FROM Vehicle v WHERE v.sellPrice = :sellPrice")})
+    @NamedQuery(name = "Vehicle.findBySellPrice", query = "SELECT v FROM Vehicle v WHERE v.sellPrice = :sellPrice"),
+    @NamedQuery(name = "Vehicle.findByCost", query = "SELECT v FROM Vehicle v WHERE v.cost = :cost")})
 public class Vehicle implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "vehicle_id")
+    @Column(name = "vehicle_id", nullable = false)
     private Integer vehicleId;
     @Size(max = 45)
-    @Column(name = "type")
+    @Column(name = "type", length = 45)
     private String type;
     @Column(name = "model")
     private Integer model;
     @Lob
     @Size(max = 16777215)
-    @Column(name = "description")
+    @Column(name = "description", length = 16777215)
     private String description;
     @Size(max = 45)
-    @Column(name = "color")
+    @Column(name = "color", length = 45)
     private String color;
     @Size(max = 45)
-    @Column(name = "brand")
+    @Column(name = "brand", length = 45)
     private String brand;
-    @Lob
-    @Size(max = 16777215)
-    @Column(name = "cost")
-    private String cost;
-    @Size(max = 45)
-    @Column(name = "sell_price")
-    private String sellPrice;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "sell_price", precision = 12)
+    private Float sellPrice;
+    @Column(name = "cost", precision = 12)
+    private Float cost;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "vehicleId")
     private Collection<Discount> discountCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "vehicleVehicleId")
@@ -127,20 +126,20 @@ public class Vehicle implements Serializable {
         this.brand = brand;
     }
 
-    public String getCost() {
-        return cost;
-    }
-
-    public void setCost(String cost) {
-        this.cost = cost;
-    }
-
-    public String getSellPrice() {
+    public Float getSellPrice() {
         return sellPrice;
     }
 
-    public void setSellPrice(String sellPrice) {
+    public void setSellPrice(Float sellPrice) {
         this.sellPrice = sellPrice;
+    }
+
+    public Float getCost() {
+        return cost;
+    }
+
+    public void setCost(Float cost) {
+        this.cost = cost;
     }
 
     @XmlTransient
