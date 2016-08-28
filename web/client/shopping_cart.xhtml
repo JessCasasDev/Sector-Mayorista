@@ -26,23 +26,25 @@
   </nav>    
         <!--FIN MENU-->
         <center>
-            <h1 class="blue-grey-text text-darken-2 col s12">¡Esto es lo que has escogido hasta el momento!</h1>
-            <ui:repeat value="#{shoppingCartBean.displayCart()}" var="cart">
-                <h:dataTable>
+            <h3 class="blue-grey-text text-darken-2 col s12">¡Esto es lo que has escogido hasta el momento!</h3>
+            <h:form>
+                <table class="bordered">
                     <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Age</th>
+                        <th>Numero de orden</th>
+                        <th>Nombre</th>
+                        <th>Fecha de pedido</th>
+                        <th>Fecha de entrega</th>
                     </tr>
-                    <ui:repeat value="#{cart}" var="item">
+                    <ui:repeat value="#{shoppingCartBean.displayCart()}" var="cart">
                         <tr>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Age</th>
+                            <td><h:selectBooleanCheckbox> #{cart.orderId} </h:selectBooleanCheckbox> </td>
+                            <td><h6>#{cart.clientId.name}</h6></td>
+                            <td><h6>#{cart.orderDate}</h6></td>
+                            <td><h6>#{cart.deliveryDate}</h6></td>
                         </tr>
                     </ui:repeat>
-                </h:dataTable>
-            </ui:repeat>
+                </table>
+            </h:form>
         </center>
         
         <!-- JS FILES-->

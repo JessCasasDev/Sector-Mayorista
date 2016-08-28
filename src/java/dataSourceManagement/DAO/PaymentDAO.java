@@ -35,18 +35,4 @@ public class PaymentDAO {
         return payment;
     }
     
-    public Integer newPaymentId(){
-        Integer id = 0;
-        EntityManager em = emf1.createEntityManager();
-        Payment payment = null;
-        Query q = em.createNamedQuery("Payment.findAll");
-        try {
-            id = q.getResultList().size();
-        } catch (Exception e) {
-        } finally {
-            em.close();
-        }
-        return id;
-    }
-    
 }

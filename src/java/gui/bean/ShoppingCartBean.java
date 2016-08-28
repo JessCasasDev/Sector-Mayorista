@@ -25,7 +25,7 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class ShoppingCartBean {
     
-    private Integer orderId;
+    private Integer orderId=100;
     private Date orderDate;
     private Date deliveryDate;
     private String state; //Finalizada, en espera (pagos parciales), seleccionada (carrito)
@@ -40,6 +40,9 @@ public class ShoppingCartBean {
         return orderCollection;
     }
     
+    public Integer getOrderId(){
+        return orderId;
+    }
     
     
 }

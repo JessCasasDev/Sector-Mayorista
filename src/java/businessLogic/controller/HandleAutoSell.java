@@ -24,7 +24,7 @@ public class HandleAutoSell {
         
         ShopOrderDAO orderDAO = new ShopOrderDAO();
         
-        Integer orderId = orderDAO.newOrderId();
+        Integer orderId;
         Date orderDate = new Date();
         Date deliveryDate = new Date();
         String state = "Seleccionada"; //"Finalizada" (pagado todo), "En espera" (pagos parciales), "Seleccionada" (carrito)
@@ -40,7 +40,6 @@ public class HandleAutoSell {
         order.setDeliveryDate(deliveryDate);
         order.setDiscountCollection(discountCollection);
         order.setOrderDate(orderDate);
-        order.setOrderId(orderId);
         order.setPaymentCollection(paymentCollection);
         order.setState(state);
         order.setStockElementCollection(stockElementCollection);

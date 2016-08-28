@@ -40,7 +40,7 @@ public class ShopOrderDAO {
     public void buyAutos(ShopOrder order){
         PaymentDAO paymentDAO = new PaymentDAO();
         
-        Integer paymentId = paymentDAO.newPaymentId();
+        Integer paymentId;
         String type="Efectivo";
         Date date = new Date();
         String debt ="";
@@ -49,7 +49,6 @@ public class ShopOrderDAO {
         payment.setDate(date);
         payment.setDebt(debt);
         payment.setType(type);
-        payment.setPaymentId(paymentId);
         payment.setShopOrderOrderId(order);
         
         paymentDAO.persist(payment);
@@ -77,20 +76,6 @@ public class ShopOrderDAO {
             em.close();
         }
         return orderCollection;
-    }
-    
-    public Integer newOrderId(){
-        Integer id = 0;
-        EntityManager em = emf1.createEntityManager();
-        ShopOrder order = null;
-        Query q = em.createNamedQuery("ShopOrder.findAll");
-        try {
-            id = q.getResultList().size();
-        } catch (Exception e) {
-        } finally {
-            em.close();
-        }
-        return id;
     }
     
 }
