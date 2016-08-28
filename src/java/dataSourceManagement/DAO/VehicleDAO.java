@@ -22,6 +22,7 @@ import dataSourceManagement.entities.Vehicle;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.transaction.UserTransaction;
 
 /**
@@ -29,11 +30,24 @@ import javax.transaction.UserTransaction;
  * @author JuanCamilo
  */
 public class VehicleDAO implements Serializable {
-
-    public VehicleDAO(UserTransaction utx, EntityManagerFactory emf) {
-        this.utx = utx;
-        this.emf = emf;
+    
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("MayoristaPU");
+    
+    public Vehicle persist(Vehicle vehicle) {
+        EntityManager em = emf1.createEntityManager();
+        em.getTransaction().begin();
+        try {
+            em.persist(vehicle);
+            em.getTransaction().commit();
+        } catch(Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+        return vehicle;
     }
+
     private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
