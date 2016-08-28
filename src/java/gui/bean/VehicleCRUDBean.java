@@ -25,6 +25,10 @@ public class VehicleCRUDBean {
     private String cost;
     private String sellPrice;
 
+    public VehicleCRUDBean() {
+        //empty constructor
+    }
+
     public String getType() {
         return type;
     }
@@ -80,8 +84,8 @@ public class VehicleCRUDBean {
     public void setSellPrice(String sellPrice) {
         this.sellPrice = sellPrice;
     }
-    
-     public void createVehicle(){
+
+    public void createVehicle() {
         HandleVehicleCRUD createVehicle = new HandleVehicleCRUD();
         createVehicle.createVehicle();
     }

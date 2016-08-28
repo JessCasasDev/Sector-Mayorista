@@ -30,11 +30,11 @@ import javax.transaction.UserTransaction;
  * @author JuanCamilo
  */
 public class VehicleDAO implements Serializable {
-    
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("MayoristaPU");
+      private UserTransaction utx = null;
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("autoMarketPU");;
     
     public Vehicle persist(Vehicle vehicle) {
-        EntityManager em = emf1.createEntityManager();
+        EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         try {
             em.persist(vehicle);
@@ -48,8 +48,7 @@ public class VehicleDAO implements Serializable {
         return vehicle;
     }
 
-    private UserTransaction utx = null;
-    private EntityManagerFactory emf = null;
+  
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -64,7 +63,7 @@ public class VehicleDAO implements Serializable {
         }
         EntityManager em = null;
         try {
-            utx.begin();
+            //utx.begin();
             em = getEntityManager();
             Collection<Discount> attachedDiscountCollection = new ArrayList<Discount>();
             for (Discount discountCollectionDiscountToAttach : vehicle.getDiscountCollection()) {
@@ -97,10 +96,10 @@ public class VehicleDAO implements Serializable {
                     oldVehicleVehicleIdOfStockElementCollectionStockElement = em.merge(oldVehicleVehicleIdOfStockElementCollectionStockElement);
                 }
             }
-            utx.commit();
+           // utx.commit();
         } catch (Exception ex) {
             try {
-                utx.rollback();
+              //  utx.rollback();
             } catch (Exception re) {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
             }

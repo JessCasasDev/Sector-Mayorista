@@ -20,7 +20,7 @@ import javax.persistence.Query;
  */
 public class OrderDAO {
     
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("MayoristaPU");
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("autoMarketPU");
     
     public Order persist(Order order) {
         EntityManager em = emf1.createEntityManager();

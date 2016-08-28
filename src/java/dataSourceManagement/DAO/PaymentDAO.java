@@ -18,7 +18,7 @@ import javax.persistence.Query;
  */
 public class PaymentDAO {
     
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("MayoristaPU");
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("autoMarketPU");
     
     public Payment persist(Payment payment) {
         EntityManager em = emf1.createEntityManager();

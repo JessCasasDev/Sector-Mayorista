@@ -17,7 +17,7 @@ import javax.persistence.Query;
  */
 public class EmployeeDAO {
     
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("MayoristaPU");
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("autoMarketPU");
     
     public Employee persist(Employee employee) {
         EntityManager em = emf1.createEntityManager();

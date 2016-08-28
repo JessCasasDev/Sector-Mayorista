@@ -18,18 +18,10 @@ import java.util.logging.Logger;
 public class HandleVehicleCRUD {
 
     public boolean createVehicle() {
-        try {
-            VehicleDAO vehicleDAO = new VehicleDAO();
-            Vehicle vehicle = new Vehicle();
-            vehicle.setModel(2015);
-            vehicleDAO.create(vehicle);
-        } catch (RollbackFailureException ex) {
-            Logger.getLogger(HandleVehicleCRUD.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        } catch (Exception ex) {
-            Logger.getLogger(HandleVehicleCRUD.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
+        VehicleDAO vehicleDAO = new VehicleDAO();
+        Vehicle vehicle = new Vehicle();
+        vehicle.setModel(2015);
+        vehicleDAO.persist(vehicle);
         return true;
     }
 }
