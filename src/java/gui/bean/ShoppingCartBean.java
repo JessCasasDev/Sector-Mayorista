@@ -5,8 +5,10 @@
  */
 package gui.bean;
 
+import dataSourceManagement.DAO.OrderDAO;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.Discount;
+import dataSourceManagement.entities.Order;
 import dataSourceManagement.entities.Payment;
 import dataSourceManagement.entities.StockElement;
 import java.util.Collection;
@@ -31,6 +33,12 @@ public class ShoppingCartBean {
     private Collection<StockElement> stockElementCollection;
     private Collection<Payment> paymentCollection;
     private Client clientId;
+    
+    public Collection<Order> displayCart(){
+        OrderDAO orderDAO = new OrderDAO();
+        Collection<Order> orderCollection = orderDAO.searchGroupByState("Seleccionada");
+        return orderCollection;
+    }
     
     
     

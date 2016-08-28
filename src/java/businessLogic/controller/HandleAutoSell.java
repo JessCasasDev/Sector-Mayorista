@@ -19,7 +19,7 @@ import java.util.Date;
  * @author afacunaa
  */
 public class HandleAutoSell {
-    
+      
     public void addToCart(Collection<StockElement> stockElementCollection){ //crear una orden
         
         OrderDAO orderDAO = new OrderDAO();

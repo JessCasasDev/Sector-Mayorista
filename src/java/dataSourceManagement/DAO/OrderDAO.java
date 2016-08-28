@@ -7,6 +7,7 @@ package dataSourceManagement.DAO;
 
 import dataSourceManagement.entities.Order;
 import dataSourceManagement.entities.Payment;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -59,16 +60,23 @@ public class OrderDAO {
     public Order searchByOrderId(Integer orderId){
         
         EntityManager em = emf1.createEntityManager();
-        Order order = null;
-        Query q = em.createNamedQuery("Order.findByOrderId");
-        q.setParameter(1, orderId);
+        Order order = em.find(Order.class, orderId);
+        em.close();
+        return order;
+    }
+    
+    public Collection<Order> searchGroupByState(String state){
+        EntityManager em = emf1.createEntityManager();
+        Collection<Order> orderCollection = null;
+        Query q = em.createNamedQuery("Order.findByState");
+        q.setParameter(1, state);
         try {
-            order = (Order) q.getSingleResult();
-        } catch (Exception e) {
+            orderCollection = q.getResultList();
+        } catch (Exception e){
         } finally {
             em.close();
         }
-        return order;
+        return orderCollection;
     }
     
     public Integer newOrderId(){
