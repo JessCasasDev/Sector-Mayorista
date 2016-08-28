@@ -59,11 +59,11 @@ public class ShopOrder implements Serializable {
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     @ManyToOne(optional = false)
     private Client clientId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderOrderId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shopOrderOrderId")
     private Collection<Discount> discountCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderOrderId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shopOrderOrderId")
     private Collection<Payment> paymentCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderOrderId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shopOrderOrderId")
     private Collection<StockElement> stockElementCollection;
 
     public ShopOrder() {

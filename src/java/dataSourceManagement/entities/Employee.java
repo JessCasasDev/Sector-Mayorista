@@ -7,20 +7,26 @@ package dataSourceManagement.entities;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -54,6 +60,13 @@ public class Employee implements Serializable {
     @Column(name = "birth_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthDate;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeEmployeeId")
+    private Collection<Purchase> purchaseCollection;
+    @JoinColumn(name = "auth_id", referencedColumnName = "auth_id")
+    @ManyToOne(optional = false)
+    private Authentication authId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeEmployeeId")
+    private Collection<MonthlyRegister> monthlyRegisterCollection;
 
     public Employee() {
     }
@@ -100,6 +113,32 @@ public class Employee implements Serializable {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    @XmlTransient
+    public Collection<Purchase> getPurchaseCollection() {
+        return purchaseCollection;
+    }
+
+    public void setPurchaseCollection(Collection<Purchase> purchaseCollection) {
+        this.purchaseCollection = purchaseCollection;
+    }
+
+    public Authentication getAuthId() {
+        return authId;
+    }
+
+    public void setAuthId(Authentication authId) {
+        this.authId = authId;
+    }
+
+    @XmlTransient
+    public Collection<MonthlyRegister> getMonthlyRegisterCollection() {
+        return monthlyRegisterCollection;
+    }
+
+    public void setMonthlyRegisterCollection(Collection<MonthlyRegister> monthlyRegisterCollection) {
+        this.monthlyRegisterCollection = monthlyRegisterCollection;
     }
 
     @Override

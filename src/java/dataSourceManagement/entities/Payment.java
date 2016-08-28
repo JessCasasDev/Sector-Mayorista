@@ -52,9 +52,9 @@ public class Payment implements Serializable {
     @Size(max = 45)
     @Column(name = "debt")
     private String debt;
-    @JoinColumn(name = "order_order_id", referencedColumnName = "order_id")
+    @JoinColumn(name = "shop_order_order_id", referencedColumnName = "order_id")
     @ManyToOne(optional = false)
-    private ShopOrder orderOrderId;
+    private ShopOrder shopOrderOrderId;
 
     public Payment() {
     }
@@ -95,12 +95,12 @@ public class Payment implements Serializable {
         this.debt = debt;
     }
 
-    public ShopOrder getOrderOrderId() {
-        return orderOrderId;
+    public ShopOrder getShopOrderOrderId() {
+        return shopOrderOrderId;
     }
 
-    public void setOrderOrderId(ShopOrder orderOrderId) {
-        this.orderOrderId = orderOrderId;
+    public void setShopOrderOrderId(ShopOrder shopOrderOrderId) {
+        this.shopOrderOrderId = shopOrderOrderId;
     }
 
     @Override

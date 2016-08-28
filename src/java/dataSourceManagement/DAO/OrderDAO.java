@@ -50,7 +50,7 @@ public class OrderDAO {
         payment.setDebt(debt);
         payment.setType(type);
         payment.setPaymentId(paymentId);
-        payment.setOrderOrderId(order);
+        payment.setShopOrderOrderId(order);
         
         paymentDAO.persist(payment);
         

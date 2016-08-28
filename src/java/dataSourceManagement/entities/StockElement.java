@@ -44,9 +44,9 @@ public class StockElement implements Serializable {
     private String location;
     @Column(name = "avaliable")
     private Boolean avaliable;
-    @JoinColumn(name = "order_order_id", referencedColumnName = "order_id")
+    @JoinColumn(name = "shop_order_order_id", referencedColumnName = "order_id")
     @ManyToOne(optional = false)
-    private ShopOrder orderOrderId;
+    private ShopOrder shopOrderOrderId;
     @JoinColumn(name = "purchase_purchase_id", referencedColumnName = "purchase_id")
     @ManyToOne(optional = false)
     private Purchase purchasePurchaseId;
@@ -85,12 +85,12 @@ public class StockElement implements Serializable {
         this.avaliable = avaliable;
     }
 
-    public ShopOrder getOrderOrderId() {
-        return orderOrderId;
+    public ShopOrder getShopOrderOrderId() {
+        return shopOrderOrderId;
     }
 
-    public void setOrderOrderId(ShopOrder orderOrderId) {
-        this.orderOrderId = orderOrderId;
+    public void setShopOrderOrderId(ShopOrder shopOrderOrderId) {
+        this.shopOrderOrderId = shopOrderOrderId;
     }
 
     public Purchase getPurchasePurchaseId() {
