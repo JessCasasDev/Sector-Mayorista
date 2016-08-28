@@ -20,7 +20,14 @@ public class HandleVehicleCRUD {
     public boolean createVehicle() {
         VehicleDAO vehicleDAO = new VehicleDAO();
         Vehicle vehicle = new Vehicle();
+        vehicle.setBrand("mazda");
         vehicle.setModel(2015);
+        vehicle.setColor("#FF0066");
+        vehicle.setCost("560.000");
+        vehicle.setSellPrice("560.000");
+        vehicle.setDescription("un muy nuevo auto");
+        vehicle.setType("4x4");
+        vehicle.setVehicleId(1);
         vehicleDAO.persist(vehicle);
         return true;
     }

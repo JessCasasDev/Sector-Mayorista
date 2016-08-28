@@ -34,11 +34,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "order")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Order1.findAll", query = "SELECT o FROM Order1 o"),
-    @NamedQuery(name = "Order1.findByOrderId", query = "SELECT o FROM Order1 o WHERE o.orderId = :orderId"),
-    @NamedQuery(name = "Order1.findByOrderDate", query = "SELECT o FROM Order1 o WHERE o.orderDate = :orderDate"),
-    @NamedQuery(name = "Order1.findByDeliveryDate", query = "SELECT o FROM Order1 o WHERE o.deliveryDate = :deliveryDate"),
-    @NamedQuery(name = "Order1.findByState", query = "SELECT o FROM Order1 o WHERE o.state = :state")})
+    @NamedQuery(name = "Order.findAll", query = "SELECT o FROM Order o"),
+    @NamedQuery(name = "Order.findByOrderId", query = "SELECT o FROM Order o WHERE o.orderId = :orderId"),
+    @NamedQuery(name = "Order.findByOrderDate", query = "SELECT o FROM Order o WHERE o.orderDate = :orderDate"),
+    @NamedQuery(name = "Order.findByDeliveryDate", query = "SELECT o FROM Order o WHERE o.deliveryDate = :deliveryDate"),
+    @NamedQuery(name = "Order.findByState", query = "SELECT o FROM Order o WHERE o.state = :state")})
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -162,7 +162,7 @@ public class Order implements Serializable {
 
     @Override
     public String toString() {
-        return "dataSourceManagement.entities.Order1[ orderId=" + orderId + " ]";
+        return "dataSourceManagement.entities.Order[ orderId=" + orderId + " ]";
     }
     
 }
