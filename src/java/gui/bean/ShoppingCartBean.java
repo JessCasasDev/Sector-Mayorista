@@ -5,6 +5,7 @@
  */
 package gui.bean;
 
+import businessLogic.controller.HandleAutoSell;
 import dataSourceManagement.DAO.ShopOrderDAO;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.Discount;
@@ -35,14 +36,16 @@ public class ShoppingCartBean {
     private Client clientId;
     
     public Collection<ShopOrder> displayCart(){
-        ShopOrderDAO orderDAO = new ShopOrderDAO();
-        Collection<ShopOrder> orderCollection = orderDAO.searchGroupByState("Seleccionada");
-        return orderCollection;
+        HandleAutoSell has = new HandleAutoSell();
+        return has.getShoppingCart();
     }
     
     public Integer getOrderId(){
         return orderId;
     }
     
+    public void payShopOrder(){
+        
+    }
     
 }

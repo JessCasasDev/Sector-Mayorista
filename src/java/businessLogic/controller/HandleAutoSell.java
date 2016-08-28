@@ -47,6 +47,12 @@ public class HandleAutoSell {
         orderDAO.persist(order);
     }
     
+    public Collection<ShopOrder> getShoppingCart(){
+        ShopOrderDAO orderDAO = new ShopOrderDAO();
+        Collection<ShopOrder> orderCollection = orderDAO.searchGroupByState("Seleccionada");
+        return orderCollection;
+    }
+    
     public void payOrder(Integer orderId){
         
         ShopOrderDAO orderDAO = new ShopOrderDAO();
