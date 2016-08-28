@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,30 +23,28 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Familia Casas
+ * @author JuanCamilo
  */
 @Entity
-@Table(name = "order")
+@Table(name = "shop_order")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Order.findAll", query = "SELECT o FROM Order o"),
-    @NamedQuery(name = "Order.findByOrderId", query = "SELECT o FROM Order o WHERE o.orderId = :orderId"),
-    @NamedQuery(name = "Order.findByOrderDate", query = "SELECT o FROM Order o WHERE o.orderDate = :orderDate"),
-    @NamedQuery(name = "Order.findByDeliveryDate", query = "SELECT o FROM Order o WHERE o.deliveryDate = :deliveryDate"),
-    @NamedQuery(name = "Order.findByState", query = "SELECT o FROM Order o WHERE o.state = :state")})
-public class Order implements Serializable {
-
+    @NamedQuery(name = "ShopOrder.findAll", query = "SELECT s FROM ShopOrder s"),
+    @NamedQuery(name = "ShopOrder.findByOrderId", query = "SELECT s FROM ShopOrder s WHERE s.orderId = :orderId"),
+    @NamedQuery(name = "ShopOrder.findByOrderDate", query = "SELECT s FROM ShopOrder s WHERE s.orderDate = :orderDate"),
+    @NamedQuery(name = "ShopOrder.findByDeliveryDate", query = "SELECT s FROM ShopOrder s WHERE s.deliveryDate = :deliveryDate"),
+    @NamedQuery(name = "ShopOrder.findByState", query = "SELECT s FROM ShopOrder s WHERE s.state = :state")})
+public class ShopOrder implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "order_id")
     private Integer orderId;
     @Column(name = "order_date")
@@ -56,20 +56,20 @@ public class Order implements Serializable {
     @Size(max = 45)
     @Column(name = "state")
     private String state;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderOrderId")
-    private Collection<Discount> discountCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderOrderId")
-    private Collection<StockElement> stockElementCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderOrderId")
-    private Collection<Payment> paymentCollection;
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     @ManyToOne(optional = false)
     private Client clientId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderOrderId")
+    private Collection<Discount> discountCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderOrderId")
+    private Collection<Payment> paymentCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderOrderId")
+    private Collection<StockElement> stockElementCollection;
 
-    public Order() {
+    public ShopOrder() {
     }
 
-    public Order(Integer orderId) {
+    public ShopOrder(Integer orderId) {
         this.orderId = orderId;
     }
 
@@ -105,6 +105,14 @@ public class Order implements Serializable {
         this.state = state;
     }
 
+    public Client getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Client clientId) {
+        this.clientId = clientId;
+    }
+
     @XmlTransient
     public Collection<Discount> getDiscountCollection() {
         return discountCollection;
@@ -112,15 +120,6 @@ public class Order implements Serializable {
 
     public void setDiscountCollection(Collection<Discount> discountCollection) {
         this.discountCollection = discountCollection;
-    }
-
-    @XmlTransient
-    public Collection<StockElement> getStockElementCollection() {
-        return stockElementCollection;
-    }
-
-    public void setStockElementCollection(Collection<StockElement> stockElementCollection) {
-        this.stockElementCollection = stockElementCollection;
     }
 
     @XmlTransient
@@ -132,12 +131,13 @@ public class Order implements Serializable {
         this.paymentCollection = paymentCollection;
     }
 
-    public Client getClientId() {
-        return clientId;
+    @XmlTransient
+    public Collection<StockElement> getStockElementCollection() {
+        return stockElementCollection;
     }
 
-    public void setClientId(Client clientId) {
-        this.clientId = clientId;
+    public void setStockElementCollection(Collection<StockElement> stockElementCollection) {
+        this.stockElementCollection = stockElementCollection;
     }
 
     @Override
@@ -150,10 +150,10 @@ public class Order implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Order)) {
+        if (!(object instanceof ShopOrder)) {
             return false;
         }
-        Order other = (Order) object;
+        ShopOrder other = (ShopOrder) object;
         if ((this.orderId == null && other.orderId != null) || (this.orderId != null && !this.orderId.equals(other.orderId))) {
             return false;
         }
@@ -162,7 +162,7 @@ public class Order implements Serializable {
 
     @Override
     public String toString() {
-        return "dataSourceManagement.entities.Order[ orderId=" + orderId + " ]";
+        return "dataSourceManagement.entities.ShopOrder[ orderId=" + orderId + " ]";
     }
     
 }

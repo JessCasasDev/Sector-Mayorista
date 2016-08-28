@@ -5,7 +5,7 @@
  */
 package dataSourceManagement.DAO;
 
-import dataSourceManagement.entities.Order;
+import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Payment;
 import java.util.Collection;
 import java.util.Date;
@@ -22,7 +22,7 @@ public class OrderDAO {
     
     public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("autoMarketPU");
     
-    public Order persist(Order order) {
+    public ShopOrder persist(ShopOrder order) {
         EntityManager em = emf1.createEntityManager();
         em.getTransaction().begin();
         try {
@@ -37,7 +37,7 @@ public class OrderDAO {
         return order;
     }
     
-    public void buyAutos(Order order){
+    public void buyAutos(ShopOrder order){
         PaymentDAO paymentDAO = new PaymentDAO();
         
         Integer paymentId = paymentDAO.newPaymentId();
@@ -57,18 +57,18 @@ public class OrderDAO {
         order.setState("Finalizada");
     }
     
-    public Order searchByOrderId(Integer orderId){
+    public ShopOrder searchByOrderId(Integer orderId){
         
         EntityManager em = emf1.createEntityManager();
-        Order order = em.find(Order.class, orderId);
+        ShopOrder order = em.find(ShopOrder.class, orderId);
         em.close();
         return order;
     }
     
-    public Collection<Order> searchGroupByState(String state){
+    public Collection<ShopOrder> searchGroupByState(String state){
         EntityManager em = emf1.createEntityManager();
-        Collection<Order> orderCollection = null;
-        Query q = em.createNamedQuery("Order.findByState");
+        Collection<ShopOrder> orderCollection = null;
+        Query q = em.createNamedQuery("ShopOrder.findByState");
         q.setParameter(1, state);
         try {
             orderCollection = q.getResultList();
@@ -82,8 +82,8 @@ public class OrderDAO {
     public Integer newOrderId(){
         Integer id = 0;
         EntityManager em = emf1.createEntityManager();
-        Order order = null;
-        Query q = em.createNamedQuery("Order.findAll");
+        ShopOrder order = null;
+        Query q = em.createNamedQuery("ShopOrder.findAll");
         try {
             id = q.getResultList().size();
         } catch (Exception e) {

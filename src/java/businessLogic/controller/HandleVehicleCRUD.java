@@ -23,11 +23,10 @@ public class HandleVehicleCRUD {
         vehicle.setBrand("mazda");
         vehicle.setModel(2015);
         vehicle.setColor("#FF0066");
-        vehicle.setCost("560.000");
-        vehicle.setSellPrice("560.000");
+        vehicle.setCost(560.000f);
+        vehicle.setSellPrice(560.000f);
         vehicle.setDescription("un muy nuevo auto");
         vehicle.setType("4x4");
-        vehicle.setVehicleId(1);
         vehicleDAO.persist(vehicle);
         return true;
     }

@@ -11,22 +11,22 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Familia Casas
+ * @author JuanCamilo
  */
 @Entity
 @Table(name = "client")
@@ -35,30 +35,29 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Client.findAll", query = "SELECT c FROM Client c"),
     @NamedQuery(name = "Client.findByClientId", query = "SELECT c FROM Client c WHERE c.clientId = :clientId"),
     @NamedQuery(name = "Client.findByName", query = "SELECT c FROM Client c WHERE c.name = :name"),
+    @NamedQuery(name = "Client.findByNit", query = "SELECT c FROM Client c WHERE c.nit = :nit"),
     @NamedQuery(name = "Client.findByAddress", query = "SELECT c FROM Client c WHERE c.address = :address")})
 public class Client implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "client_id")
     private Integer clientId;
     @Size(max = 45)
     @Column(name = "name")
     private String name;
-    @Lob
-    @Size(max = 16777215)
+    @Size(max = 45)
     @Column(name = "NIT")
     private String nit;
     @Size(max = 45)
     @Column(name = "address")
     private String address;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientId")
+    private Collection<ShopOrder> shopOrderCollection;
     @JoinColumn(name = "auth_id", referencedColumnName = "auth_id")
     @ManyToOne(optional = false)
     private Authentication authId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientId")
-    private Collection<Order> order1Collection;
 
     public Client() {
     }
@@ -99,21 +98,21 @@ public class Client implements Serializable {
         this.address = address;
     }
 
+    @XmlTransient
+    public Collection<ShopOrder> getShopOrderCollection() {
+        return shopOrderCollection;
+    }
+
+    public void setShopOrderCollection(Collection<ShopOrder> shopOrderCollection) {
+        this.shopOrderCollection = shopOrderCollection;
+    }
+
     public Authentication getAuthId() {
         return authId;
     }
 
     public void setAuthId(Authentication authId) {
         this.authId = authId;
-    }
-
-    @XmlTransient
-    public Collection<Order> getOrder1Collection() {
-        return order1Collection;
-    }
-
-    public void setOrder1Collection(Collection<Order> order1Collection) {
-        this.order1Collection = order1Collection;
     }
 
     @Override

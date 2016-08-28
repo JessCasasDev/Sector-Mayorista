@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Familia Casas
+ * @author JuanCamilo
  */
 @Entity
 @Table(name = "purchase")
@@ -39,11 +41,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Purchase.findByDeliveryDate", query = "SELECT p FROM Purchase p WHERE p.deliveryDate = :deliveryDate"),
     @NamedQuery(name = "Purchase.findByQuantity", query = "SELECT p FROM Purchase p WHERE p.quantity = :quantity")})
 public class Purchase implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "purchase_id")
     private Integer purchaseId;
     @Column(name = "purchase_date")
@@ -52,8 +53,10 @@ public class Purchase implements Serializable {
     @Column(name = "delivery_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date deliveryDate;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "quantity")
-    private Integer quantity;
+    private int quantity;
     @JoinColumn(name = "employee_employee_id", referencedColumnName = "employee_id")
     @ManyToOne(optional = false)
     private Employee employeeEmployeeId;
@@ -65,6 +68,11 @@ public class Purchase implements Serializable {
 
     public Purchase(Integer purchaseId) {
         this.purchaseId = purchaseId;
+    }
+
+    public Purchase(Integer purchaseId, int quantity) {
+        this.purchaseId = purchaseId;
+        this.quantity = quantity;
     }
 
     public Integer getPurchaseId() {
@@ -91,11 +99,11 @@ public class Purchase implements Serializable {
         this.deliveryDate = deliveryDate;
     }
 
-    public Integer getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

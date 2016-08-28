@@ -8,7 +8,7 @@ package businessLogic.controller;
 import dataSourceManagement.DAO.OrderDAO;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.Discount;
-import dataSourceManagement.entities.Order;
+import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Payment;
 import dataSourceManagement.entities.StockElement;
 import java.util.Collection;
@@ -35,7 +35,7 @@ public class HandleAutoSell {
             se.setAvaliable(Boolean.FALSE);
         }
         
-        Order order = new Order();
+        ShopOrder order = new ShopOrder();
         order.setClientId(clientId);
         order.setDeliveryDate(deliveryDate);
         order.setDiscountCollection(discountCollection);
@@ -51,7 +51,7 @@ public class HandleAutoSell {
     public void payOrder(Integer orderId){
         
         OrderDAO orderDAO = new OrderDAO();
-        Order order = orderDAO.searchByOrderId(orderId);
+        ShopOrder order = orderDAO.searchByOrderId(orderId);
         orderDAO.buyAutos(order);
         
     }

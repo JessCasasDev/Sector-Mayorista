@@ -9,19 +9,20 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Familia Casas
+ * @author JuanCamilo
  */
 @Entity
 @Table(name = "stock_element")
@@ -32,11 +33,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "StockElement.findByLocation", query = "SELECT s FROM StockElement s WHERE s.location = :location"),
     @NamedQuery(name = "StockElement.findByAvaliable", query = "SELECT s FROM StockElement s WHERE s.avaliable = :avaliable")})
 public class StockElement implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "element_id")
     private Integer elementId;
     @Size(max = 45)
@@ -46,7 +46,7 @@ public class StockElement implements Serializable {
     private Boolean avaliable;
     @JoinColumn(name = "order_order_id", referencedColumnName = "order_id")
     @ManyToOne(optional = false)
-    private Order orderOrderId;
+    private ShopOrder orderOrderId;
     @JoinColumn(name = "purchase_purchase_id", referencedColumnName = "purchase_id")
     @ManyToOne(optional = false)
     private Purchase purchasePurchaseId;
@@ -85,11 +85,11 @@ public class StockElement implements Serializable {
         this.avaliable = avaliable;
     }
 
-    public Order getOrderOrderId() {
+    public ShopOrder getOrderOrderId() {
         return orderOrderId;
     }
 
-    public void setOrderOrderId(Order orderOrderId) {
+    public void setOrderOrderId(ShopOrder orderOrderId) {
         this.orderOrderId = orderOrderId;
     }
 

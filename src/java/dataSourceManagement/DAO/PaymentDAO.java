@@ -5,7 +5,7 @@
  */
 package dataSourceManagement.DAO;
 
-import dataSourceManagement.entities.Order;
+import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Payment;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

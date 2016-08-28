@@ -66,7 +66,7 @@ public class VehicleDAO implements Serializable {
             em = getEntityManager();
             Collection<Discount> attachedDiscountCollection = new ArrayList<Discount>();
             for (Discount discountCollectionDiscountToAttach : vehicle.getDiscountCollection()) {
-                discountCollectionDiscountToAttach = em.getReference(discountCollectionDiscountToAttach.getClass(), discountCollectionDiscountToAttach.getDiscountsId());
+                discountCollectionDiscountToAttach = em.getReference(discountCollectionDiscountToAttach.getClass(), discountCollectionDiscountToAttach.getDiscountId());
                 attachedDiscountCollection.add(discountCollectionDiscountToAttach);
             }
             vehicle.setDiscountCollection(attachedDiscountCollection);
@@ -145,7 +145,7 @@ public class VehicleDAO implements Serializable {
             }
             Collection<Discount> attachedDiscountCollectionNew = new ArrayList<Discount>();
             for (Discount discountCollectionNewDiscountToAttach : discountCollectionNew) {
-                discountCollectionNewDiscountToAttach = em.getReference(discountCollectionNewDiscountToAttach.getClass(), discountCollectionNewDiscountToAttach.getDiscountsId());
+                discountCollectionNewDiscountToAttach = em.getReference(discountCollectionNewDiscountToAttach.getClass(), discountCollectionNewDiscountToAttach.getDiscountId());
                 attachedDiscountCollectionNew.add(discountCollectionNewDiscountToAttach);
             }
             discountCollectionNew = attachedDiscountCollectionNew;

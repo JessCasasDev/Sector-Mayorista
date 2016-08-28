@@ -6,6 +6,7 @@
 package gui.bean;
 
 import businessLogic.controller.HandleEmployee;
+import java.math.BigInteger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import java.util.Date;
@@ -20,7 +21,7 @@ public class CreateEmployeeBean {
     private Integer employeeId;
     private String name;
     private String lastName;
-    private Integer documentId;
+    private BigInteger documentId;
     private Date birthDate;
 
     public Integer getEmployeeId() {
@@ -47,11 +48,11 @@ public class CreateEmployeeBean {
         this.lastName = lastName;
     }
 
-    public Integer getDocumentId() {
+    public BigInteger getDocumentId() {
         return documentId;
     }
 
-    public void setDocumentId(Integer documentId) {
+    public void setDocumentId(BigInteger documentId) {
         this.documentId = documentId;
     }
 

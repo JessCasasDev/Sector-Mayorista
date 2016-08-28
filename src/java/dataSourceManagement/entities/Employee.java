@@ -6,29 +6,25 @@
 package dataSourceManagement.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Familia Casas
+ * @author JuanCamilo
  */
 @Entity
 @Table(name = "employee")
@@ -41,11 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Employee.findByDocumentId", query = "SELECT e FROM Employee e WHERE e.documentId = :documentId"),
     @NamedQuery(name = "Employee.findByBirthDate", query = "SELECT e FROM Employee e WHERE e.birthDate = :birthDate")})
 public class Employee implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "employee_id")
     private Integer employeeId;
     @Size(max = 45)
@@ -55,17 +50,10 @@ public class Employee implements Serializable {
     @Column(name = "last_name")
     private String lastName;
     @Column(name = "document_id")
-    private Integer documentId;
+    private BigInteger documentId;
     @Column(name = "birth_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthDate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeEmployeeId")
-    private Collection<Purchase> purchaseCollection;
-    @JoinColumn(name = "auth_id", referencedColumnName = "auth_id")
-    @ManyToOne(optional = false)
-    private Authentication authId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeEmployeeId")
-    private Collection<MonthlyRegister> monthlyRegisterCollection;
 
     public Employee() {
     }
@@ -98,11 +86,11 @@ public class Employee implements Serializable {
         this.lastName = lastName;
     }
 
-    public Integer getDocumentId() {
+    public BigInteger getDocumentId() {
         return documentId;
     }
 
-    public void setDocumentId(Integer documentId) {
+    public void setDocumentId(BigInteger documentId) {
         this.documentId = documentId;
     }
 
@@ -112,32 +100,6 @@ public class Employee implements Serializable {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
-    }
-
-    @XmlTransient
-    public Collection<Purchase> getPurchaseCollection() {
-        return purchaseCollection;
-    }
-
-    public void setPurchaseCollection(Collection<Purchase> purchaseCollection) {
-        this.purchaseCollection = purchaseCollection;
-    }
-
-    public Authentication getAuthId() {
-        return authId;
-    }
-
-    public void setAuthId(Authentication authId) {
-        this.authId = authId;
-    }
-
-    @XmlTransient
-    public Collection<MonthlyRegister> getMonthlyRegisterCollection() {
-        return monthlyRegisterCollection;
-    }
-
-    public void setMonthlyRegisterCollection(Collection<MonthlyRegister> monthlyRegisterCollection) {
-        this.monthlyRegisterCollection = monthlyRegisterCollection;
     }
 
     @Override

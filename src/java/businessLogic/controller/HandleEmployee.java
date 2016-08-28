@@ -7,6 +7,7 @@ package businessLogic.controller;
 
 import dataSourceManagement.DAO.EmployeeDAO;
 import dataSourceManagement.entities.Employee;
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Date;
  */
 public class HandleEmployee {
     
-    public void createEmployee(Integer employeeId, String name, String lastName, Integer documentId, Date birthDate){
+    public void createEmployee(Integer employeeId, String name, String lastName, BigInteger documentId, Date birthDate){
         Employee employee = new Employee();
         
         employee.setEmployeeId(employeeId);
