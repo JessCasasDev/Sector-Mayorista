@@ -12,6 +12,7 @@ import businessLogic.controller.HandleCar;
 import dataSourceManagement.entities.StockElement;
 import dataSourceManagement.entities.Vehicle;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -22,7 +23,8 @@ import java.util.ArrayList;
 public class ViewCarsBean {
     
     private String message;
-    private ArrayList<Vehicle> cars = new ArrayList<>();
+    private Collection<Vehicle> cars = null;
+    
     public ViewCarsBean() {
        message = "qwqd";
         
@@ -36,16 +38,16 @@ public class ViewCarsBean {
         this.message = message;
     }
 
-    public ArrayList<Vehicle> getCars() {
+    public Collection<Vehicle> getCars() {
         return cars;
     }
 
-    public void setCars(ArrayList<Vehicle> cars) {
+    public void setCars(Collection<Vehicle> cars) {
         this.cars = cars;
     }
     
     public void showCars() {
-        System.out.println("dataSourceManagement.DAO.CarDAO.getCars()");
+        System.out.println("OIJDRFPOKEWDOWKEDPEOKEDKPEKEWPOKOEW");
         HandleCar handleCar = new HandleCar();
         cars = handleCar.getCars();
     }

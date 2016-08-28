@@ -7,6 +7,7 @@ package dataSourceManagement.DAO;
 
 import dataSourceManagement.entities.Vehicle;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -34,13 +35,13 @@ public class CarDAO {
         }
         return vehicle;
     }
-    public ArrayList<Vehicle> getCars(){
+    public Collection<Vehicle> getCars(){
         EntityManager em = emf1.createEntityManager();
-        ArrayList<Vehicle> vehicle = new ArrayList<>();
+        Collection<Vehicle> vehicle = null;
         Query q = em.createNamedQuery("Vehicle.findAll");
        
         try {
-            vehicle = (ArrayList<Vehicle>) q.getResultList();
+            vehicle =  q.getResultList();
         } catch (Exception e) {
         } finally {
             em.close();

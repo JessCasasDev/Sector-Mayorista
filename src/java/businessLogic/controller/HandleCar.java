@@ -9,6 +9,7 @@ import dataSourceManagement.DAO.CarDAO;
 import dataSourceManagement.entities.StockElement;
 import dataSourceManagement.entities.Vehicle;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -16,9 +17,9 @@ import java.util.ArrayList;
  */
 public class HandleCar {
     
-    public ArrayList<Vehicle> getCars(){
+    public Collection<Vehicle> getCars(){
         CarDAO carDao = new CarDAO();
-        ArrayList<Vehicle> vehicle = carDao.getCars();
+        Collection<Vehicle> vehicle = carDao.getCars();
         return vehicle;
     }
     
