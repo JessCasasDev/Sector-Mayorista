@@ -6,9 +6,7 @@
 package dataSourceManagement.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,15 +14,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author JuanCamilo
+ * @author Familia Casas
  */
 @Entity
 @Table(name = "role")
@@ -35,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Role.findByName", query = "SELECT r FROM Role r WHERE r.name = :name"),
     @NamedQuery(name = "Role.findByPermissions", query = "SELECT r FROM Role r WHERE r.permissions = :permissions")})
 public class Role implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,8 +44,6 @@ public class Role implements Serializable {
     @Size(max = 150)
     @Column(name = "permissions")
     private String permissions;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId")
-    private Collection<Authentication> authenticationCollection;
 
     public Role() {
     }
@@ -79,15 +74,6 @@ public class Role implements Serializable {
 
     public void setPermissions(String permissions) {
         this.permissions = permissions;
-    }
-
-    @XmlTransient
-    public Collection<Authentication> getAuthenticationCollection() {
-        return authenticationCollection;
-    }
-
-    public void setAuthenticationCollection(Collection<Authentication> authenticationCollection) {
-        this.authenticationCollection = authenticationCollection;
     }
 
     @Override
