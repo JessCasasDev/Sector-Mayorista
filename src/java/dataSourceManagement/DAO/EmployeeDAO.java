@@ -17,35 +17,21 @@ import javax.persistence.Query;
  */
 public class EmployeeDAO {
     
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("autoMarketPU");
+    public EntityManagerFactory emf3 = Persistence.createEntityManagerFactory("autoMarketPU");
     
     public Employee persist(Employee employee) {
-        EntityManager em = emf1.createEntityManager();
+        EntityManager em = emf3.createEntityManager();
         em.getTransaction().begin();
         try {
             em.persist(employee);
             em.getTransaction().commit();
         } catch(Exception e) {
             e.printStackTrace();
-            em.getTransaction().rollback();
+            //em.getTransaction().rollback();
         } finally {
             em.close();
         }
         return employee;
     }
-    
-    public Employee searchByDocumentId(Long documentId) {
-        EntityManager em = emf1.createEntityManager();
-        Employee employee = null;
-        
-        try {
-            employee = em.find(Employee.class, documentId);
-        } catch (Exception e){
-        } finally {
-            em.close();
-        }
-        return employee;
-    }
-    
     
 }

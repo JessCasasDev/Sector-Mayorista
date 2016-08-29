@@ -6,6 +6,7 @@
 package businessLogic.controller;
 
 import dataSourceManagement.DAO.EmployeeDAO;
+import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Employee;
 import java.math.BigInteger;
 import java.util.Date;
@@ -16,17 +17,21 @@ import java.util.Date;
  */
 public class HandleEmployee {
     
-    public void createEmployee(Integer employeeId, String name, String lastName, BigInteger documentId, Date birthDate){
+    public boolean createEmployee(String name, String lastName, BigInteger documentId, Date birthDate, Authentication user){
         Employee employee = new Employee();
         
-        employee.setEmployeeId(employeeId);
         employee.setName(name);
         employee.setLastName(lastName);
         employee.setDocumentId(documentId);
         employee.setBirthDate(birthDate);
-        
+        employee.setAuthId(user);
         EmployeeDAO employeeDAO = new EmployeeDAO();
         Employee employeeE = employeeDAO.persist(employee);
+        if (employeeE != null){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     
