@@ -187,7 +187,7 @@ public class Vehicle implements Serializable {
     }
 
     public String getLabel() {
-        return type + " brand: " + brand;
+        return "id: " + vehicleId + " " + type + " brand: " + brand;
     }
 
 }

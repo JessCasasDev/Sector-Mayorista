@@ -22,8 +22,8 @@
                     <li class="blue-text text-lighten-3">
                         <h:form> <h:commandLink action="vehiclesCreator" value="Add new Vehicle"/></h:form>
                     </li>
-                      <li class="blue-text text-lighten-3">
-                        <h:form> <h:commandLink action="vehiclesDestroyer" value="Delete a Vehicle"/></h:form>
+                    <li class="blue-text text-lighten-3">
+                        <h:form> <h:commandLink action="vehiclesEditor" value="Edit a Vehicle"/></h:form>
                     </li>
                 </ul>
             </div>
@@ -32,7 +32,7 @@
         <div class="center card-panel col s4 light-blue lighten-4">
             <h1>Vehicles</h1>
             <hr/>
-            <h2>Edit</h2>   
+            <h2>Delete</h2>   
             <panel>
                 <h:form>
                     <div class="input-field col s4">
@@ -40,26 +40,10 @@
                             <f:selectItems value="#{vehicleCRUDBean.availableVehicles}" />
                         </h:selectOneMenu>
                     </div>
-                    <h:panelGrid columns="2">
-                        <label>Type</label>
-                        <h:inputText value="#{vehicleCRUDBean.type}" required="true" requiredMessage="the type is required"/>
-                        <label>Model</label>
-                        <h:inputText value="#{vehicleCRUDBean.model}" required="true" requiredMessage="the model is required"/>
-                        <label>Color</label>
-                        <h:inputText value="#{vehicleCRUDBean.color}" required="true" requiredMessage="the color is required"/>
-                        <label>Brand</label>
-                        <h:inputText value="#{vehicleCRUDBean.brand}" required="true" requiredMessage="the brand is required"/>
-                        <label>Description</label>
-                        <h:inputTextarea value="#{vehicleCRUDBean.description}"/>
-                        <label>Cost</label>
-                        <h:inputText value="#{vehicleCRUDBean.cost}" required="true" requiredMessage="the cost is required"/>
-                        <label>Sell Price</label>
-                        <h:inputText value="#{vehicleCRUDBean.sellPrice}" required="true" requiredMessage="the sell price is required"/>
-                    </h:panelGrid>
                     <br/>
                     <h:commandButton 
                         class="waves-effect waves-light btn"
-                        action="#{vehicleCRUDBean.editVehicle()}" value="Edit"/>
+                        action="#{vehicleCRUDBean.deleteVehicle()}" value="Delete"/>
                     <br/><br/>
                 </h:form>
             </panel>
