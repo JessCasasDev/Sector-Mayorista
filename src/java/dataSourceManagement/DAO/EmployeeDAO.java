@@ -27,7 +27,7 @@ public class EmployeeDAO {
             em.getTransaction().commit();
         } catch(Exception e) {
             e.printStackTrace();
-            //em.getTransaction().rollback();
+            em.getTransaction().rollback();
         } finally {
             em.close();
         }

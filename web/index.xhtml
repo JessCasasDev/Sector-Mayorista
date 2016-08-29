@@ -10,6 +10,17 @@
             <h:form>
                 <h1>Auto Market</h1>
                 <hr/>
+                <h2>Ingresar a tu cuenta</h2>   
+                <h:panelGrid columns="2">
+                    <label>Nombre de Usuario</label>
+                    <h:inputText value="#{createClientBean.username}" required="true" requiredMessage="¡El nombre es requerido!"/>
+                    <label>Contraseña</label>
+                    <h:inputSecret value="#{createClientBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>                                                      
+                </h:panelGrid>
+            </h:form>
+        <panel>
+            <h:form>
+                <hr/>
                 <h2>Crear Cuenta Cliente</h2>   
                 <h:panelGrid columns="2">
                     <label>Nombre de Usuario</label>
@@ -29,7 +40,6 @@
                 <label>Mensaje: </label>
                 <h:outputText value="#{createclientBean.message}"/>
                 <br/><br/>
-                <a href="index.xhtml">Inicio</a><br/>  
             </h:form>
 
         </panel>
@@ -59,7 +69,9 @@
                 <label>Mensaje: </label>
                 <h:outputText value="#{createEmployeeBean.message}"/>
                 <br/><br/>
-                <a href="index.xhtml">Inicio</a><br/>  
+                <a href="index.xhtml">Inicio</a><br/>
+                <a href="vehicles/vehiclesCreator.xhtml">Car creator</a><br/>
+                <a href="client/shopping_cart.xhtml">Carrito de compras</a><br/>
             </h:form>
 
         </panel>
