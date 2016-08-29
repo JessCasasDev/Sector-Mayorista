@@ -40,6 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Vehicle.findByCost", query = "SELECT v FROM Vehicle v WHERE v.cost = :cost"),
     @NamedQuery(name = "Vehicle.findBySellPrice", query = "SELECT v FROM Vehicle v WHERE v.sellPrice = :sellPrice")})
 public class Vehicle implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -184,5 +185,9 @@ public class Vehicle implements Serializable {
     public String toString() {
         return "dataSourceManagement.entities.Vehicle[ vehicleId=" + vehicleId + " ]";
     }
-    
+
+    public String getLabel() {
+        return "id: " + vehicleId + " " + type + " brand: " + brand;
+    }
+
 }

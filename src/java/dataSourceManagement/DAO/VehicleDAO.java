@@ -46,6 +46,7 @@ public class VehicleDAO implements Serializable {
         } finally {
             em.close();
         }
+        System.out.println("vehicle added \n" + vehicle.getLabel());
         return vehicle;
     }
 
@@ -116,7 +117,7 @@ public class VehicleDAO implements Serializable {
     public void edit(Vehicle vehicle) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
-            utx.begin();
+            //utx.begin();
             em = getEntityManager();
             Vehicle persistentVehicle = em.find(Vehicle.class, vehicle.getVehicleId());
             Collection<Discount> discountCollectionOld = persistentVehicle.getDiscountCollection();
@@ -180,10 +181,10 @@ public class VehicleDAO implements Serializable {
                     }
                 }
             }
-            utx.commit();
+           // utx.commit();
         } catch (Exception ex) {
             try {
-                utx.rollback();
+               // utx.rollback();
             } catch (Exception re) {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
             }
@@ -200,12 +201,13 @@ public class VehicleDAO implements Serializable {
                 em.close();
             }
         }
+        System.out.println("vehicle edited \n" + vehicle.getLabel());
     }
 
     public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
-            utx.begin();
+            //utx.begin();
             em = getEntityManager();
             Vehicle vehicle;
             try {
@@ -233,10 +235,10 @@ public class VehicleDAO implements Serializable {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
             em.remove(vehicle);
-            utx.commit();
+            //utx.commit();
         } catch (Exception ex) {
             try {
-                utx.rollback();
+               // utx.rollback();
             } catch (Exception re) {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
             }
@@ -246,6 +248,7 @@ public class VehicleDAO implements Serializable {
                 em.close();
             }
         }
+         System.out.println("vehicle destroyed with id: \t" + id);
     }
 
     public List<Vehicle> findVehicleEntities() {
