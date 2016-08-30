@@ -43,7 +43,7 @@ public class HandleLogin {
             ec.getSessionMap().put("rol", user1.getAuthId().getRoleId().getName());
             try{
                 String url = ec.encodeActionURL(
-                        FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/client/shopping_cart.xhtml"));
+                        FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/client/client_profile.xhtml"));
                 ec.redirect(url);
                 return "Ha entrado correctamente a su cuenta";
             } catch (IOException ex) {
@@ -58,7 +58,7 @@ public class HandleLogin {
                 ec.getSessionMap().put("rol", user2.getAuthId().getRoleId().getName());
                 try{
                     String url = ec.encodeActionURL(
-                            FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/vehicles/vehiclesCreator.xhtml"));
+                            FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/employee/employee_profile.xhtml"));
                     ec.redirect(url);
                     return "Ha entrado correctamente a su cuenta";
                 } catch (IOException ex) {
@@ -79,7 +79,7 @@ public class HandleLogin {
         //extContext.redirect(extContext.getRequestContextPath());
         try{
             String url = extContext.encodeActionURL(
-                    FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/Acceder.xhtml"));
+                    FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/index.xhtml"));
             extContext.redirect(url);
             //return "Ha entrado correctamente a su cuenta";
         } catch (IOException ex) {
