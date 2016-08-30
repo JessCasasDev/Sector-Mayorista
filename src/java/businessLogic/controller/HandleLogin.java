@@ -35,12 +35,14 @@ public class HandleLogin {
         if (username == null && password == null){
             return "Bienvenido";
         }
-        if(user1!=null){
+        if(user1!=null){ //es un cliente
             if (!user1.getAuthId().getPassword().equals(password)) {
                 return "Clave incorrecta.";
             }
-            ec.getSessionMap().put("user", username);
-            ec.getSessionMap().put("rol", user1.getAuthId().getRoleId().getName());
+            ec.getSessionMap().put("username", username);
+            ec.getSessionMap().put("name", user1.getName());
+            ec.getSessionMap().put("id", user1.getNit());
+            ec.getSessionMap().put("role", user1.getAuthId().getRoleId().getName());
             try{
                 String url = ec.encodeActionURL(
                         FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/client/client_profile.xhtml"));
@@ -50,12 +52,14 @@ public class HandleLogin {
                 return "Error en redireccionamiento";
             }
         }else{
-            if(user2!=null){
+            if(user2!=null){ //es un empleado
                 if (!user2.getAuthId().getPassword().equals(password)) {
                     return  "Clave incorrecta.";
                 }
-                ec.getSessionMap().put("user", username);
-                ec.getSessionMap().put("rol", user2.getAuthId().getRoleId().getName());
+                ec.getSessionMap().put("username", username);
+                ec.getSessionMap().put("name", user2.getName()+" "+user2.getLastName());
+                ec.getSessionMap().put("id", user2.getDocumentId());
+                ec.getSessionMap().put("role", user2.getAuthId().getRoleId().getName());
                 try{
                     String url = ec.encodeActionURL(
                             FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/employee/employee_profile.xhtml"));
@@ -74,8 +78,9 @@ public class HandleLogin {
     public void logout(){
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext extContext = context.getExternalContext();
-        extContext.getSessionMap().remove("user");
+        extContext.getSessionMap().remove("username");
         extContext.getSessionMap().remove("role");
+        extContext.getSessionMap().remove("user");
         //extContext.redirect(extContext.getRequestContextPath());
         try{
             String url = extContext.encodeActionURL(
