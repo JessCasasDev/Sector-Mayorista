@@ -44,11 +44,12 @@ public class HandleVehicleCRUD {
         } catch (Exception ex) {
             Logger.getLogger(HandleVehicleCRUD.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     public void deleteVehicle(Vehicle v) {
+        VehicleDAO vehicleDAO = new VehicleDAO();
         try {
-            VehicleDAO vehicleDAO = new VehicleDAO();
             vehicleDAO.destroy(v.getVehicleId());
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(HandleVehicleCRUD.class.getName()).log(Level.SEVERE, null, ex);

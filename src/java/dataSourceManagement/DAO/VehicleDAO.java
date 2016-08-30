@@ -65,6 +65,7 @@ public class VehicleDAO implements Serializable {
         try {
             //utx.begin();
             em = getEntityManager();
+            em.getTransaction().begin();
             Collection<Discount> attachedDiscountCollection = new ArrayList<Discount>();
             for (Discount discountCollectionDiscountToAttach : vehicle.getDiscountCollection()) {
                 discountCollectionDiscountToAttach = em.getReference(discountCollectionDiscountToAttach.getClass(), discountCollectionDiscountToAttach.getDiscountId());
@@ -97,9 +98,11 @@ public class VehicleDAO implements Serializable {
                 }
             }
             // utx.commit();
+            em.getTransaction().commit();
         } catch (Exception ex) {
             try {
                 //  utx.rollback();
+                em.getTransaction().rollback();
             } catch (Exception re) {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
             }
@@ -119,6 +122,7 @@ public class VehicleDAO implements Serializable {
         try {
             //utx.begin();
             em = getEntityManager();
+            em.getTransaction().begin();
             Vehicle persistentVehicle = em.find(Vehicle.class, vehicle.getVehicleId());
             Collection<Discount> discountCollectionOld = persistentVehicle.getDiscountCollection();
             Collection<Discount> discountCollectionNew = vehicle.getDiscountCollection();
@@ -181,10 +185,13 @@ public class VehicleDAO implements Serializable {
                     }
                 }
             }
-           // utx.commit();
+            // utx.commit();
+            em.getTransaction().commit();
         } catch (Exception ex) {
             try {
-               // utx.rollback();
+                System.out.println("error editing \n" + ex.toString());
+                em.getTransaction().rollback();
+                // utx.rollback();
             } catch (Exception re) {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
             }
@@ -209,6 +216,7 @@ public class VehicleDAO implements Serializable {
         try {
             //utx.begin();
             em = getEntityManager();
+            em.getTransaction().begin();
             Vehicle vehicle;
             try {
                 vehicle = em.getReference(Vehicle.class, id);
@@ -238,7 +246,9 @@ public class VehicleDAO implements Serializable {
             //utx.commit();
         } catch (Exception ex) {
             try {
-               // utx.rollback();
+                System.out.println("error destroying \n" + ex.toString());
+                em.getTransaction().rollback();
+                // utx.rollback();
             } catch (Exception re) {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
             }
@@ -248,7 +258,7 @@ public class VehicleDAO implements Serializable {
                 em.close();
             }
         }
-         System.out.println("vehicle destroyed with id: \t" + id);
+        System.out.println("vehicle destroyed with id: \t" + id);
     }
 
     public List<Vehicle> findVehicleEntities() {

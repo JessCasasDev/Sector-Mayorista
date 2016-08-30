@@ -22,7 +22,7 @@
                     <li class="blue-text text-lighten-3">
                         <h:form> <h:commandLink action="vehiclesCreator" value="Add new Vehicle"/></h:form>
                     </li>
-                      <li class="blue-text text-lighten-3">
+                    <li class="blue-text text-lighten-3">
                         <h:form> <h:commandLink action="vehiclesDestroyer" value="Delete a Vehicle"/></h:form>
                     </li>
                 </ul>
@@ -40,6 +40,9 @@
                             <f:selectItems value="#{vehicleCRUDBean.availableVehicles}" />
                         </h:selectOneMenu>
                     </div>
+                    <a
+                        class="waves-effect waves-light btn"
+                        action="#{vehicleCRUDBean.fillVehicleData()}" value="Select and Fill">Select and Fill</a>
                     <h:panelGrid columns="2">
                         <label>Type</label>
                         <h:inputText value="#{vehicleCRUDBean.type}" required="true" requiredMessage="the type is required"/>
