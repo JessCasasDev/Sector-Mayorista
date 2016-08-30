@@ -13,6 +13,7 @@ import dataSourceManagement.entities.StockElement;
 import dataSourceManagement.entities.Vehicle;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -24,7 +25,15 @@ public class ViewCarsBean {
     
     private String message;
     private Collection<Vehicle> cars = null;
-    
+    private Vehicle vehicle;
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
     public ViewCarsBean() {
        message = "qwqd";
         
@@ -50,5 +59,11 @@ public class ViewCarsBean {
         System.out.println("OIJDRFPOKEWDOWKEDPEOKEDKPEKEWPOKOEW");
         HandleCar handleCar = new HandleCar();
         cars = handleCar.getCars();
+    }
+    public List<Vehicle> findAll(){
+        List<Vehicle> listProduct = new ArrayList<Vehicle>();
+        HandleCar handleCar = new HandleCar();
+        listProduct = handleCar.getCars();
+        return listProduct;
     }
 }

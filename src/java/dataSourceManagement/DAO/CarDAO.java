@@ -9,6 +9,7 @@ import dataSourceManagement.entities.Vehicle;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -35,11 +36,11 @@ public class CarDAO {
         }
         return vehicle;
     }
-    public Collection<Vehicle> getCars(){
+    public List<Vehicle> getCars(){
         EntityManager em = emf1.createEntityManager();
-        Collection<Vehicle> vehicle = null;
+        List<Vehicle> vehicle = new ArrayList<Vehicle>();
         Query q = em.createNamedQuery("Vehicle.findAll");
-       
+        
         try {
             vehicle =  q.getResultList();
         } catch (Exception e) {

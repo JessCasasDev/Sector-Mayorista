@@ -5,8 +5,12 @@
  */
 package gui.bean;
 
+import businessLogic.controller.HandleCar;
 import dataSourceManagement.entities.Vehicle;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
@@ -17,14 +21,29 @@ import javax.faces.bean.ViewScoped;
  *
  * @author mssg_
  */
-@ManagedBean(name = "viewCarsBean2")
+@ManagedBean
 @ViewScoped
 
 public class ViewCarsBean2 {
     
-    private Vehicle vechicle = new Vehicle();
+    private Vehicle vehicle;
     private String call ;
+    List<Vehicle> listProduct = new ArrayList<Vehicle>();
 
+    public List<Vehicle> getListProduct() {
+        return listProduct;
+    }
+
+    public void setListProduct(List<Vehicle> listProduct) {
+        this.listProduct = listProduct;
+    }
+/**
+     * Creates a new instance of ViewCarsBean2
+     */
+    public ViewCarsBean2() {
+        vehicle = new Vehicle();
+    }
+    
     public String getCall() {
         return call;
     }
@@ -33,32 +52,37 @@ public class ViewCarsBean2 {
         this.call = call;
     }
 
-    public Vehicle getVechicle() {
-        return vechicle;
+    public Vehicle getVehicle() {
+        return vehicle;
     }
 
-    public void setVechicle(Vehicle vechicle) {
-        this.vechicle = vechicle;
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
-    
+
+
     public String index(){
         return "index";
     }
 
-    /**
-     * Creates a new instance of ViewCarsBean2
-     */
-    public ViewCarsBean2() {
+    public void sortById(){
+        Collections.reverse(listProduct);
+//         Collections.sort(listProduct, new Comparator<Vehicle>(){
+//             @Override
+//
+//            public int compare(Vehicle item1, Vehicle item2){
+//                int compare = item1.getVehicleId().compareTo(item2.getVehicleId());
+//                return compare;
+//            }
+//        });
+       
     }
-    
-    public List<String> findAll(){
-        List<String> listProduct = new ArrayList<String>();
-        
-        listProduct.add("osiejdpw");
-        listProduct.add("weiejdpw");
-        listProduct.add("iejdpw");
-        listProduct.add("we");
-        
+
+    public List<Vehicle> findAll(){
+      
+        HandleCar handleCar = new HandleCar();
+        listProduct = handleCar.getCars();
+        //Collections.reverse(listProduct);
         return listProduct;
     }
 }

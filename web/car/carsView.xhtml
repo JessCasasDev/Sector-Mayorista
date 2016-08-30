@@ -29,14 +29,39 @@
               <h1 class="blue-grey-text text-darken-2 col s12">Lista de Autos disponibles</h1>
             
               <h:form>
-                  <h:dataTable var="item" value="#{viewCarsBean2.findAll}" cellspacing="2">
+                  <h:dataTable var="item" value="#{viewCarsBean2.findAll()}" cellspacing="2">
                       <h:column>
-                          <f:facet name="header">ID</f:facet>
-                          <h:outputText value="wewe">#{item}</h:outputText>
+                          <f:facet name="header" >
+                             <!-- sort test <h:commandLink action="#{viewCarsBean2.sortById()}" >
+                                #id
+                             <> </h:commandLink> -->
+                              Id
+                          </f:facet>
+                          <h:outputText value="#{item.vehicleId}"></h:outputText>
                       </h:column>
                       <h:column>
                           <f:facet name="header">Modelo</f:facet>
-                          <h:outputText value="#wewe">#{item}</h:outputText>
+                          <h:outputText value="#{item.model}"></h:outputText>
+                      </h:column>
+                      <h:column>
+                          <f:facet name="header">Marca</f:facet>
+                          <h:outputText value="#{item.brand}"></h:outputText>
+                      </h:column>
+                      <h:column>
+                          <f:facet name="header">Color</f:facet>
+                          <h:outputText value="#{item.color}"></h:outputText>
+                      </h:column>
+                      <h:column>
+                          <f:facet name="header">Descripcion</f:facet>
+                          <h:outputText value="#{item.description}"></h:outputText>
+                      </h:column>
+                      <h:column>
+                          <f:facet name="header">Precio por unidad</f:facet>
+                          <h:outputText value="#{item.sellPrice}"></h:outputText>
+                      </h:column>
+                      <h:column>
+                          <f:facet name="header">Tipo</f:facet>
+                          <h:outputText value="#{item.type}"></h:outputText>
                       </h:column>
                   </h:dataTable>
               </h:form>

@@ -29,30 +29,39 @@
             
               <table class="order-table">
     		<tr>
-    			<th class="order-table-header">Order No</th>
-    			<th class="order-table-header">Product Name</th>
-    			<th class="order-table-header">Price</th>
-    			<th class="order-table-header">Quantity</th>
+                    <th class="order-table-header" >Marca</th>
+    			<th class="order-table-header">ID</th>
+    			<th class="order-table-header">Color</th>
+    			<th class="order-table-header">Descripcion</th>
+                        <th class="order-table-header">Precio</th>
+                        <th class="order-table-header">Model</th>
     		</tr>
     		<tbody>
-                    <ui:repeat var="o" value="#{viewCarsBean.showCars()}" varStatus="status">
-	    			<h:panelGroup rendered="#{status.even}">
+                    <h:form>
+                    <ui:repeat var="o" value="#{viewCarsBean.findAll()}" varStatus="status">
+                                <h:panelGroup rendered="#{status.even}" >
 	   			  <tr>
-                                      <td class="order-table-even-row">#{viewCarsBean.cars}</td>
-		    			<td class="order-table-even-row">#{o}</td>
-		    			<td class="order-table-even-row">#{o}</td>
-		    			<td class="order-table-even-row">#{o}</td>
+                                      <td class="order-table-even-row">#{o.brand}</td>
+                                      <td class="order-table-even-row">#{o.vehicleId}</td>
+                                      <td class="order-table-even-row">#{o.color}</td>
+                                      <td class="order-table-even-row">#{o.description}</td>
+                                      <td class="order-table-even-row">#{o.sellPrice}</td>
+                                      <td class="order-table-even-row">#{o.model}</td>
 		    		  </tr>
 	    			</h:panelGroup>
-	    		        <h:panelGroup rendered="#{status.odd}">
-	    			  <tr>
-		    			<td class="order-table-odd-row">#{o}</td>
-		    			<td class="order-table-odd-row">#{o}</td>
-		    			<td class="order-table-odd-row">#{o}</td>
-		    			<td class="order-table-odd-row">#{o}</td>
+                        <h:panelGroup rendered="#{status.odd}" >
+	   			  <tr>
+                                      <td class="order-table-odd-row">#{o.brand}</td>
+                                      <td class="order-table-odd-row">#{o.vehicleId}</td>
+                                      <td class="order-table-odd-row">#{o.color}</td>
+                                      <td class="order-table-odd-row">#{o.description}</td>
+                                      <td class="order-table-odd-row">#{o.sellPrice}</td>
+                                      <td class="order-table-odd-row">#{o.model}</td>
 		    		  </tr>
 	    			</h:panelGroup>
+	    		        
 	    		</ui:repeat>
+                    </h:form>
     		</tbody>
     	</table>
           </center>        
