@@ -39,7 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ShopOrder.findByOrderId", query = "SELECT s FROM ShopOrder s WHERE s.orderId = :orderId"),
     @NamedQuery(name = "ShopOrder.findByOrderDate", query = "SELECT s FROM ShopOrder s WHERE s.orderDate = :orderDate"),
     @NamedQuery(name = "ShopOrder.findByDeliveryDate", query = "SELECT s FROM ShopOrder s WHERE s.deliveryDate = :deliveryDate"),
-    @NamedQuery(name = "ShopOrder.findByState", query = "SELECT s FROM ShopOrder s WHERE s.state = :state")})
+    @NamedQuery(name = "ShopOrder.findByState", query = "SELECT s FROM ShopOrder s WHERE s.state = :state"),
+    @NamedQuery(name = "ShopOrder.findByStateAndClient", query = "SELECT s FROM ShopOrder s WHERE s.state = :state AND s.clientId = :clientId")})
 public class ShopOrder implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

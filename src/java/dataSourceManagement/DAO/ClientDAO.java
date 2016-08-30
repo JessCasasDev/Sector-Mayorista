@@ -38,4 +38,18 @@ public class ClientDAO {
         }
         return client;
     }
+    
+    public Client searchByNit(String nit){
+        EntityManager em = emf3.createEntityManager();
+        Query q = em.createNamedQuery("Client.findByNit");
+        q.setParameter("nit", nit);
+        Client client=null;
+        try {
+            client = (Client) q.getSingleResult();
+        } catch (Exception e){
+        } finally {
+            em.close();
+        }
+        return client;
+    }
 }
