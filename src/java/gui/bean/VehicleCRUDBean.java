@@ -114,6 +114,21 @@ public class VehicleCRUDBean {
         this.selectedVehicleId = selectedVehicleId;
     }
 
+    public void fillVehicleData() {
+        if (selectedVehicleId == -1) {
+            System.out.println("any selected vehicle");
+            return;
+        }
+        Vehicle selected = getSelectedVehicle();
+        System.out.println("vehicle to fill " + selected.getLabel());
+        this.setBrand(selected.getBrand());
+        this.setColor(selected.getColor());
+        this.setDescription(selected.getDescription());
+        this.setModel(selected.getModel());
+        this.setCost(String.format("%.2f", selected.getCost()));
+        this.setSellPrice(String.format("%.2f", selected.getSellPrice()));
+    }
+
     public void createVehicle() {
         HandleVehicleCRUD createVehicle = new HandleVehicleCRUD();
         try {
@@ -169,4 +184,9 @@ public class VehicleCRUDBean {
         return vdao.findVehicle(getSelectedVehicleId());
     }
 
+    @Override
+    public String toString() {
+        return "Selected v " + selectedVehicleId
+                + " description " + description;
+    }
 }
