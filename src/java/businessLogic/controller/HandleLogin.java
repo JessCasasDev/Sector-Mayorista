@@ -80,7 +80,8 @@ public class HandleLogin {
         ExternalContext extContext = context.getExternalContext();
         extContext.getSessionMap().remove("username");
         extContext.getSessionMap().remove("role");
-        extContext.getSessionMap().remove("user");
+        extContext.getSessionMap().remove("name");
+        extContext.getSessionMap().remove("id");
         //extContext.redirect(extContext.getRequestContextPath());
         try{
             String url = extContext.encodeActionURL(
