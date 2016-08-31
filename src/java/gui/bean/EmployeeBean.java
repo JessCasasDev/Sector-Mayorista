@@ -2,15 +2,19 @@ package gui.bean;
 
 import businessLogic.controller.HandleEmployee;
 import dataSourceManagement.entities.Authentication;
+import dataSourceManagement.entities.MonthlyRegister;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
-public class CreateEmployeeBean {
+public class EmployeeBean {
     private String username;
     private String password;
     private String name;
@@ -22,10 +26,19 @@ public class CreateEmployeeBean {
     private Integer day;
     private Integer month;
     private Integer year;
+    private float salary;
+
+    public float getSalary() {
+        return salary;
+    }
+
+    public void setSalary(float salary) {
+        this.salary = salary;
+    }
     @ManagedProperty(value="#{userBean}")
     private AuthenticationBean userBean;
 
-    public CreateEmployeeBean() {
+    public EmployeeBean() {
         message = "";
     }   
 
@@ -144,5 +157,12 @@ public class CreateEmployeeBean {
         else
             message = "No se pudo crear el usuario";
         }
+    
+    public List<MonthlyRegister> showSalary(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        HandleEmployee hc = new HandleEmployee();
+        String employeeId = (String) ec.getSessionMap().get("username");
+        return hc.getSalary(employeeId);
     }
+}
 

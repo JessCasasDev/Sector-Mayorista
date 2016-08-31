@@ -38,13 +38,14 @@ public class ShoppingCartBean {
     private Collection<Payment> paymentCollection;
     private Client clientId;
     private Map <String, Integer> availableOrders;
-    
-    /*public Map<String, Integer> getAvailableOrders(){
-        return availableOrders;
-    }*/
-    
-    public void setAvailableOrders(Map<String, Integer> availableOrders){
-        this.availableOrders=availableOrders;
+    private boolean selected=false;
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
     
     public Collection<ShopOrder> displayCart(){
@@ -55,10 +56,12 @@ public class ShoppingCartBean {
     public Map<String, Integer> getAvailableOrders(){
         availableOrders = new LinkedHashMap<>();
         ShopOrderDAO vdao = new ShopOrderDAO();
-        List<ShopOrder> orders = (List<ShopOrder>) vdao.searchGroupByState("Seleccionada");
-        for (ShopOrder v : orders) {
-            availableOrders.put(v.getState(), v.getOrderId());
+        List<ShopOrder> orders = (List<ShopOrder>) displayCart();
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+orders.size());
+        for (ShopOrder x : orders){
+            availableOrders.put(x.toString(), x.getOrderId());
         }
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+availableOrders.size());
         return availableOrders;
     }
     

@@ -5,11 +5,15 @@
  */
 package businessLogic.controller;
 
+import dataSourceManagement.DAO.AuthenticationDAO;
 import dataSourceManagement.DAO.EmployeeDAO;
+import dataSourceManagement.DAO.MonthlyRegisterDAO;
 import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Employee;
+import dataSourceManagement.entities.MonthlyRegister;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -33,6 +37,14 @@ public class HandleEmployee {
             return false;
         }
     }
-
     
+    public List<MonthlyRegister> getSalary(String username){
+        AuthenticationDAO authDAO = new AuthenticationDAO();
+        Authentication auth = authDAO.searchByUsername(username);
+        EmployeeDAO employeeDAO = new EmployeeDAO();
+        Employee employee = employeeDAO.searchByUsername(auth);
+        MonthlyRegisterDAO mrDAO = new MonthlyRegisterDAO();
+        List<MonthlyRegister> mrlist = mrDAO.searchByEmployeeId(employee);
+        return mrlist;
+    }
 }

@@ -29,12 +29,10 @@ public class AuthenticationDAO {
         EntityManager em = emf1.createEntityManager();
         Query q = em.createNamedQuery("Authentication.findByUserName");
         q.setParameter("userName", username);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+q.toString());
         Authentication auth = null;
         try {
             auth = (Authentication) q.getSingleResult();
         } catch (Exception e){
-            System.out.println("-----------------------------"+e.toString());
         } finally {
             em.close();
         }
