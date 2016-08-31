@@ -1,67 +1,145 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Auto Market</title>
-    </h:head>
-    <h:body>
-        <panel>
-            <h:form>
-                <h1>Auto Market</h1>
-                <hr/>
-                <h2>Crear Cuenta Cliente</h2>   
-                <h:panelGrid columns="2">
-                    <label>Nombre de Usuario</label>
-                    <h:inputText value="#{createClientBean.username}" required="true" requiredMessage="¡El nombre es requerido!"/>
-                    <label>Contraseña</label>
-                    <h:inputSecret value="#{createClientBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>                                                      
-                    <label>Nombre de Cliente</label>
-                    <h:inputText value="#{createClientBean.name}" required="true" requiredMessage="¡El nombre es requerido!"/>
-                    <label>Direccion</label>
-                    <h:inputText value="#{createClientBean.address}" required="true" requiredMessage="¡El nombre es requerido!"/>
-                    <label>NIT</label>
-                    <h:inputText value="#{createClientBean.nit}" required="true" requiredMessage="¡El nombre es requerido!"/>
-                    </h:panelGrid>
-                <br/>
-                <h:commandButton action="#{createClientBean.createClient()}" value="Crear Cliente"/>
-                <br/><br/>
-                <label>Mensaje: </label>
-                <h:outputText value="#{createclientBean.message}"/>
-                <br/><br/>
-                <a href="index.xhtml">Inicio</a><br/>  
-            </h:form>
+        <link href="css/test.css" rel="stylesheet" type="text/css"></link>
+    </head>
 
-        </panel>
-        <panel>
+    <h:body class="light-blue lighten-4">
+        <!--MENU-->
+        <nav>
+            <div class="nav-wrapper blue darken-4">
+                <a href="#" class="brand-logo">Automarket</a>
+                <ul id="nav-mobile" class="right blue darken-4">
+                    <li class="blue-text text-lighten-3"><a href="#client-reg">Registro Clientes</a></li>
+                    <li class="blue-text text-lighten-3"><a href="#employee-reg">Registro Empleados</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!--FIN MENU-->
+        <center>
+            <h1 class="indigo-text text-darken-4">Bienvenido a Automarket</h1>
+            <img src="images/auto.jpg" class="cover_img" alt="AutoMarket"></img>
+        </center>
+
+        <div id="client-reg">
+            <div class="container">
+                <h3 class="indigo-text text-darken-4">Ingresar a tu cuenta</h3>
+            <h:form>
+                <div class="input-field col s6">
+                    <h:inputText value="#{loginBean.username}" required="true" requiredMessage="¡El nombre es requerido!"/>
+                    <label>Nombre de Usuario</label>
+                </div> 
+                <div class="input-field col s6">
+                    <div class="input-field col s6"></div> <h:inputSecret value="#{loginBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>
+                    <label>Contraseña</label>
+                </div>
+                
+                <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{loginBean.login()}" value="Login"/>
+                <h:outputText value=" #{loginBean.message}"/>
+            </h:form>
+                </div>
+            <div class="container">
+                <h:form>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <h3 class="indigo-text text-darken-4">Crear Cuenta Cliente</h3>
+
+                            <div class="input-field col s6">
+                                <h:inputText class="validate" value="#{createClientBean.username}" required="true" requiredMessage="¡El usuario es requerido!"/>
+                                <label>Nombre de Usuario</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <h:inputSecret class="validate" value="#{createClientBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>
+                                <label>Contraseña</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <h:inputText class="validate" value="#{createClientBean.name}" required="true" requiredMessage="¡El nombre es requerido!"/>
+                                <label>Nombre de Cliente</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <h:inputText class="validate" value="#{createClientBean.address}" required="true" requiredMessage="¡La dirección es requerida!"/>
+                                <label>Direccion</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <h:inputText class="validate" value="#{createClientBean.nit}" required="true" requiredMessage="¡El nit es requerido!" converterMessage="Porfavor ingrese solo valores numericos"/>
+                                <label>NIT</label>
+                            </div>
+                            <br/>
+                            <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{createClientBean.createClient()}" value="Crear Cliente"/>
+                            <br/><br/>
+                            <p>Mensaje: </p>
+                            <h:outputText value="#{createclientBean.message}"/>
+
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+        <div id="employee-reg" class="container">
+
             <h:form>
                 <hr/>
-                <h2>Crear Cuenta Empleado</h2>   
-                <h:panelGrid columns="2">
-                    <label>Nombre de Usuario</label>
-                    <h:inputText value="#{createEmployeeBean.username}" required="true" requiredMessage="¡El nombre es requerido!"/>
-                    <label>Contraseña</label>
-                    <h:inputSecret value="#{createEmployeeBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>                                                      
-                    <label>Nombre de Empleado</label>
-                    <h:inputText value="#{createEmployeeBean.name}" required="true" requiredMessage="¡El nombre es requerido!"/>
-                    <label>Apellido</label>
-                    <h:inputText value="#{createEmployeeBean.lastName}" required="true" requiredMessage="¡El nombre es requerido!"/>
-                    <label>Documento</label>
-                    <h:inputText value="#{createEmployeeBean.documentId}" required="true" requiredMessage="¡El nombre es requerido!"/>
-                    <label>Fecha de nacimiento</label>
-                    <p>Dia</p><h:inputText value="#{createEmployeeBean.day}" required="true" requiredMessage="¡El nombre es requerido!"/>
-                    <p>Mes</p><h:inputText value="#{createEmployeeBean.month}" required="true" requiredMessage="¡El nombre es requerido!"/>
-                    <p>Año</p><h:inputText value="#{createEmployeeBean.year}" required="true" requiredMessage="¡El nombre es requerido!"/>
-                    </h:panelGrid>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <h3 class="indigo-text text-darken-4">Crear Cuenta Empleado</h3>
+                        <div class="input-field col s6">
+                            <h:inputText value="#{createEmployeeBean.username}" required="true" requiredMessage="¡El usuario es requerido!"/>
+                            <label>Nombre de Usuario</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <h:inputSecret value="#{createEmployeeBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>
+                            <label>Contraseña</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <h:inputText value="#{createEmployeeBean.name}" required="true" requiredMessage="¡El nombre es requerido!"/>
+                            <label>Nombre de Empleado</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <h:inputText value="#{createEmployeeBean.lastName}" required="true" requiredMessage="¡El apellido es requerido!"/>
+                            <label>Apellido</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <h:inputText value="#{createEmployeeBean.documentId}" required="true" requiredMessage="¡El documento es requerido!" converterMessage="Porfavor ingrese solo valores numericos"/>
+                            <label>Documento</label>
+                        </div><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                        <div class="container">
+                            <center><p class="indigo-text text-darken-4 col s12">Fecha de nacimiento</p></center>
+                            <div class="input-field col s4"><h:inputText value="#{createEmployeeBean.day}"  converterMessage="Porfavor ingrese solo valores numericos" required="true" requiredMessage="¡El día es requerido!"/>
+                                <label>Dia</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <h:inputText value="#{createEmployeeBean.month}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos"/>
+                                <label>Mes</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <h:inputText value="#{createEmployeeBean.year}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos"/>
+                                <label>Año</label>
+                            </div>               
+                        </div>
                 <br/>
-                <h:commandButton action="#{createEmployeeBean.createEmployee()}" value="Crear Empleado"/>
+                <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{createEmployeeBean.createEmployee()}" value="Crear Empleado"/>
                 <br/><br/>
-                <label>Mensaje: </label>
+                <p>Mensaje: </p>
                 <h:outputText value="#{createEmployeeBean.message}"/>
                 <br/><br/>
-                <a href="index.xhtml">Inicio</a><br/>  
+                <a href="index.xhtml">Inicio</a><br/>
+                <a href="vehicles/vehiclesCreator.xhtml">Car creator</a><br/> <!--Estos acá mientras hay pagina de administrador-->
+                <a href="client/shopping_cart.xhtml">Carrito de compras</a><br/>
+                    </div>
+                </div>
             </h:form>
 
-        </panel>
+        </div>
+        <!-- JS FILES-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
     </h:body>
 </html>

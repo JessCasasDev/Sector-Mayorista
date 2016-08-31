@@ -1,9 +1,11 @@
 package dataSourceManagement.DAO;
 
+import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Client;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 public class ClientDAO {
     public EntityManagerFactory emf3 = Persistence.createEntityManagerFactory("autoMarketPU");
@@ -17,6 +19,20 @@ public class ClientDAO {
         } catch(Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+        return client;
+    }
+    
+    public Client searchByUsername(Authentication username){
+        EntityManager em = emf3.createEntityManager();
+        Query q = em.createNamedQuery("Client.findByAuthenticationId");
+        q.setParameter("authId", username);
+        Client client=null;
+        try {
+            client = (Client) q.getSingleResult();
+        } catch (Exception e){
         } finally {
             em.close();
         }

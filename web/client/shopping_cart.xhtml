@@ -45,11 +45,11 @@
                         </tr>
                     </ui:repeat>
                 </table>
+                <p>Aca!!!</p>
                 <div class="input-field col s12">
-                    <h:selectOneListbox label="Escoja uno">
-                        <f:selectItem itemValue="Efectivo" itemLabel="Efectivo"/>
-                        <f:selectItem itemValue="Tarjeta" itemLabel="Tarjeta"/>
-                    </h:selectOneListbox>
+                    <h:selectOneMenu value="#{shoppingCartBean.orderId}" label="Escoja uno">
+                        <f:selectItems value="#{shoppingCartBean.availableOrders}" />
+                    </h:selectOneMenu>
                 </div>    
                 <h:commandButton action="#" value="Pagar"/>
             </h:form>

@@ -3,6 +3,8 @@ package gui.bean;
 import businessLogic.controller.HandleEmployee;
 import dataSourceManagement.entities.Authentication;
 import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -125,7 +127,7 @@ public class CreateEmployeeBean {
         return year;
     }
     
-    public void createEmployee(){
+    public void createEmployee() throws ParseException{
         userBean = new AuthenticationBean();
         Authentication userCreated = userBean.createAccount(username, password, "3");
        
@@ -134,8 +136,14 @@ public class CreateEmployeeBean {
             BigInteger newid = BigInteger.valueOf(documentId);
             Date birth = new Date();
             setBirthDate(birth);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+            String s_day = String.valueOf(day);
+            String s_month = String.valueOf(month);
+            String s_year = String.valueOf(year);
+            String dateInString = s_day + "-" + s_month + "-" + s_year + " 10:20:56";
+            Date date = sdf.parse(dateInString);
             boolean bl;
-            bl = hc.createEmployee(name, lastName, newid, birthDate, userCreated);     
+            bl = hc.createEmployee(name, lastName, newid, date, userCreated);     
             if (bl)   
                message = "Usuario creado con éxito";
             else
