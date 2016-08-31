@@ -43,6 +43,7 @@ public class HandleLogin {
             ec.getSessionMap().put("name", user1.getName());
             ec.getSessionMap().put("id", user1.getNit());
             ec.getSessionMap().put("role", user1.getAuthId().getRoleId().getName());
+            ec.getSessionMap().put("state", true);
             try{
                 String url = ec.encodeActionURL(
                         FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/client/client_profile.xhtml"));
@@ -60,6 +61,7 @@ public class HandleLogin {
                 ec.getSessionMap().put("name", user2.getName()+" "+user2.getLastName());
                 ec.getSessionMap().put("id", user2.getDocumentId());
                 ec.getSessionMap().put("role", user2.getAuthId().getRoleId().getName());
+                ec.getSessionMap().put("state", true);
                 try{
                     String url = ec.encodeActionURL(
                             FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/employee/employee_profile.xhtml"));
@@ -82,6 +84,7 @@ public class HandleLogin {
         extContext.getSessionMap().remove("role");
         extContext.getSessionMap().remove("name");
         extContext.getSessionMap().remove("id");
+        extContext.getSessionMap().remove("state");
         //extContext.redirect(extContext.getRequestContextPath());
         try{
             String url = extContext.encodeActionURL(
