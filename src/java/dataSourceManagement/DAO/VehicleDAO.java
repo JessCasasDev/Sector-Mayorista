@@ -243,6 +243,7 @@ public class VehicleDAO implements Serializable {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
             em.remove(vehicle);
+            em.getTransaction().commit();
             //utx.commit();
         } catch (Exception ex) {
             try {
