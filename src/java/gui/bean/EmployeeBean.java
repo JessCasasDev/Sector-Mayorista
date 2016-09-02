@@ -2,14 +2,19 @@ package gui.bean;
 
 import businessLogic.controller.HandleEmployee;
 import dataSourceManagement.entities.Authentication;
+import dataSourceManagement.entities.MonthlyRegister;
+
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
@@ -153,5 +158,12 @@ public class EmployeeBean implements Serializable{
         else
             message = "No se pudo crear el usuario";
         }
+    
+    public List<MonthlyRegister> showSalary(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        HandleEmployee hc = new HandleEmployee();
+        String employeeId = (String) ec.getSessionMap().get("username");
+        return hc.getSalary(employeeId);
     }
+}
 

@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "MonthlyRegister.findByRegisteredId", query = "SELECT m FROM MonthlyRegister m WHERE m.registeredId = :registeredId"),
     @NamedQuery(name = "MonthlyRegister.findByPayment", query = "SELECT m FROM MonthlyRegister m WHERE m.payment = :payment"),
     @NamedQuery(name = "MonthlyRegister.findByGrade", query = "SELECT m FROM MonthlyRegister m WHERE m.grade = :grade"),
-    @NamedQuery(name = "MonthlyRegister.findByDate", query = "SELECT m FROM MonthlyRegister m WHERE m.date = :date")})
+    @NamedQuery(name = "MonthlyRegister.findByDate", query = "SELECT m FROM MonthlyRegister m WHERE m.date = :date"),
+    @NamedQuery(name = "MonthlyRegister.findByEmployeeId", query = "SELECT m FROM MonthlyRegister m WHERE m.employeeEmployeeId = :employeeEmployeeId")})
 public class MonthlyRegister implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

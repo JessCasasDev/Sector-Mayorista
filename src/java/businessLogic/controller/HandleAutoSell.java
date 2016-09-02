@@ -5,6 +5,7 @@
  */
 package businessLogic.controller;
 
+import dataSourceManagement.DAO.ClientDAO;
 import dataSourceManagement.DAO.ShopOrderDAO;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.Discount;
@@ -13,6 +14,8 @@ import dataSourceManagement.entities.Payment;
 import dataSourceManagement.entities.StockElement;
 import java.util.Collection;
 import java.util.Date;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -48,8 +51,11 @@ public class HandleAutoSell {
     }
     
     public Collection<ShopOrder> getShoppingCart(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ShopOrderDAO orderDAO = new ShopOrderDAO();
-        Collection<ShopOrder> orderCollection = orderDAO.searchGroupByState("Seleccionada");
+        ClientDAO clientDAO = new ClientDAO();
+        Client client = clientDAO.searchByNit((String) ec.getSessionMap().get("id"));        
+        Collection<ShopOrder> orderCollection = orderDAO.searchGroupByStateAndClient("Seleccionada", client);
         return orderCollection;
     }
     

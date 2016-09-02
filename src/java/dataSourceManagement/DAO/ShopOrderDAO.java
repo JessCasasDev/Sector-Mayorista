@@ -5,6 +5,7 @@
  */
 package dataSourceManagement.DAO;
 
+import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Payment;
 import java.util.Collection;
@@ -69,6 +70,21 @@ public class ShopOrderDAO {
         Collection<ShopOrder> orderCollection = null;
         Query q = em.createNamedQuery("ShopOrder.findByState");
         q.setParameter("state", state);
+        try {
+            orderCollection = q.getResultList();
+        } catch (Exception e){
+        } finally {
+            em.close();
+        }
+        return orderCollection;
+    }
+    
+    public Collection<ShopOrder> searchGroupByStateAndClient(String state, Client clientId){
+        EntityManager em = emf1.createEntityManager();
+        Collection<ShopOrder> orderCollection = null;
+        Query q = em.createNamedQuery("ShopOrder.findByStateAndClient");
+        q.setParameter("state", state);
+        q.setParameter("clientId", clientId);
         try {
             orderCollection = q.getResultList();
         } catch (Exception e){

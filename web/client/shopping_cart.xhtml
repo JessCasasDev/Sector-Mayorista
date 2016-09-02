@@ -33,6 +33,7 @@
         <center>
             <h3 class="blue-grey-text text-darken-2 col s12">¡Esto es lo que has escogido hasta el momento!</h3>
             <h:form>
+                <h:selectBooleanCheckbox id="hola" value="Rayos"> hola</h:selectBooleanCheckbox>
                 <table class="bordered">
                     <tr>
                         <th>Numero de orden</th>
@@ -42,7 +43,7 @@
                     </tr>
                     <ui:repeat value="#{shoppingCartBean.displayCart()}" var="cart">
                         <tr>
-                            <td><h:selectBooleanCheckbox/> #{cart.orderId} </td>
+                            <td><h:selectBooleanCheckbox id="p" value="Hola"> #{cart.orderId} hola</h:selectBooleanCheckbox> </td>
                             <td><h6>#{cart.clientId.name}</h6></td>
                             <td><h6>#{cart.orderDate}</h6></td>
                             <td><h6>#{cart.deliveryDate}</h6></td>
