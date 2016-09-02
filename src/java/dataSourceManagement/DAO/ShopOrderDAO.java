@@ -20,7 +20,8 @@ import javax.persistence.Query;
  * @author afacunaa
  */
 public class ShopOrderDAO {
-    
+    public static final String EFECTIVO = "Efectivo";
+    public static final String TARJETA = "Tarjeta";
     public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("autoMarketPU");
     
     public ShopOrder persist(ShopOrder order) {
@@ -39,22 +40,38 @@ public class ShopOrderDAO {
     }
     
     public void buyAutos(ShopOrder order){
+        System.out.println("en DAO: "+order.getOrderId());
         PaymentDAO paymentDAO = new PaymentDAO();
-        
-        Integer paymentId;
-        String type="Efectivo";
+        String type=EFECTIVO;
         Date date = new Date();
-        String debt ="";
+        String debt ="0";
         
         Payment payment = new Payment();
         payment.setDate(date);
         payment.setDebt(debt);
         payment.setType(type);
         payment.setShopOrderOrderId(order);
-        
         paymentDAO.persist(payment);
-        
         order.setState("Finalizada");
+        editState(order.getOrderId(), "Finalizada");
+    }
+    
+    public boolean editState(Integer orderId, String state) {
+        ShopOrder order;
+        EntityManager em = emf1.createEntityManager();  
+        em.getTransaction().begin();
+        boolean success = true;
+        try {
+            order = em.merge(em.find(ShopOrder.class, orderId)); 
+            order.setState(state);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            success = false;
+        } finally {
+            em.close();
+        }
+        return success;
     }
     
     public ShopOrder searchByOrderId(Integer orderId){
