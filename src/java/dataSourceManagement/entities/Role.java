@@ -32,6 +32,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Role.findByPermissions", query = "SELECT r FROM Role r WHERE r.permissions = :permissions")})
 public class Role implements Serializable {
 
+    
+    public static final String ADMINISTRATOR = "Administrator";
+    public static final String EMPLOYEE = "Employee";
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

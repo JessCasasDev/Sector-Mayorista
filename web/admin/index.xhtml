@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+         <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Admin Account</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+         <f:metadata>
+            <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
+            <f:event type="preRenderView" listener="#{loginBean.verify_role('Administrator')}"/>
+        </f:metadata>
+    </h:head>
+    <h:body class="light-blue lighten-4">
+        <center><h2 class="light-blue-text darken-3">Gestión de Empleados</h2></center>
+        
+        <div class="container">
+            <table class="bordered centered responsive-table hightlight">
+                <thead>
+                    <tr>
+                        <th>Id Empleado</th>
+                        <th>Nombre</th>
+                        <th>Documento</th>
+                        <th>Pagar</th>
+                        <th>Calificar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ui:repeat value="#{administratorBean.management()}" var="employee">
+                        <tr>
+                            <td>#{employee.employeeId} </td>
+                            <td>#{employee.name}</td>
+                            <td>#{employee.documentId}</td>
+                            <h:form>
+                                <td><h:inputText></h:inputText></td>
+                                <td><h:inputText></h:inputText></td>
+                            </h:form>
+                        </tr>
+                    </ui:repeat>
+                </tbody>
+            </table>
+        </div>    
+    </h:body>
+</html>

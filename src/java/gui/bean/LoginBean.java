@@ -94,10 +94,10 @@ public class LoginBean {
     
     public void verify_if_logged() throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();        
-        Boolean test = (Boolean) ec.getSessionMap().get("state");
+        Boolean test = (Boolean) ec.getSessionMap().get(HandleLogin.STATE);
         
         if (test == null || !test) {
-             ec.redirect("../index.xhtml");
+             ec.redirect(HandleLogin.INDEXXHTML);
         }
     }
            
@@ -105,7 +105,7 @@ public class LoginBean {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         if(!ec.getSessionMap().get("role").equals(role)){
             try {
-                ec.redirect("../index.xhtml");
+                ec.redirect(HandleLogin.INDEXXHTML);
             } catch (IOException ex) {
                 Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
             }
