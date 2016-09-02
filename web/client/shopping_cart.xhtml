@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
         <!--Import materialize.css-->
@@ -42,15 +43,16 @@
                     </tr>
                     <ui:repeat value="#{shoppingCartBean.displayCart()}" var="cart">
                         <tr>
-                            <td><h:selectOneRadio value="#{shoppingCartBean.orderId}">
-                                    <f:selectItem itemValue="#{cart.orderId}" itemLabel="#{cart.orderId}"/>
-                                </h:selectOneRadio></td>
+                            <td><h6>#{cart.orderId}</h6></td>
                             <td><h6>#{cart.clientId.name}</h6></td>
                             <td><h6>#{cart.orderDate}</h6></td>
                             <td><h6>#{cart.deliveryDate}</h6></td>
                         </tr>
                     </ui:repeat>
                 </table>
+                <h:selectOneRadio value="#{shoppingCartBean.orderId}">
+                    <f:selectItems value="#{shoppingCartBean.orders}" var="orderId" itemValue="#{orderId.orderId}" itemLabel="#{orderId.orderId}"/>
+                </h:selectOneRadio>
                 <h:commandButton action="#{shoppingCartBean.payShopOrder()}" value="Pagar"/>
             </h:form>
         </center>

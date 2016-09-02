@@ -33,6 +33,7 @@ public class ShoppingCartBean {
     private Collection<StockElement> stockElementCollection;
     private Collection<Payment> paymentCollection;
     private Client clientId;
+    private Collection<ShopOrder> orders;
     
     public ShoppingCartBean(){
         orderId=0;
@@ -40,7 +41,16 @@ public class ShoppingCartBean {
     
     public Collection<ShopOrder> displayCart(){
         HandleAutoSell has = new HandleAutoSell();
-        return has.getShoppingCart();
+        orders = has.getShoppingCart();
+        return orders;
+    }
+
+    public Collection<ShopOrder> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Collection<ShopOrder> orders) {
+        this.orders = orders;
     }
     
     public void setOrderId(Integer orderId){
