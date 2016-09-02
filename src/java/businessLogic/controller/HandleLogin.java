@@ -54,6 +54,7 @@ public class HandleLogin {
             }
         }else{
             if(user2!=null){ //es un empleado
+                
                 if (!user2.getAuthId().getPassword().equals(password)) {
                     return  "Clave incorrecta.";
                 }
@@ -63,8 +64,14 @@ public class HandleLogin {
                 ec.getSessionMap().put("role", user2.getAuthId().getRoleId().getName());
                 ec.getSessionMap().put("state", true);
                 try{
-                    String url = ec.encodeActionURL(
-                            FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/employee/employee_profile.xhtml"));
+                    String actionURL = null;
+                    if (user2.getAuthId().getRoleId().getName().equals("Administrator"))
+                        actionURL = FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/admin/employee_management.xhtml");
+                    else if(user2.getAuthId().getRoleId().getName().equals("Employee"))
+                        actionURL = FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "/employee/employee_profile.xhtml");
+                    else
+                        actionURL = actionURL = FacesContext.getCurrentInstance().getApplication().getViewHandler().getActionURL(FacesContext.getCurrentInstance(), "index.xhtml");
+                    String url = ec.encodeActionURL(actionURL);                    
                     ec.redirect(url);
                     return "Ha entrado correctamente a su cuenta";
                 } catch (IOException ex) {

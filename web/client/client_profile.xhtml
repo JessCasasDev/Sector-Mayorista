@@ -11,7 +11,7 @@
         <title>Perfil - Cliente</title>
        <f:metadata>
             <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
-            <f:event type="preRenderView" listener="#{loginBean.verify_if_role('Client')}"/>
+            <f:event type="preRenderView" listener="#{loginBean.verify_role('Client')}"/>
         </f:metadata>
     </head>
     

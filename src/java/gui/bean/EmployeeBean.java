@@ -2,6 +2,7 @@ package gui.bean;
 
 import businessLogic.controller.HandleEmployee;
 import dataSourceManagement.entities.Authentication;
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,7 +13,7 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class CreateEmployeeBean {
+public class EmployeeBean implements Serializable{
     private String username;
     private String password;
     private String name;
@@ -27,7 +28,7 @@ public class CreateEmployeeBean {
     @ManagedProperty(value="#{userBean}")
     private AuthenticationBean userBean;
 
-    public CreateEmployeeBean() {
+    public EmployeeBean() {
         message = "";
     }   
 

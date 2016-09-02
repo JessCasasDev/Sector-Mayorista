@@ -11,7 +11,7 @@
         <title>Perfil - Empleado</title>
         <f:metadata>
             <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
-            <f:event type="preRenderView" listener="#{loginBean.verify_if_role('Employee')}"/>
+            <f:event type="preRenderView" listener="#{loginBean.verify_role('Employee')}"/>
         </f:metadata>
     </head>
     <body class="light-blue lighten-4">

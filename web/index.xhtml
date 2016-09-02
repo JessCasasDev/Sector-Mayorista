@@ -53,27 +53,27 @@
                             <h3 class="indigo-text text-darken-4">Crear Cuenta Cliente</h3>
 
                             <div class="input-field col s6">
-                                <h:inputText class="validate" value="#{createClientBean.username}" required="true" requiredMessage="¡El usuario es requerido!"/>
+                                <h:inputText class="validate" value="#{clientBean.username}" required="true" requiredMessage="¡El usuario es requerido!"/>
                                 <label>Nombre de Usuario</label>
                             </div>
                             <div class="input-field col s6">
-                                <h:inputSecret class="validate" value="#{createClientBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>
+                                <h:inputSecret class="validate" value="#{clientBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>
                                 <label>Contraseña</label>
                             </div>
                             <div class="input-field col s6">
-                                <h:inputText class="validate" value="#{createClientBean.name}" required="true" requiredMessage="¡El nombre es requerido!"/>
+                                <h:inputText class="validate" value="#{clientBean.name}" required="true" requiredMessage="¡El nombre es requerido!"/>
                                 <label>Nombre de Cliente</label>
                             </div>
                             <div class="input-field col s6">
-                                <h:inputText class="validate" value="#{createClientBean.address}" required="true" requiredMessage="¡La dirección es requerida!"/>
+                                <h:inputText class="validate" value="#{clientBean.address}" required="true" requiredMessage="¡La dirección es requerida!"/>
                                 <label>Direccion</label>
                             </div>
                             <div class="input-field col s6">
-                                <h:inputText class="validate" value="#{createClientBean.nit}" required="true" requiredMessage="¡El nit es requerido!" converterMessage="Porfavor ingrese solo valores numericos"/>
+                                <h:inputText class="validate" value="#{clientBean.nit}" required="true" requiredMessage="¡El nit es requerido!" converterMessage="Porfavor ingrese solo valores numericos"/>
                                 <label>NIT</label>
                             </div>
                             <br/>
-                            <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{createClientBean.createClient()}" value="Crear Cliente"/>
+                            <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{clientBean.createClient()}" value="Crear Cliente"/>
                             <br/><br/>
                             <p>Mensaje: </p>
                             <h:outputText value="#{createclientBean.message}"/>
@@ -91,44 +91,44 @@
                     <div class="input-field col s6">
                         <h3 class="indigo-text text-darken-4">Crear Cuenta Empleado</h3>
                         <div class="input-field col s6">
-                            <h:inputText value="#{createEmployeeBean.username}" required="true" requiredMessage="¡El usuario es requerido!"/>
+                            <h:inputText value="#{employeeBean.username}" required="true" requiredMessage="¡El usuario es requerido!"/>
                             <label>Nombre de Usuario</label>
                         </div>
                         <div class="input-field col s6">
-                            <h:inputSecret value="#{createEmployeeBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>
+                            <h:inputSecret value="#{employeeBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>
                             <label>Contraseña</label>
                         </div>
                         <div class="input-field col s6">
-                            <h:inputText value="#{createEmployeeBean.name}" required="true" requiredMessage="¡El nombre es requerido!"/>
+                            <h:inputText value="#{employeeBean.name}" required="true" requiredMessage="¡El nombre es requerido!"/>
                             <label>Nombre de Empleado</label>
                         </div>
                         <div class="input-field col s6">
-                            <h:inputText value="#{createEmployeeBean.lastName}" required="true" requiredMessage="¡El apellido es requerido!"/>
+                            <h:inputText value="#{employeeBean.lastName}" required="true" requiredMessage="¡El apellido es requerido!"/>
                             <label>Apellido</label>
                         </div>
                         <div class="input-field col s12">
-                            <h:inputText value="#{createEmployeeBean.documentId}" required="true" requiredMessage="¡El documento es requerido!" converterMessage="Porfavor ingrese solo valores numericos"/>
+                            <h:inputText value="#{employeeBean.documentId}" required="true" requiredMessage="¡El documento es requerido!" converterMessage="Porfavor ingrese solo valores numericos"/>
                             <label>Documento</label>
                         </div><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                         <div class="container">
                             <center><p class="indigo-text text-darken-4 col s12">Fecha de nacimiento</p></center>
-                            <div class="input-field col s4"><h:inputText value="#{createEmployeeBean.day}"  converterMessage="Porfavor ingrese solo valores numericos" required="true" requiredMessage="¡El día es requerido!"/>
+                            <div class="input-field col s4"><h:inputText value="#{employeeBean.day}"  converterMessage="Porfavor ingrese solo valores numericos" required="true" requiredMessage="¡El día es requerido!"/>
                                 <label>Dia</label>
                             </div>
                             <div class="input-field col s4">
-                                <h:inputText value="#{createEmployeeBean.month}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos"/>
+                                <h:inputText value="#{employeeBean.month}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos"/>
                                 <label>Mes</label>
                             </div>
                             <div class="input-field col s4">
-                                <h:inputText value="#{createEmployeeBean.year}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos"/>
+                                <h:inputText value="#{employeeBean.year}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos"/>
                                 <label>Año</label>
                             </div>               
                         </div>
                 <br/>
-                <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{createEmployeeBean.createEmployee()}" value="Crear Empleado"/>
+                <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{employeeBean.createEmployee()}" value="Crear Empleado"/>
                 <br/><br/>
                 <p>Mensaje: </p>
-                <h:outputText value="#{createEmployeeBean.message}"/>
+                <h:outputText value="#{employeeBean.message}"/>
                 <br/><br/>
                 <a href="index.xhtml">Inicio</a><br/>
                 <a href="vehicles/vehiclesCreator.xhtml">Car creator</a><br/> <!--Estos acá mientras hay pagina de administrador-->

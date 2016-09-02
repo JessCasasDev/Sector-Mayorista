@@ -9,6 +9,7 @@ import dataSourceManagement.DAO.EmployeeDAO;
 import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Employee;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -32,6 +33,11 @@ public class HandleEmployee {
         }else{
             return false;
         }
+    }
+    
+    public Collection<Employee> getEmployeeInformation(){
+        EmployeeDAO emp_dao = new EmployeeDAO();
+        return emp_dao.getEmployees();
     }
 
     

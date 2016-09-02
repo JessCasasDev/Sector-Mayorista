@@ -101,7 +101,7 @@ public class LoginBean {
         }
     }
            
-    public void verify_if_role(String role){
+    public void verify_role(String role){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         if(!ec.getSessionMap().get("role").equals(role)){
             try {

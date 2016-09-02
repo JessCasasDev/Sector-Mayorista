@@ -10,6 +10,10 @@
         <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Carrito de compras</title>
+         <f:metadata>
+            <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
+            <f:event type="preRenderView" listener="#{loginBean.verify_role('Client')}"/>
+        </f:metadata>
    
     </h:head>
     <h:body class="light-blue lighten-4">
