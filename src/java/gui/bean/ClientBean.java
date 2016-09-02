@@ -9,7 +9,7 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class CreateClientBean implements Serializable{
+public class ClientBean implements Serializable{
     private String username;
     private String password;
     private String name;
@@ -19,7 +19,7 @@ public class CreateClientBean implements Serializable{
    @ManagedProperty(value="#{userBean}")
    private AuthenticationBean userBean;
 
-    public CreateClientBean() {
+    public ClientBean() {
     }
 
     public AuthenticationBean getUserBean() {

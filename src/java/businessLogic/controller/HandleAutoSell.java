@@ -60,11 +60,9 @@ public class HandleAutoSell {
     }
     
     public void payOrder(Integer orderId){
-        
         ShopOrderDAO orderDAO = new ShopOrderDAO();
         ShopOrder order = orderDAO.searchByOrderId(orderId);
         orderDAO.buyAutos(order);
-        
     }
     
     

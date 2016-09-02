@@ -7,6 +7,7 @@ package dataSourceManagement.DAO;
 
 import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Employee;
+import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -49,6 +50,19 @@ public class EmployeeDAO {
             em.close();
         }
         return employee;
+    }
+
+    public Collection<Employee> getEmployees() {
+        EntityManager em = emf3.createEntityManager();
+        Collection<Employee> employeeCollection = null;
+        Query q = em.createNamedQuery("Employee.findAll");
+        try {
+            employeeCollection = q.getResultList();
+        } catch (Exception e){
+        } finally {
+            em.close();
+        }
+        return employeeCollection;
     }
     
 }

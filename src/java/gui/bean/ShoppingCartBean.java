@@ -6,7 +6,6 @@
 package gui.bean;
 
 import businessLogic.controller.HandleAutoSell;
-import dataSourceManagement.DAO.ShopOrderDAO;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.Discount;
 import dataSourceManagement.entities.ShopOrder;
@@ -14,9 +13,6 @@ import dataSourceManagement.entities.Payment;
 import dataSourceManagement.entities.StockElement;
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -37,15 +33,9 @@ public class ShoppingCartBean {
     private Collection<StockElement> stockElementCollection;
     private Collection<Payment> paymentCollection;
     private Client clientId;
-    private Map <String, Integer> availableOrders;
-    private boolean selected=false;
-
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
+    
+    public ShoppingCartBean(){
+        orderId=0;
     }
     
     public Collection<ShopOrder> displayCart(){
@@ -53,16 +43,8 @@ public class ShoppingCartBean {
         return has.getShoppingCart();
     }
     
-    public Map<String, Integer> getAvailableOrders(){
-        availableOrders = new LinkedHashMap<>();
-        ShopOrderDAO vdao = new ShopOrderDAO();
-        List<ShopOrder> orders = (List<ShopOrder>) displayCart();
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+orders.size());
-        for (ShopOrder x : orders){
-            availableOrders.put(x.toString(), x.getOrderId());
-        }
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+availableOrders.size());
-        return availableOrders;
+    public void setOrderId(Integer orderId){
+        this.orderId = orderId;
     }
     
     public Integer getOrderId(){
@@ -70,7 +52,8 @@ public class ShoppingCartBean {
     }
     
     public void payShopOrder(){
-        
+        HandleAutoSell has = new HandleAutoSell();
+        has.payOrder(orderId);
     }
     
 }

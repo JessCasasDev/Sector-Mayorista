@@ -12,6 +12,7 @@ import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Employee;
 import dataSourceManagement.entities.MonthlyRegister;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -37,6 +38,12 @@ public class HandleEmployee {
             return false;
         }
     }
+    
+    public Collection<Employee> getEmployeeInformation(){
+        EmployeeDAO emp_dao = new EmployeeDAO();
+        return emp_dao.getEmployees();
+    }
+
     
     public List<MonthlyRegister> getSalary(String username){
         AuthenticationDAO authDAO = new AuthenticationDAO();

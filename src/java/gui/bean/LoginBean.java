@@ -7,6 +7,8 @@ package gui.bean;
 
 import businessLogic.controller.HandleLogin;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
@@ -90,6 +92,24 @@ public class LoginBean {
         this.rol = rol;
     }
     
-    
-    
+    public void verify_if_logged() throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();        
+        Boolean test = (Boolean) ec.getSessionMap().get("state");
+        
+        if (test == null || !test) {
+             ec.redirect("../index.xhtml");
+        }
+    }
+           
+    public void verify_role(String role){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        if(!ec.getSessionMap().get("role").equals(role)){
+            try {
+                ec.redirect("../index.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+       
 }

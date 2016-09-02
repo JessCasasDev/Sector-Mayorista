@@ -3,7 +3,11 @@ package gui.bean;
 import businessLogic.controller.HandleEmployee;
 import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.MonthlyRegister;
+
+import java.io.Serializable;
 import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -14,7 +18,7 @@ import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
-public class EmployeeBean {
+public class EmployeeBean implements Serializable{
     private String username;
     private String password;
     private String name;
@@ -26,15 +30,6 @@ public class EmployeeBean {
     private Integer day;
     private Integer month;
     private Integer year;
-    private float salary;
-
-    public float getSalary() {
-        return salary;
-    }
-
-    public void setSalary(float salary) {
-        this.salary = salary;
-    }
     @ManagedProperty(value="#{userBean}")
     private AuthenticationBean userBean;
 
@@ -138,7 +133,7 @@ public class EmployeeBean {
         return year;
     }
     
-    public void createEmployee(){
+    public void createEmployee() throws ParseException{
         userBean = new AuthenticationBean();
         Authentication userCreated = userBean.createAccount(username, password, "3");
        
@@ -147,8 +142,14 @@ public class EmployeeBean {
             BigInteger newid = BigInteger.valueOf(documentId);
             Date birth = new Date();
             setBirthDate(birth);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+            String s_day = String.valueOf(day);
+            String s_month = String.valueOf(month);
+            String s_year = String.valueOf(year);
+            String dateInString = s_day + "-" + s_month + "-" + s_year + " 10:20:56";
+            Date date = sdf.parse(dateInString);
             boolean bl;
-            bl = hc.createEmployee(name, lastName, newid, birthDate, userCreated);     
+            bl = hc.createEmployee(name, lastName, newid, date, userCreated);     
             if (bl)   
                message = "Usuario creado con éxito";
             else
