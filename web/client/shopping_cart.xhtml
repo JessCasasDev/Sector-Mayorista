@@ -33,28 +33,47 @@
         <!--FIN MENU-->
         <center>
             <h3 class="blue-grey-text text-darken-2 col s12">¡Esto es lo que has escogido hasta el momento!</h3>
-            <h:form>
-                <table class="highlight">
+
+            <table class="highlight">
+                <tr>
+                    <th>Numero de orden</th>
+                    <th>Nombre</th>
+                    <th>Fecha de pedido</th>
+                    <th>Fecha de entrega</th>
+                    <th>Total de la orden</th>
+                </tr>
+                <ui:repeat value="#{shoppingCartBean.displayCart()}" var="cart">
                     <tr>
-                        <th>Numero de orden</th>
-                        <th>Nombre</th>
-                        <th>Fecha de pedido</th>
-                        <th>Fecha de entrega</th>
+                        <td><h5>#{cart.orderId}</h5></td>
+                        <td><h6>#{cart.clientId.name}</h6></td>
+                        <td><h6>#{cart.orderDate}</h6></td>
+                        <td><h6>#{cart.deliveryDate}</h6></td>
+                        <td><h6>$ #{shoppingCartBean.getTotal(cart)}</h6></td>
                     </tr>
-                    <ui:repeat value="#{shoppingCartBean.displayCart()}" var="cart">
-                        <tr>
-                            <td><h6>#{cart.orderId}</h6></td>
-                            <td><h6>#{cart.clientId.name}</h6></td>
-                            <td><h6>#{cart.orderDate}</h6></td>
-                            <td><h6>#{cart.deliveryDate}</h6></td>
-                        </tr>
-                    </ui:repeat>
-                </table>
-                <h:selectOneRadio value="#{shoppingCartBean.orderId}">
-                    <f:selectItems value="#{shoppingCartBean.orders}" var="orderId" itemValue="#{orderId.orderId}" itemLabel="#{orderId.orderId}"/>
-                </h:selectOneRadio>
-                <h:commandButton action="#{shoppingCartBean.payShopOrder()}" value="Pagar"/>
-            </h:form>
+                </ui:repeat>
+            </table>
+            <hr/>
+            <div class="container">
+                <h:form>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <h3 class="indigo-text text-darken-4">Pagar orden</h3>
+                            <h6>Numero de la orden</h6>
+                            <h:selectOneRadio value="#{shoppingCartBean.orderId}">
+                                <f:selectItems value="#{shoppingCartBean.orders}" var="orderId" itemValue="#{orderId.orderId}" itemLabel="#{orderId.orderId}"/>
+                            </h:selectOneRadio>
+                            <h6>Método de pago</h6>
+                            <h:selectOneRadio value="#{shoppingCartBean.currency}">
+                                <f:selectItem itemValue="Efectivo" itemLabel="Efectivo" />
+                                <f:selectItem itemValue="Tarjeta" itemLabel="Tarjeta" />
+                            </h:selectOneRadio>
+                            <h6>Cantidad a pagar:</h6>
+                            <h:inputText class="validate" value="#{shoppingCartBean.amount}" required="true"/>
+                            <h:commandButton action="#{shoppingCartBean.payShopOrder()}" value="Pagar"/>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
         </center>
 
         <!-- JS FILES-->

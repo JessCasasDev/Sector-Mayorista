@@ -34,6 +34,29 @@ public class ShoppingCartBean {
     private Collection<Payment> paymentCollection;
     private Client clientId;
     private Collection<ShopOrder> orders;
+    private String currency;
+    private float amount;
+
+    public float getTotal(ShopOrder order) {
+        HandleAutoSell has = new HandleAutoSell();
+        return has.getTotal(order);
+    }
+
+    public float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
     
     public ShoppingCartBean(){
         orderId=0;
@@ -63,7 +86,7 @@ public class ShoppingCartBean {
     
     public void payShopOrder(){
         HandleAutoSell has = new HandleAutoSell();
-        has.payOrder(orderId);
+        has.payOrder(orderId, currency, amount);
     }
     
 }

@@ -31,7 +31,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "StockElement.findAll", query = "SELECT s FROM StockElement s"),
     @NamedQuery(name = "StockElement.findByElementId", query = "SELECT s FROM StockElement s WHERE s.elementId = :elementId"),
     @NamedQuery(name = "StockElement.findByLocation", query = "SELECT s FROM StockElement s WHERE s.location = :location"),
-    @NamedQuery(name = "StockElement.findByAvaliable", query = "SELECT s FROM StockElement s WHERE s.avaliable = :avaliable")})
+    @NamedQuery(name = "StockElement.findByAvaliable", query = "SELECT s FROM StockElement s WHERE s.avaliable = :avaliable"),
+    @NamedQuery(name = "StockElement.findByShopOrderId", query = "SELECT s FROM StockElement s WHERE s.shopOrderOrderId = :shopOrderOrderId"),
+    @NamedQuery(name = "StockElement.findByShopOrderIdAndAvailable", query = "SELECT s FROM StockElement s WHERE s.shopOrderOrderId = :shopOrderOrderId AND s.avaliable = :available"),
+    @NamedQuery(name = "StockElement.findByVehicleIdAndAvailable", query = "SELECT s FROM StockElement s WHERE s.vehicleVehicleId = :vehicleVehicleId AND s.avaliable = :available")})
 public class StockElement implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
