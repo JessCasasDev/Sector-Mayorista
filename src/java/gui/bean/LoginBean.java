@@ -21,7 +21,7 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @RequestScoped
 public class LoginBean {
-    
+
     private String username;
     private String password;
     private String rol;
@@ -44,30 +44,30 @@ public class LoginBean {
     }
     private String message2;
 
-    public LoginBean(){
+    public LoginBean() {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        if(ec.getSessionMap().get("user")==null){
-            message2="Invitado";
-        }else{
-            message2=(String) ec.getSessionMap().get("user");
+        if (ec.getSessionMap().get("user") == null) {
+            message2 = "Invitado";
+        } else {
+            message2 = (String) ec.getSessionMap().get("user");
         }
-    
+
     }
-    
-    public void login() throws IOException{
+
+    public void login() throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         HandleLogin doLogin = new HandleLogin();
         message = doLogin.login(username, password);
         message2 = (String) ec.getSessionMap().get("user");
     }
-    
+
     public void logout() throws IOException {
-        message=null;
-        message2="Invitado";
+        message = null;
+        message2 = "Invitado";
         HandleLogin doLogout = new HandleLogin();
         doLogout.logout();
-}
-    
+    }
+
     public String getUsername() {
         return username;
     }
@@ -91,19 +91,19 @@ public class LoginBean {
     public void setRol(String rol) {
         this.rol = rol;
     }
-    
+
     public void verify_if_logged() throws IOException {
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();        
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         Boolean test = (Boolean) ec.getSessionMap().get(HandleLogin.STATE);
-        
+
         if (test == null || !test) {
-             ec.redirect(HandleLogin.INDEXXHTML);
+            ec.redirect(HandleLogin.INDEXXHTML);
         }
     }
-           
-    public void verify_role(String role){
+
+    public void verify_role(String role) {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        if(!ec.getSessionMap().get("role").equals(role)){
+        if (!ec.getSessionMap().get(HandleLogin.ROLE).equals(role)) {
             try {
                 ec.redirect(HandleLogin.INDEXXHTML);
             } catch (IOException ex) {
@@ -111,5 +111,5 @@ public class LoginBean {
             }
         }
     }
-       
+
 }
