@@ -48,7 +48,7 @@ public class StockElement implements Serializable {
     @Column(name = "avaliable")
     private Boolean avaliable;
     @JoinColumn(name = "shop_order_order_id", referencedColumnName = "order_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private ShopOrder shopOrderOrderId;
     @JoinColumn(name = "purchase_purchase_id", referencedColumnName = "purchase_id")
     @ManyToOne(optional = false)

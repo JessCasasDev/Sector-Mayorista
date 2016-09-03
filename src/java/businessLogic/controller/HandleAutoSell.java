@@ -72,7 +72,7 @@ public class HandleAutoSell {
         float total=0;
         StockElementDAO seDAO = new StockElementDAO();
         VehicleDAO vDAO = new VehicleDAO();
-        Collection<StockElement> cars = seDAO.searchGroupByOrderIdAndAvailable(order, Boolean.TRUE);
+        Collection<StockElement> cars = seDAO.searchGroupByOrderIdAndAvailable(order, Boolean.FALSE);
         for (StockElement car : cars) {
             total += vDAO.findVehicle(car.getVehicleVehicleId().getVehicleId()).getSellPrice();
         }
