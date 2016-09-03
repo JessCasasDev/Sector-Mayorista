@@ -103,7 +103,7 @@ public class LoginBean {
 
     public void verify_role(String role) {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        if (!ec.getSessionMap().get(HandleLogin.ROLE).equals(role)) {
+        if (!role.equals(ec.getSessionMap().get(HandleLogin.ROLE))) {
             try {
                 ec.redirect(HandleLogin.INDEXXHTML);
             } catch (IOException ex) {
