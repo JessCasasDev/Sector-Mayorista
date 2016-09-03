@@ -9,6 +9,10 @@
         <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Vehicles Manager</title>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
+            <f:event type="preRenderView" listener="#{loginBean.verify_role('Administrator')}"/>
+        </f:metadata>
     </head>
     <body>
         <!--MENU-->
@@ -26,45 +30,46 @@
             </div>
         </nav>    
         <!--FIN MENU-->
-        <div class="center card-panel col s4 light-blue lighten-4">
-            <h1>Vehicles</h1>
-            <hr/>
-            <h2>Edit</h2>   
-            <panel>
-                <h:form>
-                    <div class="input-field col s4">
-                        <h:selectOneMenu value="#{vehicleCRUDBean.selectedVehicleId}">
-                            <f:selectItems value="#{vehicleCRUDBean.availableVehicles}" />
-                        </h:selectOneMenu>
-                    </div>
-                    <a
-                        class="waves-effect waves-light btn"
-                        action="#{vehicleCRUDBean.fillVehicleData()}" value="Select and Fill">Select and Fill</a>
-                    <h:panelGrid columns="2">
-                        <label>Type</label>
-                        <h:inputText value="#{vehicleCRUDBean.type}" required="true" requiredMessage="the type is required"/>
-                        <label>Model</label>
-                        <h:inputText value="#{vehicleCRUDBean.model}" required="true" requiredMessage="the model is required"/>
-                        <label>Color</label>
-                        <h:inputText value="#{vehicleCRUDBean.color}" required="true" requiredMessage="the color is required"/>
-                        <label>Brand</label>
-                        <h:inputText value="#{vehicleCRUDBean.brand}" required="true" requiredMessage="the brand is required"/>
-                        <label>Description</label>
-                        <h:inputTextarea value="#{vehicleCRUDBean.description}"/>
-                        <label>Cost</label>
-                        <h:inputText value="#{vehicleCRUDBean.cost}" required="true" requiredMessage="the cost is required"/>
-                        <label>Sell Price</label>
-                        <h:inputText value="#{vehicleCRUDBean.sellPrice}" required="true" requiredMessage="the sell price is required"/>
-                    </h:panelGrid>
-                    <br/>
-                    <h:commandButton 
-                        class="waves-effect waves-light btn"
-                        action="#{vehicleCRUDBean.editVehicle()}" value="Edit"/>
-                    <br/><br/>
-                </h:form>
-            </panel>
-        </div>
-
+        <center>
+            <div class="container center card-panel col s4 m4 l4">
+                <h1>Vehicles</h1>
+                <hr/>
+                <h2>Edit</h2>   
+                <panel>
+                    <h:form>
+                        <div class="input-field col s4">
+                            <h:selectOneMenu value="#{vehicleCRUDBean.selectedVehicleId}">
+                                <f:selectItems value="#{vehicleCRUDBean.availableVehicles}" />
+                            </h:selectOneMenu>
+                        </div>
+                        <a
+                            class="waves-effect waves-light btn"
+                            action="#{vehicleCRUDBean.fillVehicleData()}" value="Select and Fill">Select and Fill</a>
+                        <h:panelGrid columns="2">
+                            <label>Type</label>
+                            <h:inputText value="#{vehicleCRUDBean.type}" required="true" requiredMessage="the type is required"/>
+                            <label>Model</label>
+                            <h:inputText value="#{vehicleCRUDBean.model}" required="true" requiredMessage="the model is required"/>
+                            <label>Color</label>
+                            <h:inputText value="#{vehicleCRUDBean.color}" required="true" requiredMessage="the color is required"/>
+                            <label>Brand</label>
+                            <h:inputText value="#{vehicleCRUDBean.brand}" required="true" requiredMessage="the brand is required"/>
+                            <label>Description</label>
+                            <h:inputTextarea value="#{vehicleCRUDBean.description}"/>
+                            <label>Cost</label>
+                            <h:inputText value="#{vehicleCRUDBean.cost}" required="true" requiredMessage="the cost is required"/>
+                            <label>Sell Price</label>
+                            <h:inputText value="#{vehicleCRUDBean.sellPrice}" required="true" requiredMessage="the sell price is required"/>
+                        </h:panelGrid>
+                        <br/>
+                        <h:commandButton 
+                            class="waves-effect waves-light btn"
+                            action="#{vehicleCRUDBean.editVehicle()}" value="Edit"/>
+                        <br/><br/>
+                    </h:form>
+                </panel>
+            </div>
+        </center>
         <!-- JS FILES-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
         <script type="text/javascript" src="../js/materialize.min.js"></script>

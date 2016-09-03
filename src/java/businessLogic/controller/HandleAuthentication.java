@@ -17,7 +17,6 @@ public class HandleAuthentication {
         if (rol != null){
             auth.setRoleId(rol);
         }
-        
         AuthenticationDAO auth_dao = new AuthenticationDAO();
         Authentication new_auth = auth_dao.persist(auth);
         System.out.println("Auth: " + new_auth.getUserName());

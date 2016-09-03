@@ -6,6 +6,11 @@
 package dataSourceManagement.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,10 +37,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Role.findByPermissions", query = "SELECT r FROM Role r WHERE r.permissions = :permissions")})
 public class Role implements Serializable {
 
-    
     public static final String ADMINISTRATOR = "Administrator";
     public static final String EMPLOYEE = "Employee";
-    
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,7 +53,10 @@ public class Role implements Serializable {
     @Column(name = "permissions")
     private String permissions;
 
+    private Map<Class, List<String>> permissionsMap;
+
     public Role() {
+        permissionsMap = new HashMap<>();
     }
 
     public Role(Integer roleId) {
@@ -78,6 +85,7 @@ public class Role implements Serializable {
 
     public void setPermissions(String permissions) {
         this.permissions = permissions;
+        createPermissionsMap();
     }
 
     @Override
@@ -104,5 +112,57 @@ public class Role implements Serializable {
     public String toString() {
         return "dataSourceManagement.entities.Role[ roleId=" + roleId + " ]";
     }
-    
+
+    public boolean checkPermissions(Class c, String action) {
+        List<String> actions = permissionsMap.get(c);
+        if (actions != null) {
+            return actions.contains(action);
+        }
+        return false;
+    }
+
+    private void createPermissionsMap() {
+        if (permissions == null || permissions.isEmpty()) {
+            return;
+        }
+        String[] tableList = permissions.split(";");
+        String[] perXid;
+        String id;
+        List<String> per;
+        for (String table : tableList) {
+            perXid = table.split("_");
+            id = perXid[1];
+            per = parsePermission(perXid[0]);
+            permissionsMap.put(getClass(id), per);
+        }
+    }
+
+    private List<String> parsePermission(String perXid) {
+        String cad = perXid.replaceAll("\\(", "");
+        cad = cad.replaceAll("\\)", "");
+        return new ArrayList<>(Arrays.asList(cad.split(",")));
+    }
+
+    private Class getClass(String id) {
+        if ("EM".equals(id)) {
+            return Employee.class;
+        }
+        if ("DI".equals(id)) {
+            return Discount.class;
+        }
+        if ("CL".equals(id)) {
+            return Client.class;
+        }
+        if ("VE".equals(id)) {
+            return Vehicle.class;
+        }
+        if ("PU".equals(id)) {
+            return Purchase.class;
+        }
+        if ("ST".equals(id)) {
+            return StockElement.class;
+        }
+        return null;
+    }
+
 }
