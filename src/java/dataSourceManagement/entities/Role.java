@@ -20,6 +20,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -52,7 +53,7 @@ public class Role implements Serializable {
     @Size(max = 150)
     @Column(name = "permissions")
     private String permissions;
-
+    @Transient
     private Map<Class, List<String>> permissionsMap;
 
     public Role() {
