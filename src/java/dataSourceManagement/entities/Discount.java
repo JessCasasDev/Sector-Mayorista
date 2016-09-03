@@ -6,6 +6,7 @@
 package dataSourceManagement.entities;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -38,6 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Discount.findByDiscountAmount", query = "SELECT d FROM Discount d WHERE d.discountAmount = :discountAmount"),
     @NamedQuery(name = "Discount.findByPercentage", query = "SELECT d FROM Discount d WHERE d.percentage = :percentage")})
 public class Discount implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -150,5 +152,11 @@ public class Discount implements Serializable {
     public String toString() {
         return "dataSourceManagement.entities.Discount[ discountId=" + discountId + " ]";
     }
-    
+
+    public String getLabel() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+        return sdf.format(expirationDate) + " " + percentage + " description: "
+                + description + " vehicle: " + vehicleId.getLabel();
+    }
+
 }
