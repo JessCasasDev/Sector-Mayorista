@@ -23,9 +23,9 @@ import javax.persistence.PersistenceContext;
  */
 public class HandleLogin {
 
-    public static final String INDEXXHTML = "/index.xhtml";
+    public static final String INDEXXHTML = "../index.xhtml";
     public static final String EMPLOYEEEMPLOYEE_PROFILEXHTML = "/employee/employee_profile.xhtml";
-    public static final String ADMININDEXXHTML = "/admin/index.xhtml";
+    public static final String ADMININDEXXHTML = "/admin/admin_index.xhtml";
     public static final String CLIENTCLIENT_PROFILEXHTML = "/client/client_profile.xhtml";
     public static final String STATE = "state";
     public static final String ROLE = "role";
@@ -60,6 +60,7 @@ public class HandleLogin {
                         .getApplication().getViewHandler()
                         .getActionURL(FacesContext.getCurrentInstance(),
                                 CLIENTCLIENT_PROFILEXHTML));
+                 System.out.println("you are logged as client");
                 ec.redirect(url);
                 return "Ha entrado correctamente a su cuenta";
             } catch (IOException ex) {
@@ -80,12 +81,14 @@ public class HandleLogin {
                     String actionURL = null;
                     if (user2.getAuthId().getRoleId().getName()
                             .equals(Role.ADMINISTRATOR)) {
+                        System.out.println("you are logged as admin");
                         actionURL = FacesContext.getCurrentInstance()
                                 .getApplication().getViewHandler()
                                 .getActionURL(FacesContext.getCurrentInstance(),
                                         ADMININDEXXHTML);
                     } else if (user2.getAuthId().getRoleId().getName()
                             .equals(Role.EMPLOYEE)) {
+                         System.out.println("you are logged as employee");
                         actionURL = FacesContext.getCurrentInstance()
                                 .getApplication().getViewHandler()
                                 .getActionURL(FacesContext.getCurrentInstance(),

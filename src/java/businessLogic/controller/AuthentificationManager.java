@@ -19,6 +19,11 @@ public class AuthentificationManager {
     public static boolean checkPermissions(Class c, String action) {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         String roleName = (String) ec.getSessionMap().get(HandleLogin.ROLE);
+        if (roleName == null) {
+            System.out.println("you are not logged");
+            return false;
+        }
+        System.out.println("role: " + roleName);
         RoleDAO rDAO = new RoleDAO();
         Role r = rDAO.searchByRoleName(roleName);
         boolean checkPermission = r.checkPermissions(c, action);

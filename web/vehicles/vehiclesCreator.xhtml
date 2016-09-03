@@ -46,9 +46,13 @@
                             <label>Description</label>
                             <h:inputTextarea value="#{vehicleCRUDBean.description}"/>
                             <label>Cost</label>
-                            <h:inputText value="#{vehicleCRUDBean.cost}" required="true" requiredMessage="the cost is required"/>
+                            <h:inputText value="#{vehicleCRUDBean.cost}" required="true" requiredMessage="the cost is required">
+                                <f:validateDoubleRange minimum="0" maximum="100000000" />
+                            </h:inputText>
                             <label>Sell Price</label>
-                            <h:inputText value="#{vehicleCRUDBean.sellPrice}" required="true" requiredMessage="the sell price is required"/>
+                            <h:inputText value="#{vehicleCRUDBean.sellPrice}" required="true" requiredMessage="the sell price is required">
+                                <f:validateDoubleRange minimum="#{vehicleCRUDBean.cost}" maximum="100000000" />
+                            </h:inputText>
                         </h:panelGrid>
                         <br/>
                         <h:commandButton class="waves-effect waves-light btn"
