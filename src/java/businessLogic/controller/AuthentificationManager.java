@@ -27,6 +27,8 @@ public class AuthentificationManager {
         RoleDAO rDAO = new RoleDAO();
         Role r = rDAO.searchByRoleName(roleName);
         boolean checkPermission = r.checkPermissions(c, action);
+        System.out.println("permisson: " + action + " for class: "
+                + c.getSimpleName() + " granted: " + checkPermission);
         return checkPermission;
     }
 }

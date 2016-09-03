@@ -138,7 +138,12 @@ public class DiscountCRUDBean {
             discount.setDescription(getDescription());
             discount.setDiscountAmount(getDiscountAmount());
             discount.setPercentage(getPercentage());
-            discount.setVehicleId(getSelectedVehicle());
+            Vehicle selectedVehicle = getSelectedVehicle();
+            if (selectedVehicle == null) {
+                System.out.println("any selected vehicle");
+                return;
+            }
+            discount.setVehicleId(selectedVehicle);
             discountCRUD.createDiscount(discount);
         } catch (Exception e) {
             System.err.println(e);
@@ -157,7 +162,12 @@ public class DiscountCRUDBean {
             edited.setDescription(getDescription());
             edited.setDiscountAmount(getDiscountAmount());
             edited.setPercentage(getPercentage());
-            edited.setVehicleId(getSelectedVehicle());
+            Vehicle selectedVehicle = getSelectedVehicle();
+            if (selectedVehicle == null) {
+                System.out.println("any selected vehicle");
+                return;
+            }
+            edited.setVehicleId(selectedVehicle);
             discountCRUD.editDiscount(edited);
             availableDiscounts.remove(key);
             availableDiscounts.put(edited.getLabel(), edited.getDiscountId());
