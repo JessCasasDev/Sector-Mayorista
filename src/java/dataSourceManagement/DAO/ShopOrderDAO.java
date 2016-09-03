@@ -39,12 +39,12 @@ public class ShopOrderDAO {
         return order;
     }
     
-    public void buyAutos(ShopOrder order){
-        System.out.println("en DAO: "+order.getOrderId());
+    public void buyAutos(ShopOrder order, String currency, String state, float amount){
+        
         PaymentDAO paymentDAO = new PaymentDAO();
-        String type=EFECTIVO;
+        String type = currency;
         Date date = new Date();
-        String debt ="0";
+        String debt = Float.toString(amount);
         
         Payment payment = new Payment();
         payment.setDate(date);
@@ -52,8 +52,8 @@ public class ShopOrderDAO {
         payment.setType(type);
         payment.setShopOrderOrderId(order);
         paymentDAO.persist(payment);
-        order.setState("Finalizada");
-        editState(order.getOrderId(), "Finalizada");
+        order.setState(state);
+        editState(order.getOrderId(), state);
     }
     
     public boolean editState(Integer orderId, String state) {

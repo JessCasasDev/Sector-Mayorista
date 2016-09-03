@@ -7,6 +7,7 @@ package dataSourceManagement.DAO;
 
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Payment;
+import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -33,6 +34,20 @@ public class PaymentDAO {
             em.close();
         }
         return payment;
+    }
+    
+    public Collection<Payment> searchGroupByOrderId(ShopOrder order){
+        EntityManager em = emf1.createEntityManager();
+        Collection<Payment> paymentCollection = null;
+        Query q = em.createNamedQuery("Payment.findByShopOrderId");
+        q.setParameter("shopOrderOrderId", order);
+        try {
+            paymentCollection = q.getResultList();
+        } catch (Exception e){
+        } finally {
+            em.close();
+        }
+        return paymentCollection;
     }
     
 }
