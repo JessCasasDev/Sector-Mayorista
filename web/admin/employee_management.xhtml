@@ -42,8 +42,9 @@ and open the template in the editor.
                             <td>#{employee.name}</td>
                             <td>#{employee.documentId}</td>
                             <h:form>
-                                <td><h:inputText></h:inputText></td>
-                                <td><h:inputText></h:inputText></td>
+                                <td><h:inputText value="payment"></h:inputText></td>
+                                <td><h:inputText value="grade"></h:inputText></td>
+                                <td><h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{administratorBean.employeeManagement(employee.employeeId)}" value="Crear Cliente"></h:commandButton></td>
                             </h:form>
                         </tr>
                     </ui:repeat>

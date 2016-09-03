@@ -87,7 +87,7 @@ public class ClientBean implements Serializable{
             HandleClient hc = new HandleClient();
             message = hc.createClient(name, nit, address, userCreated);
         } else {
-            message = "No se pudo crear el usuario";
+            message = "No se pudo crear el usuario. Intente con otro nombre de usuario";
         }
         
     }

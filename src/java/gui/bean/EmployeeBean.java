@@ -15,6 +15,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.validation.constraints.Digits;
 
 @ManagedBean
 @ViewScoped
@@ -156,7 +157,7 @@ public class EmployeeBean implements Serializable{
                 message = "El Empleado no se pudo crear";
         }
         else
-            message = "No se pudo crear el usuario";
+            message = "No se pudo crear el usuario. Porfavor intente con otro nombre de usuario";
         }
     
     public List<MonthlyRegister> showSalary(){

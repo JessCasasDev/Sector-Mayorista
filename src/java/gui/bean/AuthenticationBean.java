@@ -49,8 +49,6 @@ public class AuthenticationBean implements Serializable{
     public Authentication createAccount(String username, String password, String role){
         HandleAuthentication hu = new HandleAuthentication(); 
         Authentication aut = hu.createAccount(username, password, Integer.parseInt(role));
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+aut.getUserName());
-        
         return aut;
     }
 }

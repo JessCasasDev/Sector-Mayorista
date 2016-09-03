@@ -53,10 +53,10 @@ public class Role implements Serializable {
     @Column(name = "permissions")
     private String permissions;
 
-    private Map<Class, List<String>> permissionsMap;
+    //private Map<Class, List<String>> permissionsMap;
 
     public Role() {
-        permissionsMap = new HashMap<>();
+     //   permissionsMap = new HashMap<>();
     }
 
     public Role(Integer roleId) {
@@ -85,7 +85,7 @@ public class Role implements Serializable {
 
     public void setPermissions(String permissions) {
         this.permissions = permissions;
-        createPermissionsMap();
+     //   createPermissionsMap();
     }
 
     @Override
@@ -112,7 +112,7 @@ public class Role implements Serializable {
     public String toString() {
         return "dataSourceManagement.entities.Role[ roleId=" + roleId + " ]";
     }
-
+/*
     public boolean checkPermissions(Class c, String action) {
         List<String> actions = permissionsMap.get(c);
         if (actions != null) {
@@ -163,6 +163,6 @@ public class Role implements Serializable {
             return StockElement.class;
         }
         return null;
-    }
+    }*/
 
 }
