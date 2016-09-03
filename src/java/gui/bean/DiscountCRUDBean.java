@@ -10,7 +10,6 @@ package gui.bean;
  * @author JuanCamilo
  */
 import businessLogic.controller.DiscountCRUD;
-import businessLogic.controller.HandleVehicleCRUD;
 import dataSourceManagement.DAO.DiscountDAO;
 import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.entities.Discount;
@@ -96,7 +95,7 @@ public class DiscountCRUDBean {
         this.vehicleId = vehicleId;
     }
 
-    private Integer getSelectedDiscountId() {
+    public Integer getSelectedDiscountId() {
         return selectedDiscountId;
     }
 
@@ -119,9 +118,9 @@ public class DiscountCRUDBean {
         DiscountDAO discountDAO = new DiscountDAO();
         List<Discount> discounts = discountDAO.findDiscountEntities();
         for (Discount d : discounts) {
-            availableVehicles.put(d.getLabel(), d.getDiscountId());
+            availableDiscounts.put(d.getLabel(), d.getDiscountId());
         }
-        return availableVehicles;
+        return availableDiscounts;
     }
 
     public Integer getSelectedVehicleId() {
@@ -146,7 +145,7 @@ public class DiscountCRUDBean {
         }
     }
 
-    public void editVehicle() {
+    public void editDiscount() {
         DiscountCRUD discountCRUD = new DiscountCRUD();
         if (selectedVehicleId == -1) {
             System.err.println("any selected vehicle");
