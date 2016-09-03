@@ -21,7 +21,10 @@
                 <a href="../index.xhtml" class="brand-logo">Automarket</a>
                 <ul id="nav-mobile" class="right blue darken-4">
                     <li class="blue-text text-lighten-3">
-                        <h:form> <h:commandLink action="vehiclesEditor" value="Edit Vehicle"/></h:form>
+                        <h:form> <h:commandLink action="vehiclesEditor" value="Edit a Vehicle"/></h:form>
+                    </li>
+                    <li class="blue-text text-lighten-3">
+                        <h:form> <h:commandLink action="vehiclesDestroyer" value="Delete a Vehicle"/></h:form>
                     </li>
                 </ul>
             </div>
@@ -46,9 +49,13 @@
                             <label>Description</label>
                             <h:inputTextarea value="#{vehicleCRUDBean.description}"/>
                             <label>Cost</label>
-                            <h:inputText value="#{vehicleCRUDBean.cost}" required="true" requiredMessage="the cost is required"/>
+                            <h:inputText value="#{vehicleCRUDBean.cost}" required="true" requiredMessage="the cost is required">
+                                <f:validateDoubleRange minimum="0" maximum="100000000" />
+                            </h:inputText>
                             <label>Sell Price</label>
-                            <h:inputText value="#{vehicleCRUDBean.sellPrice}" required="true" requiredMessage="the sell price is required"/>
+                            <h:inputText value="#{vehicleCRUDBean.sellPrice}" required="true" requiredMessage="the sell price is required">
+                                <f:validateDoubleRange minimum="#{vehicleCRUDBean.cost}" maximum="100000000" />
+                            </h:inputText>
                         </h:panelGrid>
                         <br/>
                         <h:commandButton class="waves-effect waves-light btn"

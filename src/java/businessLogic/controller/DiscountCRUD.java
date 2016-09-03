@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class DiscountCRUD {
 
-    public void createDiscount(Discount discount, Vehicle vehicle) {
+    public void createDiscount(Discount discount) {
         if (AuthentificationManager.checkPermissions(Discount.class, Actions.CREATE)) {
             DiscountDAO dDAO = new DiscountDAO();
             try {
@@ -28,7 +28,7 @@ public class DiscountCRUD {
         }
     }
 
-    public void editDiscount(Discount discount, Vehicle vehicle) {
+    public void editDiscount(Discount discount) {
         if (AuthentificationManager.checkPermissions(Discount.class, Actions.UPDATE)) {
             DiscountDAO dDAO = new DiscountDAO();
             try {
@@ -39,7 +39,7 @@ public class DiscountCRUD {
         }
     }
 
-    public void deleteDiscount(int discountID, Vehicle vehicle) {
+    public void deleteDiscount(int discountID) {
         if (AuthentificationManager.checkPermissions(Discount.class, Actions.DELETE)) {
             DiscountDAO dDAO = new DiscountDAO();
             try {

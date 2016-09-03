@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Admin Account</title>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
+            <f:event type="preRenderView" listener="#{loginBean.verify_role('Administrator')}"/>
+        </f:metadata>
+    </h:head>
+    <h:body class="light-blue lighten-4">
+        <center><h2 class="light-blue-text darken-3">Gestión del Sistema</h2></center>
+        <center>
+            <div class="container">
+                <ul id="nav-mobile" class="center s4">
+                    <h:form> 
+                        <!--vehicles-->
+                        <div class="card s8">
+                            <div class="card-image s4 waves-effect waves-block waves-light">
+                                <img class="responsive-img activator" width="240" src="../images/vehicle.png"/>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Gestion Vehiculos</span>
+                                <p><i class="material-icons circle white">settings</i>
+                                    <a 
+                                        class="waves-effect s4 waves-teal btn-flat"
+                                        href="../vehicles/vehiclesCreator.xhtml">Add Vehicles</a>
+                                    <i class="material-icons circle white">settings</i>
+                                    <a 
+                                        class="waves-effect s4 waves-teal btn-flat"
+                                        href="../vehicles/vehiclesEditor.xhtml">Edit a Vehicle</a>
+                                    <i class="material-icons circle white">settings</i>
+                                    <a 
+                                        class="waves-effect s4 waves-teal btn-flat"
+                                        href="../vehicles/vehiclesDestroyer.xhtml">Delete Vehicles</a>
+                                </p>
+                            </div>
+                        </div>
+                        <!--fin vehicles-->
+                        <!--Discounts-->
+                        <div class="card s8">
+                            <div class="card-image s4 waves-effect waves-block waves-light">
+                                <img class="responsive-img activator" width="240" src="../images/discounts.png"/>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">Gestion Vehiculos</span>
+                                <p><i class="material-icons circle white">settings</i>
+                                    <a 
+                                        class="waves-effect s4 waves-teal btn-flat"
+                                        href="../discounts/discountsCreator.xhtml">Add a Discount</a>
+                                    <i class="material-icons circle white">settings</i>
+                                    <a 
+                                        class="waves-effect s4 waves-teal btn-flat"
+                                        href="../discounts/discountsEditor.xhtml">Edit a Discount</a>
+                                    <i class="material-icons circle white">settings</i>
+                                    <a 
+                                        class="waves-effect s4 waves-teal btn-flat"
+                                        href="../discounts/discountsDestroyer.xhtml">Delete a Discount</a>
+                                </p>
+                            </div>
+                        </div>
+                         <!--fin discounts-->
+                    </h:form>
+                </ul>
+            </div>  
+        </center>
+
+        <!-- JS FILES-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
+        <script type="text/javascript" src="../js/materialize.min.js"></script>
+        <script type="text/javascript" src="../js/navBarUtil.js"></script>
+    </h:body>
+</html>

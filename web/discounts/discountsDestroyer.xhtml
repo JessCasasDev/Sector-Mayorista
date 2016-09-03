@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <head>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Discounts Manager</title>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
+            <f:event type="preRenderView" listener="#{loginBean.verify_role('Administrator')}"/>
+        </f:metadata>
+    </head>
+    <body>
+        <!--MENU-->
+        <nav>
+            <div class="nav-wrapper blue darken-4 white-text">
+                <a href="../index.xhtml" class="brand-logo">Automarket</a>
+                <ul id="nav-mobile" class="right blue darken-4">
+                    <li class="blue-text text-lighten-3">
+                        <h:form> <h:commandLink action="discountsCreator" value="Add new Discount"/></h:form>
+                    </li>
+                    <li class="blue-text text-lighten-3">
+                        <h:form> <h:commandLink action="discountsEditor" value="Edit a Discount"/></h:form>
+                    </li>
+                </ul>
+            </div>
+        </nav>    
+        <!--FIN MENU-->
+        <center>
+            <div class="container center card-panel col s4 m4 l4">
+                <h1>Discounts</h1>
+                <hr/>
+                <h2>Delete</h2>   
+                <panel>
+                    <h:form>
+                        <div class="input-field col s4">
+                            <h:selectOneMenu value="#{discountCRUDBean.selectedDiscountId}">
+                                <f:selectItems value="#{discountCRUDBean.availableDiscounts}" />
+                            </h:selectOneMenu>
+                        </div>
+                        <br/>
+                        <h:commandButton 
+                            class="waves-effect waves-light btn"
+                            action="#{discountCRUDBean.deleteDiscount()}" value="Add"/>
+                        <br/><br/>
+                    </h:form>
+                </panel>
+            </div>
+        </center>
+        <!-- JS FILES-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
+        <script type="text/javascript" src="../js/materialize.min.js"></script>
+        <script type="text/javascript" src="../js/navBarUtil.js"></script>
+    </body>
+</html>

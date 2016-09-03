@@ -53,6 +53,7 @@ public class Role implements Serializable {
     @Size(max = 150)
     @Column(name = "permissions")
     private String permissions;
+
     @Transient
     private Map<Class, List<String>> permissionsMap;
 
@@ -115,6 +116,9 @@ public class Role implements Serializable {
     }
 
     public boolean checkPermissions(Class c, String action) {
+        if (permissionsMap.isEmpty()) {
+            createPermissionsMap();
+        }
         List<String> actions = permissionsMap.get(c);
         if (actions != null) {
             return actions.contains(action);
