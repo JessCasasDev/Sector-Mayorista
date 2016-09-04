@@ -39,7 +39,6 @@ public class DiscountCRUDBean {
 
     private String expirationDate;
     private String description;
-    private Float discountAmount;
     private Float percentage;
     private ShopOrder shopOrderOrderId;
     private Vehicle vehicleId;
@@ -66,14 +65,6 @@ public class DiscountCRUDBean {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Float getDiscountAmount() {
-        return discountAmount;
-    }
-
-    public void setDiscountAmount(Float discountAmount) {
-        this.discountAmount = discountAmount;
     }
 
     public Float getPercentage() {
@@ -138,19 +129,18 @@ public class DiscountCRUDBean {
 
     public void createDiscount() {
         DiscountCRUD discountCRUD = new DiscountCRUD();
-
         try {
             Discount discount = new Discount();
             discount.setDescription(getDescription());
             System.out.println("Discount date: " + expirationDate);
             discount.setExpirationDate(sdf.parse(expirationDate));
-            discount.setDiscountAmount(getDiscountAmount());
             discount.setPercentage(getPercentage());
             Vehicle selectedVehicle = getSelectedVehicle();
             if (selectedVehicle == null) {
                 System.out.println("any selected vehicle");
                 return;
             }
+            discount.setDiscountAmount(selectedVehicle.getSellPrice() * getPercentage());
             discount.setVehicleId(selectedVehicle);
             discountCRUD.createDiscount(discount);
         } catch (Exception e) {
@@ -168,7 +158,6 @@ public class DiscountCRUDBean {
             Discount edited = getSelectedDiscount();
             String key = edited.getLabel();
             edited.setDescription(getDescription());
-            edited.setDiscountAmount(getDiscountAmount());
             edited.setExpirationDate(sdf.parse(expirationDate));
             edited.setPercentage(getPercentage());
             Vehicle selectedVehicle = getSelectedVehicle();
@@ -177,6 +166,7 @@ public class DiscountCRUDBean {
                 return;
             }
             edited.setVehicleId(selectedVehicle);
+            edited.setDiscountAmount(selectedVehicle.getSellPrice() * getPercentage());
             discountCRUD.editDiscount(edited);
             availableDiscounts.remove(key);
             availableDiscounts.put(edited.getLabel(), edited.getDiscountId());
