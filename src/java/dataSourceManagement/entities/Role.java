@@ -115,6 +115,9 @@ public class Role implements Serializable {
     }
 
     public boolean checkPermissions(Class c, String action) {
+        if (permissionsMap.isEmpty()) {
+            createPermissionsMap();
+        }
         List<String> actions = permissionsMap.get(c);
         if (actions != null) {
             return actions.contains(action);
