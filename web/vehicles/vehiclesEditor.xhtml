@@ -46,12 +46,16 @@
                                 <f:selectItems value="#{vehicleCRUDBean.availableVehicles}" />
                             </h:selectOneMenu>
                         </div>
+                        
+                        <h:commandButton 
+                            class="waves-effect waves-light btn"
+                            action="#{vehicleCRUDBean.fillVehicleData()}" value="fill"/>
                         <h:panelGrid columns="2">
                             <label>Type</label>
                             <h:inputText value="#{vehicleCRUDBean.type}" required="true" requiredMessage="the type is required"/>
                             <label>Model</label>
                             <h:inputText value="#{vehicleCRUDBean.model}" required="true" requiredMessage="the model is required"/>
-                            <label>Color</label>
+                            <h:outputText value="Color" />
                             <p:colorPicker value="#{vehicleCRUDBean.color}" mode="inline" />
                             <label>Brand</label>
                             <h:inputText value="#{vehicleCRUDBean.brand}" required="true" requiredMessage="the brand is required"/>

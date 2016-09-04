@@ -10,6 +10,7 @@ package gui.bean;
  * @author JuanCamilo
  */
 import businessLogic.controller.HandleVehicleCRUD;
+import com.sun.javafx.scene.control.SelectedCellsMap;
 import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.entities.Vehicle;
 import java.util.LinkedHashMap;
@@ -115,17 +116,22 @@ public class VehicleCRUDBean {
     }
 
     public void fillVehicleData(ValueChangeEvent e) {
-        System.out.println("id selected: " + getSelectedVehicleId());
         int newVal = Integer.parseInt(e.getNewValue().toString());
+        setSelectedVehicleId(newVal);
         System.out.println("new Val selected: " + newVal);
-        Vehicle selected = getSelectedVehicle(newVal);
+        fillVehicleData();
+    }
+
+    public void fillVehicleData() {
+        Vehicle selected = getSelectedVehicle();
         System.out.println("vehicle to fill " + selected.getLabel());
+        this.setType(selected.getType());
         this.setBrand(selected.getBrand());
         this.setColor(selected.getColor());
         this.setDescription(selected.getDescription());
         this.setModel(selected.getModel());
-        this.setCost(String.format("%.2f", selected.getCost()));
-        this.setSellPrice(String.format("%.2f", selected.getSellPrice()));
+        this.setCost(selected.getCost()+"");//String.format("%.2f", selected.getCost()));
+        this.setSellPrice(selected.getSellPrice()+"");//String.format("%.2f", selected.getSellPrice()));
     }
 
     public void createVehicle() {
@@ -181,6 +187,7 @@ public class VehicleCRUDBean {
     private Vehicle getSelectedVehicle() {
         return getSelectedVehicle(getSelectedVehicleId());
     }
+
     private Vehicle getSelectedVehicle(int id) {
         VehicleDAO vdao = new VehicleDAO();
         return vdao.findVehicle(id);

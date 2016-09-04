@@ -16,7 +16,6 @@ import dataSourceManagement.entities.Discount;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Vehicle;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -43,13 +42,14 @@ public class DiscountCRUDBean {
     private Float percentage;
     private ShopOrder shopOrderOrderId;
     private Vehicle vehicleId;
-    private SimpleDateFormat sdf;
+    private SimpleDateFormat sdf, sdf2;
 
     public DiscountCRUDBean() {
         selectedVehicleId = -1;
         selectedDiscountId = -1;
         sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",
                 Locale.US);
+        sdf2 = new SimpleDateFormat("dd/mm/yyyy");
     }
 
     public String getExpirationDate() {
@@ -179,7 +179,7 @@ public class DiscountCRUDBean {
     public void deleteDiscount() {
         DiscountCRUD deleteCRUD = new DiscountCRUD();
         if (selectedDiscountId == -1) {
-            System.err.println("any selected vehicle");
+            System.err.println("any selected discount");
             return;
         }
         Discount deletedDiscount = getSelectedDiscount();
@@ -209,9 +209,9 @@ public class DiscountCRUDBean {
         Discount selected = getSelectedDiscount();
         System.out.println("discount to fill " + selected.getLabel());
         this.setDescription(selected.getDescription());
-        this.setExpirationDate(sdf.format(selected.getExpirationDate()));
+        this.setExpirationDate(sdf2.format(selected.getExpirationDate()));
         this.setPercentage(selected.getPercentage());
-        setSelectedVehicleId(selected.getVehicleId().getVehicleId());
+        this.setSelectedVehicleId(selected.getVehicleId().getVehicleId());
     }
 
 }
