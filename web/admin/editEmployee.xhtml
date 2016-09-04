@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <head>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Editar Empleado</title>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
+            <f:event type="preRenderView" listener="#{loginBean.verify_role('Administrator')}"/>
+        </f:metadata>
+    </head>
+    <body>
+        <!--MENU-->
+        <nav>
+            <div class="nav-wrapper blue darken-4 white-text">
+                <a href="../index.xhtml" class="brand-logo">Automarket</a>
+                <ul id="nav-mobile" class="right blue darken-4">
+                    <li class="blue-text text-lighten-3">
+                        <h:form> <h:commandLink action="vehiclesCreator" value="Add new Vehicle"/></h:form>
+                    </li>
+                    <li class="blue-text text-lighten-3">
+                        <h:form> <h:commandLink action="vehiclesDestroyer" value="Delete a Vehicle"/></h:form>
+                    </li>
+                </ul>
+            </div>
+        </nav>    
+        <!--FIN MENU-->
+        <center>
+            <div class="container center card-panel col s4 m4 l4">
+                <h1>Empleados</h1>
+                <hr/>
+                <h2>Editar</h2>   
+                <panel>
+                    <h:form>
+                        <div class="input-field col s4">
+                            <h:selectOneMenu value="#{administratorBean.selectedItem}" 
+                                             label="Seleccione un Empleado..."
+                                             valueChangeListener="#{administratorBean.employeeChanged}" 
+                                             immediate="true"
+                                             onchange="this.form.submit()">
+                                <f:selectItems value="#{administratorBean.availableItems}" var="em" itemValue="#{em.value}" />
+                                
+                            </h:selectOneMenu>  
+                        </div>
+                         
+                    </h:form>
+                    <h:form>    
+                        <h:panelGrid columns="2">
+                            <label>Nombre</label>
+                            <h:inputText id="name" value="#{administratorBean.employeeName}" required="true" requiredMessage="El nombre es requerido"/>
+                            <label>Apellido</label>
+                            <h:inputText id="lastName" value="#{administratorBean.employeeLastName}" required="true" requiredMessage="El apellido es requerido"/>
+                            <label>Documento</label>
+                            <h:inputText id="document" value="#{administratorBean.employeeDocumentId}" required="true" requiredMessage="El documento es requerido"/>
+                            <label>Fecha de Nacimiento</label><br/><br/><br/><br/><br/>
+                                 <label>Dia</label>
+                                 <h:inputText value="#{administratorBean.employeeDay}"  converterMessage="Porfavor ingrese solo valores numericos" required="true" requiredMessage="¡El día es requerido!">
+                                    <f:validateLongRange maximum="31" minimum="1" />
+                                </h:inputText>
+                                <label>Mes</label>
+                                <h:inputText value="#{administratorBean.employeeMonth}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos">
+                                <f:validateLongRange maximum="12" minimum="1" />
+                                </h:inputText> 
+                                <label>Año</label>
+                                <h:inputText value="#{administratorBean.employeeYear}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos">
+                                <f:validateLongRange maximum="2016" minimum="1920" /></h:inputText>
+                           </h:panelGrid>
+                        <br/>
+                        <h:commandButton 
+                            class="waves-effect waves-light btn"
+                            action="#{administratorBean.editEmployee()}" value="Edit"/>
+                        <br/><br/>
+                    </h:form>
+                </panel>
+            </div>
+        </center>
+        <!-- JS FILES-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
+        <script type="text/javascript" src="../js/materialize.min.js"></script>
+        <script type="text/javascript" src="../js/navBarUtil.js"></script>
+    </body>
+</html>

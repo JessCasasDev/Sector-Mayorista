@@ -8,6 +8,7 @@ package dataSourceManagement.DAO;
 import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Employee;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -36,6 +37,23 @@ public class EmployeeDAO {
         return employee;
     }
     
+    public void edit(Employee employee){
+        Employee newEmployee;
+        EntityManager em = emf3.createEntityManager();  
+        em.getTransaction().begin();
+        try {
+            newEmployee = em.merge(em.find(Employee.class, employee.getEmployeeId())); 
+            newEmployee.setName(employee.getName());
+            newEmployee.setLastName(employee.getLastName());
+            newEmployee.setDocumentId(employee.getDocumentId());
+            newEmployee.setBirthDate(employee.getBirthDate());
+            em.getTransaction().commit();
+        } catch (Exception e){
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
     public Employee searchByUsername(Authentication username){
         EntityManager em = emf3.createEntityManager();
         Query q = em.createNamedQuery("Employee.findByAuthenticationId");
@@ -65,11 +83,12 @@ public class EmployeeDAO {
         } finally {
             em.close();
         }
-        return employee;    }
+        return employee;   
+    }
 
-    public Collection<Employee> getEmployees() {
+    public List<Employee> getEmployees() {
         EntityManager em = emf3.createEntityManager();
-        Collection<Employee> employeeCollection = null;
+        List<Employee> employeeCollection = null;
         Query q = em.createNamedQuery("Employee.findAll");
         try {
             employeeCollection = q.getResultList();
@@ -79,4 +98,20 @@ public class EmployeeDAO {
         }
         return employeeCollection;
     }    
+
+    public boolean deleteEmployee(Integer id) {
+        EntityManager em = emf3.createEntityManager();
+        Employee employee = em.find(Employee.class, id);
+        try {
+            em.getTransaction().begin();
+            em.remove(employee);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            return false;
+        } finally {
+            em.close();
+
+        }
+        return true;
+    }
 }
