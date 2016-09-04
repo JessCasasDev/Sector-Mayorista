@@ -205,6 +205,12 @@ public class EmployeeBean implements Serializable{
             Date date = sdf.parse(dateInString);
             return date;
     }
+
+    public boolean deleteEmployee(Integer id) {
+            HandleEmployee empl = new HandleEmployee();
+            
+            return empl.deleteEmployee(id);
+    }
     
     
 }

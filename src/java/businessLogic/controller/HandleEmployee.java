@@ -100,6 +100,11 @@ public class HandleEmployee {
         }
         employee.edit(emp);        
     }
+
+    public boolean deleteEmployee(Integer id) {
+        EmployeeDAO empl = new EmployeeDAO();
+        return empl.deleteEmployee(id);
+    }
     
 }
 

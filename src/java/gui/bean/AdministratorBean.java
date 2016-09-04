@@ -28,6 +28,15 @@ public class AdministratorBean implements Serializable{
     private Integer employeeMonth;
     private Integer employeeYear;
     private HashMap<String, String> availableItems; // +getter
+    private String message;
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
     
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
@@ -146,12 +155,18 @@ public class AdministratorBean implements Serializable{
     employeeBean = new EmployeeBean();
     employeeBean.setValues(selectedItem);    
     FacesContext.getCurrentInstance().renderResponse();
-}
-    
+    }
     public void editEmployee(){
         EmployeeBean employeeBean = new EmployeeBean();
         employeeBean.setEmployee(selectedItem, employeeName, employeeLastName, employeeDocumentId,
                                 employeeDay, employeeMonth, employeeYear); 
     }
-
+    
+    public void deleteEmployee(){
+        EmployeeBean employee = new EmployeeBean();
+        if (employee.deleteEmployee(Integer.parseInt(selectedItem)))
+            message = "Empleado eliminado con éxito";
+        else
+            message = "El Empleado no pudo ser eliminado";
+    }
 }

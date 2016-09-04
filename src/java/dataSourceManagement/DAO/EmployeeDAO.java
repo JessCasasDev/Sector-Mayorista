@@ -83,7 +83,8 @@ public class EmployeeDAO {
         } finally {
             em.close();
         }
-        return employee;    }
+        return employee;   
+    }
 
     public List<Employee> getEmployees() {
         EntityManager em = emf3.createEntityManager();
@@ -97,4 +98,20 @@ public class EmployeeDAO {
         }
         return employeeCollection;
     }    
+
+    public boolean deleteEmployee(Integer id) {
+        EntityManager em = emf3.createEntityManager();
+        Employee employee = em.find(Employee.class, id);
+        try {
+            em.getTransaction().begin();
+            em.remove(employee);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            return false;
+        } finally {
+            em.close();
+
+        }
+        return true;
+    }
 }
