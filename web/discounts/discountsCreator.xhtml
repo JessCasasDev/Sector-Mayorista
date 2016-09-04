@@ -8,7 +8,7 @@
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Discounts Manager</title>
+        <title>Administración de descuentos</title>
         <f:metadata>
             <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
             <f:event type="preRenderView" listener="#{loginBean.verify_role('Administrator')}"/>
@@ -18,7 +18,7 @@
         <!--MENU-->
         <nav>
             <div class="nav-wrapper blue darken-4 white-text">
-                <a href="../index.xhtml" class="brand-logo">Automarket</a>
+                <a href="../admin/admin_index.xhtml" class="brand-logo">Automarket</a>
                 <ul id="nav-mobile" class="right blue darken-4">
                     <li class="blue-text text-lighten-3">
                         <h:form> <h:commandLink action="discountsEditor" value="Edit a Discount"/></h:form>
@@ -32,40 +32,38 @@
         <!--FIN MENU-->
         <center>
             <div class="container center card-panel col s4 m4 l4">
-                <h1>Discounts</h1>
+                <h1>Descuentos</h1>
                 <hr/>
-                <h2>Add New</h2>   
+                <h2>Añadir nuevo</h2>   
                 <panel>
                     <h:form>
                         <h:panelGrid columns="2">
-                            <label>Percentage</label>
-
+                            <label>Porcentaje (de 0 a 1)</label>
                             <h:inputText value="#{discountCRUDBean.percentage}" 
                                          required="true" requiredMessage="the percentage is required">
                                 <f:validateDoubleRange minimum="0.0" maximum="1.0" />
                             </h:inputText>
-                            <label>Expiration Date<br/>Usage: dd/mm/yyyy</label>
+                            <label>Fecha de expiración<br/>Uso: dd/mm/yyyy</label>
                             <div class="input-field col s6">  
                                 <h:inputText class="validate" value="#{discountCRUDBean.expirationDate}" 
                                              required="true" requiredMessage="the expiration date is required">
                                     <f:convertDateTime pattern="dd/mm/yyyy" />
                                 </h:inputText>
-                                <label>Usage: dd/mm/yyy</label>
                             </div>
-                            <label>Vehicle to Discount</label>
+                            <label>Vehículo para descuento</label>
                             <div class="input-field col s4">
                                 <h:selectOneMenu value="#{discountCRUDBean.selectedVehicleId}">
                                     <f:selectItems value="#{discountCRUDBean.availableVehicles}" />
                                 </h:selectOneMenu>
                             </div>
-                            <label>Description</label>
+                            <label>Descripción</label>
                             <h:inputTextarea value="#{discountCRUDBean.description}"/>
 
                         </h:panelGrid>
                         <br/>
                         <h:commandButton 
                             class="waves-effect waves-light btn"
-                            action="#{discountCRUDBean.createDiscount()}" value="Add"/>
+                            action="#{discountCRUDBean.createDiscount()}" value="Crear"/>
                         <br/><br/>
                     </h:form>
                 </panel>

@@ -8,7 +8,7 @@
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Discounts Manager</title>
+        <title>Administración de descuentos</title>
         <f:metadata>
             <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
             <f:event type="preRenderView" listener="#{loginBean.verify_role('Administrator')}"/>
@@ -18,7 +18,7 @@
         <!--MENU-->
         <nav>
             <div class="nav-wrapper blue darken-4 white-text">
-                <a href="../index.xhtml" class="brand-logo">Automarket</a>
+                <a href="../admin/admin_index.xhtml" class="brand-logo">Automarket</a>
                 <ul id="nav-mobile" class="right blue darken-4">
                     <li class="blue-text text-lighten-3">
                         <h:form> <h:commandLink action="discountsCreator" value="Add new Discount"/></h:form>
@@ -32,9 +32,9 @@
         <!--FIN MENU-->
         <center>
             <div class="container center card-panel col s4 m4 l4">
-                <h1>Discounts</h1>
+                <h1>Descuentos</h1>
                 <hr/>
-                <h2>Delete</h2>   
+                <h2>Eliminar</h2>   
                 <panel>
                     <h:form>
                         <div class="input-field col s4">
@@ -45,7 +45,7 @@
                         <br/>
                         <h:commandButton 
                             class="waves-effect waves-light btn"
-                            action="#{discountCRUDBean.deleteDiscount()}" value="Delete"/>
+                            action="#{discountCRUDBean.deleteDiscount()}" value="Eliminar"/>
                         <br/><br/>
                     </h:form>
                 </panel>
