@@ -21,11 +21,10 @@ import javax.faces.bean.ViewScoped;
  *
  * @author afacunaa
  */
-
 @ManagedBean
 @ViewScoped
 public class ShoppingCartBean {
-    
+
     private Integer orderId;
     private Date orderDate;
     private Date deliveryDate;
@@ -120,7 +119,7 @@ public class ShoppingCartBean {
     private int quantity;
     private int vehicleId;
     private String message;
-    
+
     public float getTotal(ShopOrder order) {
         HandleAutoSell has = new HandleAutoSell();
         return has.getTotal(order);
@@ -141,12 +140,12 @@ public class ShoppingCartBean {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
-    
-    public ShoppingCartBean(){
-        orderId=0;
+
+    public ShoppingCartBean() {
+        orderId = 0;
     }
-    
-    public Collection<ShopOrder> displayCart(){
+
+    public Collection<ShopOrder> displayCart() {
         HandleAutoSell has = new HandleAutoSell();
         orders = has.getShoppingCart();
         return orders;
@@ -159,30 +158,29 @@ public class ShoppingCartBean {
     public void setOrders(Collection<ShopOrder> orders) {
         this.orders = orders;
     }
-    
-    public void setOrderId(Integer orderId){
+
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
-    
-    public Integer getOrderId(){
+
+    public Integer getOrderId() {
         return orderId;
     }
-    
-    public void payShopOrder(){
+
+    public void payShopOrder() {
         HandleAutoSell has = new HandleAutoSell();
         has.payOrder(orderId, currency, amount);
     }
-        public void addVehiclesToCart(int vehicleId, int maxQuantity){
+
+    public void addVehiclesToCart(int vehicleId, int maxQuantity) {
         if (quantity > maxQuantity) {
-            
             message = "Numero de vehicuos no disponible";
-            quantity = 0 ;
-        }else{
-        HandleAddVehicle handleAddVehicle = new HandleAddVehicle();
-        handleAddVehicle.addToCart(vehicleId,quantity);
-        quantity = 0 ;
+            quantity = 0;
+        } else {
+            HandleAddVehicle handleAddVehicle = new HandleAddVehicle();
+            handleAddVehicle.addToCart(vehicleId, quantity);
+            quantity = 0;
         }
-            
-        
+
     }
 }

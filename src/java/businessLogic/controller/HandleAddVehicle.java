@@ -5,9 +5,10 @@
  */
 package businessLogic.controller;
 
+import dataSourceManagement.DAO.ClientDAO;
 import dataSourceManagement.DAO.ShopOrderDAO;
 import dataSourceManagement.DAO.StockElementDAO;
-import java.util.Map;
+import dataSourceManagement.entities.Client;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 /**
@@ -16,11 +17,13 @@ import javax.faces.context.FacesContext;
  */
 public class HandleAddVehicle {
     
+    public static final String ID = "id";
     
     public void addToCart(int vehicleId , int quantity){
         ExternalContext ex = FacesContext.getCurrentInstance().getExternalContext();
-        Map<String,Object> clientId = ex.getSessionMap();
-        System.out.println(clientId.toString());
+        ClientDAO clientDAO = new ClientDAO();
+        Client client = clientDAO.searchByNit((String) ex.getSessionMap().get(ID));
+        System.out.println(client.toString());
         for (int i = 0; i < quantity; i++) {
             StockElementDAO shopOrderDao = new StockElementDAO();
             shopOrderDao.addToCart(vehicleId);
