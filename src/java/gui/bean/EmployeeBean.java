@@ -172,6 +172,18 @@ public class EmployeeBean implements Serializable {
         String employeeName = (String) ec.getSessionMap().get("username");
         return hc.getSalary(employeeName);
     }
+    
+    public float weightedGrade(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        HandleEmployee hc = new HandleEmployee();
+        String employeeName = (String) ec.getSessionMap().get("username");
+        List<MonthlyRegister> mrList = hc.getSalary(employeeName);
+        float wgrade = 0;
+        for (MonthlyRegister monthlyRegister : mrList) {
+            wgrade += monthlyRegister.getGrade();
+        }
+        return wgrade/mrList.size();
+    }
 
     public void setValues(String id) {
         HandleEmployee emp = new HandleEmployee();

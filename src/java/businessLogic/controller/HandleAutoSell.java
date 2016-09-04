@@ -83,11 +83,10 @@ public class HandleAutoSell {
             v = vDAO.findVehicle(car.getVehicleVehicleId().getVehicleId());
             total += v.getSellPrice();
             discountList = dDAO.searchGroupByVehicleId(v);
-            for (Discount discount : discountList) {
-                System.out.println("Usando before:   "+discount.getExpirationDate()+ " vs "+new Date()+discount.getExpirationDate().before(new Date()));
-                System.out.println("Usando after:   "+discount.getExpirationDate().after(new Date()));
-                if (discount.getExpirationDate().before(new Date()));
+            for (Discount discount : discountList) {                
+                if (new Date().before(discount.getExpirationDate())){
                     total -= discount.getDiscountAmount();
+                }
             }
         }
         PaymentDAO payDAO = new PaymentDAO();

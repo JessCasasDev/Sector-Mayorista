@@ -39,7 +39,7 @@
             <h2 class=" blue-grey-text text-darken-4 col s8">Documento: </h2>
             <h3 class="blue-grey-text text-lighten-1 col s6">#{sessionScope.id}</h3>
             <hr/>
-            <h3 class=" blue-grey-text text-darken-4 col s8">Salario:</h3>
+            <h3 class=" blue-grey-text text-darken-4 col s8">Historial:</h3>
             <table class="highlight">
                 <tr>
                     <th>Fecha</th>
@@ -54,6 +54,7 @@
                     </tr>
                 </ui:repeat>
             </table>
+            <h5>Tu calificación promedio es: #{employeeBean.weightedGrade()}</h5>
         </center>
 
         <!-- JS FILES-->
