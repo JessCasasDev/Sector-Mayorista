@@ -137,6 +137,7 @@ public class EmployeeBean implements Serializable {
     public Integer getYear() {
         return year;
     }
+
     public void setDate1(Object date1) {
         this.date1 = date1;
     }
@@ -148,16 +149,16 @@ public class EmployeeBean implements Serializable {
     public void createEmployee() throws ParseException {
         userBean = new AuthenticationBean();
         Authentication userCreated = userBean.createAccount(username, password, "3");
-        System.out.println("gui.bean.EmployeeBean.createEmployee() " + date1 );
-        if (userCreated != null){
+        System.out.println("gui.bean.EmployeeBean.createEmployee() " + date1);
+        if (userCreated != null) {
             HandleEmployee hc = new HandleEmployee();
             BigInteger newid = BigInteger.valueOf(documentId);
             Date date = this.setDateTime(day, month, year);
             boolean bl;
-            bl = hc.createEmployee(name, lastName, newid, date, userCreated);     
-            if (bl)   
-               message = "Empleado creado con éxito";
-            else
+            bl = hc.createEmployee(name, lastName, newid, date, userCreated);
+            if (bl) {
+                message = "Empleado creado con éxito";
+            } else {
                 message = "El Empleado no se pudo crear";
             }
         } else {
@@ -170,49 +171,49 @@ public class EmployeeBean implements Serializable {
         HandleEmployee hc = new HandleEmployee();
         String employeeName = (String) ec.getSessionMap().get("username");
         return hc.getSalary(employeeName);
-    }    
-    
-    public void setValues(String id){
+    }
+
+    public void setValues(String id) {
         HandleEmployee emp = new HandleEmployee();
         Employee employee = emp.getEmploye(Integer.parseInt(id));
-        if (employee != null){
+        if (employee != null) {
             this.setName(employee.getName());
             this.setLastName(employee.getLastName());
             this.setDocumentId(employee.getDocumentId().intValue());
         }
-         FacesContext.getCurrentInstance().renderResponse();
+        FacesContext.getCurrentInstance().renderResponse();
     }
 
-    void setEmployee(String selectedItem, String employeeName, 
-                        String employeeLastName, Integer employeeDocumentId, 
-                          Integer employeeDay, Integer employeeMonth, Integer employeeYear) {
+    void setEmployee(String selectedItem, String employeeName,
+            String employeeLastName, Integer employeeDocumentId,
+            Integer employeeDay, Integer employeeMonth, Integer employeeYear) {
         HandleEmployee emp = new HandleEmployee();
         Date date = new Date();
         try {
-            date = this.setDateTime(employeeDay, employeeMonth,employeeYear);
+            date = this.setDateTime(employeeDay, employeeMonth, employeeYear);
+
         } catch (ParseException ex) {
-            Logger.getLogger(EmployeeBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmployeeBean.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
-        emp.editEmployee(Integer.parseInt(selectedItem), employeeName, employeeLastName, employeeDocumentId, date );
+        emp.editEmployee(Integer.parseInt(selectedItem), employeeName, employeeLastName, employeeDocumentId, date);
     }
-    
-    public Date setDateTime(int day, int month, int year) throws ParseException{
-            Date birth = new Date();
-            setBirthDate(birth);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-            String s_day = String.valueOf(day);
-            String s_month = String.valueOf(month);
-            String s_year = String.valueOf(year);
-            String dateInString = s_day + "-" + s_month + "-" + s_year + " 10:20:56";
-            Date date = sdf.parse(dateInString);
-            return date;
+
+    public Date setDateTime(int day, int month, int year) throws ParseException {
+        Date birth = new Date();
+        setBirthDate(birth);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        String s_day = String.valueOf(day);
+        String s_month = String.valueOf(month);
+        String s_year = String.valueOf(year);
+        String dateInString = s_day + "-" + s_month + "-" + s_year + " 10:20:56";
+        Date date = sdf.parse(dateInString);
+        return date;
     }
 
     public boolean deleteEmployee(Integer id) {
-            HandleEmployee empl = new HandleEmployee();
-            
-            return empl.deleteEmployee(id);
+        HandleEmployee empl = new HandleEmployee();
+        return empl.deleteEmployee(id);
     }
-    
-    
+
 }
