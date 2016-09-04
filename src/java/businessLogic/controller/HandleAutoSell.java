@@ -6,6 +6,7 @@
 package businessLogic.controller;
 
 import dataSourceManagement.DAO.ClientDAO;
+import dataSourceManagement.DAO.DiscountDAO;
 import dataSourceManagement.DAO.PaymentDAO;
 import dataSourceManagement.DAO.ShopOrderDAO;
 import dataSourceManagement.DAO.StockElementDAO;
@@ -15,6 +16,7 @@ import dataSourceManagement.entities.Discount;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Payment;
 import dataSourceManagement.entities.StockElement;
+import dataSourceManagement.entities.Vehicle;
 import java.util.Collection;
 import java.util.Date;
 import javax.faces.context.ExternalContext;
@@ -72,9 +74,20 @@ public class HandleAutoSell {
         float total=0;
         StockElementDAO seDAO = new StockElementDAO();
         VehicleDAO vDAO = new VehicleDAO();
+        DiscountDAO dDAO = new DiscountDAO();
         Collection<StockElement> cars = seDAO.searchGroupByOrderIdAndAvailable(order, Boolean.FALSE);
+        Collection<Discount> discountList;
+        Vehicle v;
         for (StockElement car : cars) {
-            total += vDAO.findVehicle(car.getVehicleVehicleId().getVehicleId()).getSellPrice();
+            v = vDAO.findVehicle(car.getVehicleVehicleId().getVehicleId());
+            total += v.getSellPrice();
+            discountList = dDAO.searchGroupByVehicleId(v);
+            for (Discount discount : discountList) {
+                System.out.println("Usando before:   "+discount.getExpirationDate()+ " vs "+new Date()+discount.getExpirationDate().before(new Date()));
+                System.out.println("Usando after:   "+discount.getExpirationDate().after(new Date()));
+                if (discount.getExpirationDate().before(new Date()));
+                    total -= discount.getDiscountAmount();
+            }
         }
         PaymentDAO payDAO = new PaymentDAO();
         float debt = total;
