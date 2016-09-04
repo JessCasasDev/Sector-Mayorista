@@ -21,7 +21,7 @@ public class AuthentificationManager {
         String roleName = (String) ec.getSessionMap().get(HandleLogin.ROLE);
         RoleDAO rDAO = new RoleDAO();
         Role r = rDAO.searchByRoleName(roleName);
-      /*  boolean checkPermission = r.checkPermissions(c, action);
-        return checkPermission;*/return true;
+        boolean checkPermission = r.checkPermissions(c, action);
+        return checkPermission;
     }
 }
