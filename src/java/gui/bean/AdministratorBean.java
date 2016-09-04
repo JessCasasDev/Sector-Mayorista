@@ -37,12 +37,11 @@ public class AdministratorBean implements Serializable{
 
     public AdministratorBean() {
     }
-    
-    public void payEmployee(Integer employee_id){
-        System.out.println("Employee ID: " + employee_id + ", payment: " + payment + ", grade: " + grade );
-    }
-    
-    public void gradeEmployee(Integer employee_id){
-        System.out.println("Employee ID: " + employee_id + ", payment: " + payment + ", grade: " + grade );
+        
+    public void updateEmployee(Integer employee_id){
+        HandleEmployee employee = new HandleEmployee();
+        employee.setMonth(employee_id, payment, grade);
+        grade = null;
+        payment = null;
     }
 }

@@ -15,7 +15,7 @@ and open the template in the editor.
          <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Administraciión de Empleados</title>
+        <title>Administración de Empleados</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <f:metadata>
             <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
@@ -27,11 +27,11 @@ and open the template in the editor.
         <nav>
             <div class="nav-wrapper blue darken-4">
                 <a href="../index.xhtml" class="brand-logo">Automarket</a>
-                <ul id="nav-mobile" class="right blue darken-4">
-                    <li class="blue-text text-lighten-3"><a href="#">Automóviles</a></li>
-                    <li class="blue-text text-lighten-3"><a href="#">Carrito de Compra</a></li>
-                    <li class="blue-text text-lighten-3"><a href="#">Compras</a></li>
-                    <li class="blue-text text-lighten-3"><a href="#">Perfil</a></li>
+                <ul id="nav-mobile" class="right blue darken-4">                    
+                    <li class="blue-text text-lighten-3"><a href="admin_index.xhtml">Inicio</a></li>
+                    <li class="blue-text text-lighten-3"><h:form>
+                            <h:commandButton action="#{loginBean.logout()}" value="Logout" class="blue-text text-darken-3"/>
+                        </h:form></li>
                 </ul>
             </div>
         </nav>    
@@ -57,15 +57,16 @@ and open the template in the editor.
                             <td>#{employee.documentId}</td>
                             <h:form>
                                 <td>
-                                    <input id="Comando_#{employee.employeeId}" value="#{administratorBean.payment}"/> 
-                                    <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{administratorBean.payEmployee(employee.employeeId)}" value="Pagar"/>
-                                </td>
-                            </h:form>
-                            <h:form>
+                                    <h:inputText value="#{administratorBean.payment}" required="true" requiredMessage="¡Se debe realizar el pago!">
+                                        <f:validateDoubleRange minimum="0.0" maximum="1000000000000.0" />
+                                    </h:inputText>
+                                    </td>
                                 <td>
-                                    <h:inputText value="#{administratorBean.grade}"/>
-                                    <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{administratorBean.gradeEmployee(employee.employeeId)}" value="Calificar"/>
+                                    <h:inputText value="#{administratorBean.grade}" required="true" requiredMessage="¡Se debe colocar una calificación!">
+                                        <f:validateDoubleRange minimum="0.0" maximum="5.0" />
+                                    </h:inputText>
                                 </td>
+                                <td><h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{administratorBean.updateEmployee(employee.employeeId)}" value="Aceptar"/></td>
                             </h:form>    
                         </tr>
                     </c:forEach>

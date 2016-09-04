@@ -54,6 +54,23 @@ public class HandleEmployee {
         List<MonthlyRegister> mrlist = mrDAO.searchByEmployeeId(employee);
         return mrlist;
     }
+
+    public boolean setMonth(Integer employee_id, Float payment, Float grade) {
+        MonthlyRegisterDAO month = new MonthlyRegisterDAO();
+        MonthlyRegister m_register = new MonthlyRegister();
+        EmployeeDAO empDao = new EmployeeDAO();
+        Employee emp = empDao.searchById(employee_id);
+        if(emp!=null){
+            m_register.setEmployeeEmployeeId(emp);
+            m_register.setPayment(payment);
+            m_register.setGrade(grade);
+            m_register.setDate(new Date());
+            MonthlyRegister mr= month.persist(m_register);
+            if (mr==null)
+                return false;
+        }        
+        return true;
+    }
     
     
 }
