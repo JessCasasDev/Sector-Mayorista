@@ -59,7 +59,7 @@ public class Discount implements Serializable {
     @Column(name = "percentage")
     private Float percentage;
     @JoinColumn(name = "shop_order_order_id", referencedColumnName = "order_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private ShopOrder shopOrderOrderId;
     @JoinColumn(name = "vehicle_id", referencedColumnName = "vehicle_id")
     @ManyToOne(optional = false)

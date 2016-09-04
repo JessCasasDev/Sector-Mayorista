@@ -15,9 +15,11 @@ import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.entities.Discount;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Vehicle;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -35,23 +37,26 @@ public class DiscountCRUDBean {
     private Integer selectedVehicleId;
     private Integer selectedDiscountId;
 
-    private Date expirationDate;
+    private String expirationDate;
     private String description;
     private Float discountAmount;
     private Float percentage;
     private ShopOrder shopOrderOrderId;
     private Vehicle vehicleId;
+    private SimpleDateFormat sdf;
 
     public DiscountCRUDBean() {
         selectedVehicleId = -1;
         selectedDiscountId = -1;
+        sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",
+                Locale.US);
     }
 
-    public Date getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -133,9 +138,12 @@ public class DiscountCRUDBean {
 
     public void createDiscount() {
         DiscountCRUD discountCRUD = new DiscountCRUD();
+
         try {
             Discount discount = new Discount();
             discount.setDescription(getDescription());
+            System.out.println("Discount date: " + expirationDate);
+            discount.setExpirationDate(sdf.parse(expirationDate));
             discount.setDiscountAmount(getDiscountAmount());
             discount.setPercentage(getPercentage());
             Vehicle selectedVehicle = getSelectedVehicle();
@@ -161,6 +169,7 @@ public class DiscountCRUDBean {
             String key = edited.getLabel();
             edited.setDescription(getDescription());
             edited.setDiscountAmount(getDiscountAmount());
+            edited.setExpirationDate(sdf.parse(expirationDate));
             edited.setPercentage(getPercentage());
             Vehicle selectedVehicle = getSelectedVehicle();
             if (selectedVehicle == null) {
