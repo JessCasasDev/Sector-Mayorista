@@ -2,8 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <head>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
@@ -13,7 +14,7 @@
             <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
             <f:event type="preRenderView" listener="#{loginBean.verify_role('Administrator')}"/>
         </f:metadata>
-    </head>
+    </h:head>
     <body>
         <!--MENU-->
         <nav>
@@ -43,7 +44,7 @@
                             <label>Model</label>
                             <h:inputText value="#{vehicleCRUDBean.model}" required="true" requiredMessage="the model is required"/>
                             <label>Color</label>
-                            <h:inputText value="#{vehicleCRUDBean.color}" required="true" requiredMessage="the color is required"/>
+                            <p:colorPicker value="#{vehicleCRUDBean.color}" mode="inline" />
                             <label>Brand</label>
                             <h:inputText value="#{vehicleCRUDBean.brand}" required="true" requiredMessage="the brand is required"/>
                             <label>Description</label>

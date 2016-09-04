@@ -18,17 +18,17 @@ import java.util.List;
  * @author mssg_
  */
 public class HandleCar {
-    
-    public List<Vehicle> getCars(){
+
+    public List<Vehicle> getCars() {
         CarDAO carDao = new CarDAO();
         List<Vehicle> vehicle = carDao.getCars();
         return vehicle;
     }
-    
-    public Long searchByVIdAndAvaliablity(int vehicleId){
+
+    public Long searchByVIdAndAvaliablity(int vehicleId) {
         StockElementDAO stockDao = new StockElementDAO();
         List<Long> stockList = stockDao.searchByVIdAndAvaliablity(vehicleId);
         return stockList.get(0);
     }
-    
+
 }

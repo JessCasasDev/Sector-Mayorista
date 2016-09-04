@@ -37,60 +37,60 @@
                 <h2>Agregar a un Nuevo Empleado</h2>   
                 <panel>
                     <h:form>
-                <hr/>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <h3 class="indigo-text text-darken-4">Crear Cuenta Empleado</h3>
-                        <div class="input-field col s6">
-                            <h:inputText value="#{employeeBean.username}" required="true" requiredMessage="¡El usuario es requerido!"/>
-                            <label>Nombre de Usuario</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <h:inputSecret value="#{employeeBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>
-                            <label>Contraseña</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <h:inputText value="#{employeeBean.name}" required="true" requiredMessage="¡El nombre es requerido!"/>
-                            <label>Nombre de Empleado</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <h:inputText value="#{employeeBean.lastName}" required="true" requiredMessage="¡El apellido es requerido!"/>
-                            <label>Apellido</label>
-                        </div>
-                        <div class="input-field col s12">
-                            <h:inputText value="#{employeeBean.documentId}" required="true" requiredMessage="¡El documento es requerido!" converterMessage="Porfavor ingrese solo valores numéricos"/>
-                            <label>Documento</label>
-                        </div><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                        <div class="container">
-                            <center><p class="indigo-text text-darken-4 col s12">Fecha de nacimiento</p></center>
-                            <div class="input-field col s4"><h:inputText value="#{employeeBean.day}"  converterMessage="Porfavor ingrese solo valores numericos" required="true" requiredMessage="¡El día es requerido!">
-                                    <f:validateLongRange maximum="31" minimum="1" />
-                                </h:inputText>
-                                <label>Dia</label>
-                            </div>
-                            <div class="input-field col s4">
-                                <h:inputText value="#{employeeBean.month}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos">
-                                <f:validateLongRange maximum="12" minimum="1" />
-                                </h:inputText>
-                                <label>Mes</label>
-                            </div>
-                            <div class="input-field col s4">
-                                <h:inputText value="#{employeeBean.year}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos">
-                                <f:validateLongRange maximum="2016" minimum="1920" /></h:inputText>
-                                <label>Año</label>
-                            </div>               
-                            <div class="input-field col s4">
-                                <input type="date" class="datepicker" value="#{employeeBean.date1}"></input>
+                        <hr/>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <h3 class="indigo-text text-darken-4">Crear Cuenta Empleado</h3>
+                                <div class="input-field col s6">
+                                    <h:inputText value="#{employeeBean.username}" required="true" requiredMessage="¡El usuario es requerido!"/>
+                                    <label>Nombre de Usuario</label>
                                 </div>
-                        </div>
-                        
-                <br/>
-                <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{employeeBean.createEmployee()}" value="Crear Empleado"/>
-                <br/><br/>
-                <p>Mensaje: </p>
-                <h:outputText value="#{employeeBean.message}"/>
-                <br/><br/>
-                    </div></div></h:form>
+                                <div class="input-field col s6">
+                                    <h:inputSecret value="#{employeeBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>
+                                    <label>Contraseña</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <h:inputText value="#{employeeBean.name}" required="true" requiredMessage="¡El nombre es requerido!"/>
+                                    <label>Nombre de Empleado</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <h:inputText value="#{employeeBean.lastName}" required="true" requiredMessage="¡El apellido es requerido!"/>
+                                    <label>Apellido</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <h:inputText value="#{employeeBean.documentId}" required="true" requiredMessage="¡El documento es requerido!" converterMessage="Porfavor ingrese solo valores numéricos"/>
+                                    <label>Documento</label>
+                                </div><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                                <div class="container">
+                                    <center><p class="indigo-text text-darken-4 col s12">Fecha de nacimiento</p></center>
+                                    <div class="input-field col s4"><h:inputText value="#{employeeBean.day}"  converterMessage="Porfavor ingrese solo valores numericos" required="true" requiredMessage="¡El día es requerido!">
+                                            <f:validateLongRange maximum="31" minimum="1" />
+                                        </h:inputText>
+                                        <label>Dia</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <h:inputText value="#{employeeBean.month}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos">
+                                            <f:validateLongRange maximum="12" minimum="1" />
+                                        </h:inputText>
+                                        <label>Mes</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <h:inputText value="#{employeeBean.year}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos">
+                                            <f:validateLongRange maximum="2016" minimum="1920" /></h:inputText>
+                                        <label>Año</label>
+                                    </div>               
+                                    <div class="input-field col s4">
+                                        <input type="date" class="datepicker" value="#{employeeBean.date1}"></input>
+                                    </div>
+                                </div>
+
+                                <br/>
+                                <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{employeeBean.createEmployee()}" value="Crear Empleado"/>
+                                <br/><br/>
+                                <p>Mensaje: </p>
+                                <h:outputText value="#{employeeBean.message}"/>
+                                <br/><br/>
+                            </div></div></h:form>
                 </panel>
             </div>
         </center>

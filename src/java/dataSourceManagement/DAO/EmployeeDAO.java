@@ -18,16 +18,16 @@ import javax.persistence.Query;
  * @author afacunaa
  */
 public class EmployeeDAO {
-    
+
     public EntityManagerFactory emf3 = Persistence.createEntityManagerFactory("autoMarketPU");
-    
+
     public Employee persist(Employee employee) {
         EntityManager em = emf3.createEntityManager();
         em.getTransaction().begin();
         try {
             em.persist(employee);
             em.getTransaction().commit();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
         } finally {
@@ -35,8 +35,8 @@ public class EmployeeDAO {
         }
         return employee;
     }
-    
-    public Employee searchByUsername(Authentication username){
+
+    public Employee searchByUsername(Authentication username) {
         EntityManager em = emf3.createEntityManager();
         Query q = em.createNamedQuery("Employee.findByAuthenticationId");
         q.setParameter("authId", username);
@@ -44,15 +44,15 @@ public class EmployeeDAO {
         try {
             employee = (Employee) q.getSingleResult();
             //employee = em.find(Employee.class, username.getAuthId());
-            
-        } catch (Exception e){
+
+        } catch (Exception e) {
         } finally {
             em.close();
         }
         return employee;
     }
-    
-    public Employee searchById(Integer id){
+
+    public Employee searchById(Integer id) {
         EntityManager em = emf3.createEntityManager();
         Query q = em.createNamedQuery("Employee.findByEmployeeId");
         q.setParameter("employeeId", id);
@@ -60,12 +60,13 @@ public class EmployeeDAO {
         try {
             employee = (Employee) q.getSingleResult();
             //employee = em.find(Employee.class, username.getAuthId());
-            
-        } catch (Exception e){
+
+        } catch (Exception e) {
         } finally {
             em.close();
         }
-        return employee;    }
+        return employee;
+    }
 
     public Collection<Employee> getEmployees() {
         EntityManager em = emf3.createEntityManager();
@@ -73,10 +74,10 @@ public class EmployeeDAO {
         Query q = em.createNamedQuery("Employee.findAll");
         try {
             employeeCollection = q.getResultList();
-        } catch (Exception e){
+        } catch (Exception e) {
         } finally {
             em.close();
         }
         return employeeCollection;
-    }    
+    }
 }

@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ValueChangeEvent;
 
 @ManagedBean
 @ViewScoped
@@ -37,7 +38,6 @@ public class VehicleCRUDBean {
 
     public VehicleCRUDBean() {
         selectedVehicleId = -1;
-        //empty constructor
     }
 
     public String getType() {
@@ -98,8 +98,8 @@ public class VehicleCRUDBean {
 
     public Map<String, Integer> getAvailableVehicles() {
         availableVehicles = new LinkedHashMap<>();
-        VehicleDAO vdao = new VehicleDAO();
-        List<Vehicle> vehicles = vdao.findVehicleEntities();
+        HandleVehicleCRUD vCRUD = new HandleVehicleCRUD();
+        List<Vehicle> vehicles = vCRUD.findVehicleEntities();
         for (Vehicle v : vehicles) {
             availableVehicles.put(v.getLabel(), v.getVehicleId());
         }
@@ -114,12 +114,11 @@ public class VehicleCRUDBean {
         this.selectedVehicleId = selectedVehicleId;
     }
 
-    public void fillVehicleData() {
-        if (selectedVehicleId == -1) {
-            System.out.println("any selected vehicle");
-            return;
-        }
-        Vehicle selected = getSelectedVehicle();
+    public void fillVehicleData(ValueChangeEvent e) {
+        System.out.println("id selected: " + getSelectedVehicleId());
+        int newVal = Integer.parseInt(e.getNewValue().toString());
+        System.out.println("new Val selected: " + newVal);
+        Vehicle selected = getSelectedVehicle(newVal);
         System.out.println("vehicle to fill " + selected.getLabel());
         this.setBrand(selected.getBrand());
         this.setColor(selected.getColor());
@@ -180,8 +179,11 @@ public class VehicleCRUDBean {
     }
 
     private Vehicle getSelectedVehicle() {
+        return getSelectedVehicle(getSelectedVehicleId());
+    }
+    private Vehicle getSelectedVehicle(int id) {
         VehicleDAO vdao = new VehicleDAO();
-        return vdao.findVehicle(getSelectedVehicleId());
+        return vdao.findVehicle(id);
     }
 
     @Override

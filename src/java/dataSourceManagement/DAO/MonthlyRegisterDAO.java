@@ -18,16 +18,16 @@ import javax.persistence.Query;
  * @author afacunaa
  */
 public class MonthlyRegisterDAO {
-    
+
     public EntityManagerFactory emf3 = Persistence.createEntityManagerFactory("autoMarketPU");
-    
+
     public MonthlyRegister persist(MonthlyRegister mr) {
         EntityManager em = emf3.createEntityManager();
         em.getTransaction().begin();
         try {
             em.persist(mr);
             em.getTransaction().commit();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
         } finally {
@@ -35,19 +35,19 @@ public class MonthlyRegisterDAO {
         }
         return mr;
     }
-    
-    public List<MonthlyRegister> searchByEmployeeId(Employee employee){
+
+    public List<MonthlyRegister> searchByEmployeeId(Employee employee) {
         EntityManager em = emf3.createEntityManager();
         Query q = em.createNamedQuery("MonthlyRegister.findByEmployeeId");
         q.setParameter("employeeEmployeeId", employee);
         List<MonthlyRegister> mr = null;
         try {
             mr = q.getResultList();
-        } catch (Exception e){
+        } catch (Exception e) {
         } finally {
             em.close();
         }
         return mr;
     }
-    
+
 }

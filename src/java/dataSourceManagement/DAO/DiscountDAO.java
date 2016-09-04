@@ -154,6 +154,7 @@ public class DiscountDAO implements Serializable {
             utx.commit();
             System.out.println("discount destroyed: " + discount.getLabel());
         } catch (Exception ex) {
+            System.out.println(ex);
             try {
                 utx.rollback();
             } catch (Exception re) {

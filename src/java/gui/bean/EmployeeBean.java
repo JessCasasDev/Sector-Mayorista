@@ -18,7 +18,8 @@ import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
-public class EmployeeBean implements Serializable{
+public class EmployeeBean implements Serializable {
+
     private String username;
     private String password;
     private String name;
@@ -31,12 +32,12 @@ public class EmployeeBean implements Serializable{
     private Integer day;
     private Integer month;
     private Integer year;
-    @ManagedProperty(value="#{userBean}")
+    @ManagedProperty(value = "#{userBean}")
     private AuthenticationBean userBean;
 
     public EmployeeBean() {
         message = "";
-    }   
+    }
 
     public void setMessage(String message) {
         this.message = message;
@@ -49,10 +50,10 @@ public class EmployeeBean implements Serializable{
     public AuthenticationBean getUserBean() {
         return userBean;
     }
-   
-   public void setUserBean(AuthenticationBean ub){
-       this.userBean = ub;
-   }
+
+    public void setUserBean(AuthenticationBean ub) {
+        this.userBean = ub;
+    }
 
     public void setUsername(String username) {
         this.username = username;
@@ -77,7 +78,7 @@ public class EmployeeBean implements Serializable{
     public int getAdministrator() {
         return administrator;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -109,30 +110,31 @@ public class EmployeeBean implements Serializable{
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
-    
-    public void setDay(Integer day){
+
+    public void setDay(Integer day) {
         this.day = day;
     }
-    
-    public void setMonth(Integer month){
+
+    public void setMonth(Integer month) {
         this.month = month;
     }
-    
-    public void setYear(Integer year){
+
+    public void setYear(Integer year) {
         this.year = year;
     }
-    
-    public Integer getDay(){
+
+    public Integer getDay() {
         return day;
     }
-    
-    public Integer getMonth(){
+
+    public Integer getMonth() {
         return month;
     }
-    
-    public Integer getYear(){
+
+    public Integer getYear() {
         return year;
     }
+
     public void setDate1(String date1) {
         this.date1 = date1;
     }
@@ -140,13 +142,13 @@ public class EmployeeBean implements Serializable{
     public String getDate1() {
         return date1;
     }
-    
-    public void createEmployee() throws ParseException{
+
+    public void createEmployee() throws ParseException {
         userBean = new AuthenticationBean();
         Authentication userCreated = userBean.createAccount(username, password, "3");
-     /*   String date = date1.split('-');
-        String tdate = date[2] + "/" + date[1] + "/" + date[0];*/
-        if (userCreated != null){
+        /*   String date = date1.split('-');
+         String tdate = date[2] + "/" + date[1] + "/" + date[0];*/
+        if (userCreated != null) {
             HandleEmployee hc = new HandleEmployee();
             BigInteger newid = BigInteger.valueOf(documentId);
             Date birth = new Date();
@@ -158,21 +160,21 @@ public class EmployeeBean implements Serializable{
             String dateInString = s_day + "-" + s_month + "-" + s_year + " 10:20:56";
             Date date = sdf.parse(dateInString);
             boolean bl;
-            bl = hc.createEmployee(name, lastName, newid, date, userCreated);     
-            if (bl)   
-               message = "Usuario creado con éxito";
-            else
+            bl = hc.createEmployee(name, lastName, newid, date, userCreated);
+            if (bl) {
+                message = "Usuario creado con éxito";
+            } else {
                 message = "El Empleado no se pudo crear";
-        }
-        else
+            }
+        } else {
             message = "No se pudo crear el usuario. Porfavor intente con otro nombre de usuario";
         }
-    
-    public List<MonthlyRegister> showSalary(){
+    }
+
+    public List<MonthlyRegister> showSalary() {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         HandleEmployee hc = new HandleEmployee();
         String employeeId = (String) ec.getSessionMap().get("username");
         return hc.getSalary(employeeId);
     }
 }
-

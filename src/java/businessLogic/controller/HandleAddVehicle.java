@@ -11,15 +11,16 @@ import dataSourceManagement.DAO.StockElementDAO;
 import dataSourceManagement.entities.Client;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
 /**
  *
  * @author mssg_
  */
 public class HandleAddVehicle {
-    
+
     public static final String ID = "id";
-    
-    public void addToCart(int vehicleId , int quantity){
+
+    public void addToCart(int vehicleId, int quantity) {
         ExternalContext ex = FacesContext.getCurrentInstance().getExternalContext();
         ClientDAO clientDAO = new ClientDAO();
         Client client = clientDAO.searchByNit((String) ex.getSessionMap().get(ID));
@@ -28,9 +29,7 @@ public class HandleAddVehicle {
             StockElementDAO shopOrderDao = new StockElementDAO();
             shopOrderDao.addToCart(vehicleId);
         }
-        
+
     }
-    
-    
-    
+
 }

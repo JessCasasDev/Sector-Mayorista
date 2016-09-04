@@ -9,7 +9,8 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class AdministratorBean implements Serializable{
+public class AdministratorBean implements Serializable {
+
     private Float payment;
     private Float grade;
     private Collection<Employee> employee_list;
@@ -29,16 +30,16 @@ public class AdministratorBean implements Serializable{
     public Float getGrade() {
         return grade;
     }
-    
-    public Collection<Employee> management(){
+
+    public Collection<Employee> management() {
         HandleEmployee employee = new HandleEmployee();
         return employee.getEmployeeInformation();
     }
 
     public AdministratorBean() {
     }
-        
-    public void updateEmployee(Integer employee_id){
+
+    public void updateEmployee(Integer employee_id) {
         HandleEmployee employee = new HandleEmployee();
         employee.setMonth(employee_id, payment, grade);
         grade = null;

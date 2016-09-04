@@ -18,16 +18,16 @@ import javax.persistence.Query;
  * @author afacunaa
  */
 public class PaymentDAO {
-    
+
     public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("autoMarketPU");
-    
+
     public Payment persist(Payment payment) {
         EntityManager em = emf1.createEntityManager();
         em.getTransaction().begin();
         try {
             em.persist(payment);
             em.getTransaction().commit();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
         } finally {
@@ -35,19 +35,19 @@ public class PaymentDAO {
         }
         return payment;
     }
-    
-    public Collection<Payment> searchGroupByOrderId(ShopOrder order){
+
+    public Collection<Payment> searchGroupByOrderId(ShopOrder order) {
         EntityManager em = emf1.createEntityManager();
         Collection<Payment> paymentCollection = null;
         Query q = em.createNamedQuery("Payment.findByShopOrderId");
         q.setParameter("shopOrderOrderId", order);
         try {
             paymentCollection = q.getResultList();
-        } catch (Exception e){
+        } catch (Exception e) {
         } finally {
             em.close();
         }
         return paymentCollection;
     }
-    
+
 }
