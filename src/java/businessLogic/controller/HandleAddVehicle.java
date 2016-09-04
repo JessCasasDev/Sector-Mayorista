@@ -25,8 +25,8 @@ public class HandleAddVehicle {
         Client client = clientDAO.searchByNit((String) ex.getSessionMap().get(ID));
         System.out.println(client.toString());
         for (int i = 0; i < quantity; i++) {
-            StockElementDAO shopOrderDao = new StockElementDAO();
-            shopOrderDao.addToCart(vehicleId);
+            StockElementDAO stockElementDAO = new StockElementDAO();
+            stockElementDAO.addToCart(vehicleId, client.getClientId());
         }
         
     }
