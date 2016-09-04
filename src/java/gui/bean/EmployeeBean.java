@@ -15,7 +15,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.validation.constraints.Digits;
 
 @ManagedBean
 @ViewScoped
@@ -26,6 +25,7 @@ public class EmployeeBean implements Serializable{
     private String lastName;
     private Integer documentId;
     private Date birthDate;
+    private String date1;
     private Integer administrator;
     private String message;
     private Integer day;
@@ -133,11 +133,19 @@ public class EmployeeBean implements Serializable{
     public Integer getYear(){
         return year;
     }
+    public void setDate1(String date1) {
+        this.date1 = date1;
+    }
+
+    public String getDate1() {
+        return date1;
+    }
     
     public void createEmployee() throws ParseException{
         userBean = new AuthenticationBean();
         Authentication userCreated = userBean.createAccount(username, password, "3");
-       
+     /*   String date = date1.split('-');
+        String tdate = date[2] + "/" + date[1] + "/" + date[0];*/
         if (userCreated != null){
             HandleEmployee hc = new HandleEmployee();
             BigInteger newid = BigInteger.valueOf(documentId);

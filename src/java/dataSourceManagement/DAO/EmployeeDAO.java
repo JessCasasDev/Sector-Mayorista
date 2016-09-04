@@ -51,6 +51,21 @@ public class EmployeeDAO {
         }
         return employee;
     }
+    
+    public Employee searchById(Integer id){
+        EntityManager em = emf3.createEntityManager();
+        Query q = em.createNamedQuery("Employee.findByEmployeeId");
+        q.setParameter("employeeId", id);
+        Employee employee = null;
+        try {
+            employee = (Employee) q.getSingleResult();
+            //employee = em.find(Employee.class, username.getAuthId());
+            
+        } catch (Exception e){
+        } finally {
+            em.close();
+        }
+        return employee;    }
 
     public Collection<Employee> getEmployees() {
         EntityManager em = emf3.createEntityManager();
@@ -63,6 +78,5 @@ public class EmployeeDAO {
             em.close();
         }
         return employeeCollection;
-    }
-    
+    }    
 }
