@@ -38,8 +38,8 @@ public class HandleEmployee {
             return false;
         }
     }
-
-    public Collection<Employee> getEmployeeInformation() {
+    
+    public List<Employee> getEmployeeInformation(){
         EmployeeDAO emp_dao = new EmployeeDAO();
         return emp_dao.getEmployees();
     }
@@ -71,5 +71,40 @@ public class HandleEmployee {
         }
         return true;
     }
+    
+    public Employee getEmploye(Integer id){
+        EmployeeDAO empDao = new EmployeeDAO();        
+        return empDao.searchById(id);
+        
+    }
 
+    public void editEmployee(Integer id, String employeeName, String employeeLastName, Integer employeeDocumentId, Date date) {
+        EmployeeDAO employee = new EmployeeDAO();
+        Employee emp = employee.searchById(id);
+        
+        if(employeeName!= null){
+            emp.setName(employeeName);
+        }
+        
+        if(employeeLastName!= null){
+            emp.setLastName(employeeLastName);
+        }
+        
+        if(employeeDocumentId!= null){
+            BigInteger bi = BigInteger.valueOf(employeeDocumentId.intValue());
+            emp.setDocumentId(bi);
+        }
+        
+        if(date!= null){
+            emp.setBirthDate(date);
+        }
+        employee.edit(emp);        
+    }
+
+    public boolean deleteEmployee(Integer id) {
+        EmployeeDAO empl = new EmployeeDAO();
+        return empl.deleteEmployee(id);
+    }
+    
 }
+

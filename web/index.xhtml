@@ -32,20 +32,20 @@
         <div id="client-reg">
             <div class="container">
                 <h3 class="indigo-text text-darken-4">Ingresar a tu cuenta</h3>
-                <h:form>
-                    <div class="input-field col s6">
-                        <h:inputText value="#{loginBean.username}" required="true" requiredMessage="¡El nombre es requerido!"/>
-                        <label>Nombre de Usuario</label>
-                    </div> 
-                    <div class="input-field col s6">
-                        <div class="input-field col s6"></div> <h:inputSecret value="#{loginBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>
-                        <label>Contraseña</label>
-                    </div>
-
-                    <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{loginBean.login()}" value="Login"/>
-                    <h:outputText value=" #{loginBean.message}"/>
-                </h:form>
-            </div>
+            <h:form>
+                <div class="input-field col s6">
+                    <h:inputText value="#{loginBean.username}" required="true" requiredMessage="¡El nombre es requerido!"/>
+                    <label>Nombre de Usuario</label>
+                </div> 
+                <div class="input-field col s6">
+                    <div class="input-field col s6"></div> <h:inputSecret value="#{loginBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>
+                    <label>Contraseña</label>
+                </div>
+                
+                <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{loginBean.login()}" value="Entrar"/>
+                <h:outputText value=" #{loginBean.message}"/>
+            </h:form>
+                </div>
             <div class="container">
                 <h:form>
                     <div class="row">
