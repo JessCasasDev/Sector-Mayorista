@@ -167,4 +167,7 @@ public class Employee implements Serializable {
         return "dataSourceManagement.entities.Employee[ employeeId=" + employeeId + " ]";
     }
     
+    public String getInformation(){
+        return "Id: " + this.employeeId + " - Nombre: " + this.name + " " + this.lastName;
+    }
 }

@@ -8,6 +8,7 @@ package dataSourceManagement.DAO;
 import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Employee;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -36,6 +37,23 @@ public class EmployeeDAO {
         return employee;
     }
     
+    public void edit(Employee employee){
+        Employee newEmployee;
+        EntityManager em = emf3.createEntityManager();  
+        em.getTransaction().begin();
+        try {
+            newEmployee = em.merge(em.find(Employee.class, employee.getEmployeeId())); 
+            newEmployee.setName(employee.getName());
+            newEmployee.setLastName(employee.getLastName());
+            newEmployee.setDocumentId(employee.getDocumentId());
+            newEmployee.setBirthDate(employee.getBirthDate());
+            em.getTransaction().commit();
+        } catch (Exception e){
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
     public Employee searchByUsername(Authentication username){
         EntityManager em = emf3.createEntityManager();
         Query q = em.createNamedQuery("Employee.findByAuthenticationId");
@@ -67,9 +85,9 @@ public class EmployeeDAO {
         }
         return employee;    }
 
-    public Collection<Employee> getEmployees() {
+    public List<Employee> getEmployees() {
         EntityManager em = emf3.createEntityManager();
-        Collection<Employee> employeeCollection = null;
+        List<Employee> employeeCollection = null;
         Query q = em.createNamedQuery("Employee.findAll");
         try {
             employeeCollection = q.getResultList();
