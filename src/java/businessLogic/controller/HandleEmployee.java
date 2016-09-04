@@ -21,10 +21,10 @@ import java.util.List;
  * @author afacunaa
  */
 public class HandleEmployee {
-    
-    public boolean createEmployee(String name, String lastName, BigInteger documentId, Date birthDate, Authentication user){
+
+    public boolean createEmployee(String name, String lastName, BigInteger documentId, Date birthDate, Authentication user) {
         Employee employee = new Employee();
-        
+
         employee.setName(name);
         employee.setLastName(lastName);
         employee.setDocumentId(documentId);
@@ -32,9 +32,9 @@ public class HandleEmployee {
         employee.setAuthId(user);
         EmployeeDAO employeeDAO = new EmployeeDAO();
         Employee employeeE = employeeDAO.persist(employee);
-        if (employeeE != null){
+        if (employeeE != null) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -44,8 +44,7 @@ public class HandleEmployee {
         return emp_dao.getEmployees();
     }
 
-    
-    public List<MonthlyRegister> getSalary(String username){
+    public List<MonthlyRegister> getSalary(String username) {
         AuthenticationDAO authDAO = new AuthenticationDAO();
         Authentication auth = authDAO.searchByUsername(username);
         EmployeeDAO employeeDAO = new EmployeeDAO();
@@ -60,15 +59,16 @@ public class HandleEmployee {
         MonthlyRegister m_register = new MonthlyRegister();
         EmployeeDAO empDao = new EmployeeDAO();
         Employee emp = empDao.searchById(employee_id);
-        if(emp!=null){
+        if (emp != null) {
             m_register.setEmployeeEmployeeId(emp);
             m_register.setPayment(payment);
             m_register.setGrade(grade);
             m_register.setDate(new Date());
-            MonthlyRegister mr= month.persist(m_register);
-            if (mr==null)
+            MonthlyRegister mr = month.persist(m_register);
+            if (mr == null) {
                 return false;
-        }        
+            }
+        }
         return true;
     }
     

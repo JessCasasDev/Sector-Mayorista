@@ -7,15 +7,16 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 public class AuthenticationDAO {
+
     public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("autoMarketPU");
-    
+
     public Authentication persist(Authentication auth) {
         EntityManager em = emf1.createEntityManager();
         em.getTransaction().begin();
         try {
             em.persist(auth);
-            em.getTransaction().commit();       
-        } catch(Exception e) {
+            em.getTransaction().commit();
+        } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
         } finally {
@@ -24,15 +25,15 @@ public class AuthenticationDAO {
         }
         return auth;
     }
-    
-    public Authentication searchByUsername(String username){
+
+    public Authentication searchByUsername(String username) {
         EntityManager em = emf1.createEntityManager();
         Query q = em.createNamedQuery("Authentication.findByUserName");
         q.setParameter("userName", username);
         Authentication auth = null;
         try {
             auth = (Authentication) q.getSingleResult();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         } finally {
             em.close();

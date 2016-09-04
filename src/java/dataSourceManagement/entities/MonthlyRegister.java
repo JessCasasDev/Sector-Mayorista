@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "MonthlyRegister.findByDate", query = "SELECT m FROM MonthlyRegister m WHERE m.date = :date"),
     @NamedQuery(name = "MonthlyRegister.findByEmployeeId", query = "SELECT m FROM MonthlyRegister m WHERE m.employeeEmployeeId = :employeeEmployeeId")})
 public class MonthlyRegister implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -126,5 +127,5 @@ public class MonthlyRegister implements Serializable {
     public String toString() {
         return "dataSourceManagement.entities.MonthlyRegister[ registeredId=" + registeredId + " ]";
     }
-    
+
 }

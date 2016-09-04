@@ -156,8 +156,9 @@ public class Discount implements Serializable {
 
     public String getLabel() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-        return sdf.format(expirationDate) + " " + percentage + " description: "
-                + description + " vehicle: " + vehicleId.getLabel();
+        return sdf.format(expirationDate) + " %: " + percentage + " D amount "
+                + discountAmount + " description: " + description
+                + " vehicle: " + vehicleId.getLabel();
     }
 
 }

@@ -37,8 +37,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Client.findByName", query = "SELECT c FROM Client c WHERE c.name = :name"),
     @NamedQuery(name = "Client.findByNit", query = "SELECT c FROM Client c WHERE c.nit = :nit"),
     @NamedQuery(name = "Client.findByAddress", query = "SELECT c FROM Client c WHERE c.address = :address"),
-    @NamedQuery(name = "Client.findByAuthenticationId", query ="SELECT c FROM Client c WHERE c.authId = :authId")})
+    @NamedQuery(name = "Client.findByAuthenticationId", query = "SELECT c FROM Client c WHERE c.authId = :authId")})
 public class Client implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -140,5 +141,5 @@ public class Client implements Serializable {
     public String toString() {
         return "dataSourceManagement.entities.Client[ clientId=" + clientId + " ]";
     }
-    
+
 }

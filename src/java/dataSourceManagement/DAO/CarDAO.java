@@ -20,15 +20,16 @@ import javax.persistence.Query;
  * @author mssg_
  */
 public class CarDAO {
+
     public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("autoMarketPU");
-    
+
     public Vehicle persist(Vehicle vehicle) {
         EntityManager em = emf1.createEntityManager();
         em.getTransaction().begin();
         try {
             em.persist(vehicle);
             em.getTransaction().commit();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
         } finally {
@@ -36,19 +37,20 @@ public class CarDAO {
         }
         return vehicle;
     }
-    public List<Vehicle> getCars(){
+
+    public List<Vehicle> getCars() {
         EntityManager em = emf1.createEntityManager();
         List<Vehicle> vehicle = new ArrayList<Vehicle>();
         Query q = em.createNamedQuery("Vehicle.findAll");
-        
+
         try {
-            vehicle =  q.getResultList();
+            vehicle = q.getResultList();
         } catch (Exception e) {
         } finally {
             em.close();
         }
-        
+
         return vehicle;
     }
-   
+
 }

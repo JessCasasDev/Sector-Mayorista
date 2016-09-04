@@ -42,6 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ShopOrder.findByState", query = "SELECT s FROM ShopOrder s WHERE s.state = :state"),
     @NamedQuery(name = "ShopOrder.findByStateAndClient", query = "SELECT s FROM ShopOrder s WHERE s.state = :state AND s.clientId = :clientId")})
 public class ShopOrder implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -165,5 +166,5 @@ public class ShopOrder implements Serializable {
     public String toString() {
         return "dataSourceManagement.entities.ShopOrder[ orderId=" + orderId + " ]";
     }
-    
+
 }

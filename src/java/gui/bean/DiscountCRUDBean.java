@@ -16,13 +16,13 @@ import dataSourceManagement.entities.Discount;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Vehicle;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ValueChangeEvent;
 
 @ManagedBean
 @ViewScoped
@@ -42,13 +42,14 @@ public class DiscountCRUDBean {
     private Float percentage;
     private ShopOrder shopOrderOrderId;
     private Vehicle vehicleId;
-    private SimpleDateFormat sdf;
+    private SimpleDateFormat sdf, sdf2;
 
     public DiscountCRUDBean() {
         selectedVehicleId = -1;
         selectedDiscountId = -1;
         sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",
                 Locale.US);
+        sdf2 = new SimpleDateFormat("dd/mm/yyyy");
     }
 
     public String getExpirationDate() {
@@ -111,8 +112,8 @@ public class DiscountCRUDBean {
 
     public Map<String, Integer> getAvailableDiscounts() {
         availableDiscounts = new LinkedHashMap<>();
-        DiscountDAO discountDAO = new DiscountDAO();
-        List<Discount> discounts = discountDAO.findDiscountEntities();
+        DiscountCRUD discountCRUD = new DiscountCRUD();
+        List<Discount> discounts = discountCRUD.findDiscountEntities();
         for (Discount d : discounts) {
             availableDiscounts.put(d.getLabel(), d.getDiscountId());
         }
@@ -177,14 +178,14 @@ public class DiscountCRUDBean {
 
     public void deleteDiscount() {
         DiscountCRUD deleteCRUD = new DiscountCRUD();
-        if (selectedVehicleId == -1) {
-            System.err.println("any selected vehicle");
+        if (selectedDiscountId == -1) {
+            System.err.println("any selected discount");
             return;
         }
         Discount deletedDiscount = getSelectedDiscount();
         String key = deletedDiscount.getLabel();
         deleteCRUD.deleteDiscount(getSelectedDiscountId());
-        availableVehicles.remove(key);
+        availableDiscounts.remove(key);
     }
 
     private Vehicle getSelectedVehicle() {
@@ -201,6 +202,16 @@ public class DiscountCRUDBean {
     private Discount getSelectedDiscount() {
         DiscountDAO vdao = new DiscountDAO();
         return vdao.findDiscount(getSelectedDiscountId());
+    }
+
+    public void fillDiscountData(ValueChangeEvent e) {
+        setSelectedDiscountId(Integer.parseInt(e.getNewValue().toString()));
+        Discount selected = getSelectedDiscount();
+        System.out.println("discount to fill " + selected.getLabel());
+        this.setDescription(selected.getDescription());
+        this.setExpirationDate(sdf2.format(selected.getExpirationDate()));
+        this.setPercentage(selected.getPercentage());
+        this.setSelectedVehicleId(selected.getVehicleId().getVehicleId());
     }
 
 }
