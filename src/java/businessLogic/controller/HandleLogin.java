@@ -43,11 +43,13 @@ public class HandleLogin {
         EmployeeDAO employeeDAO = new EmployeeDAO();
         Employee user2 = employeeDAO.searchByUsername(auth);
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-
+       
+                
         if (username == null && password == null) {
             return "Bienvenido";
         }
         if (user1 != null) { //es un cliente
+            
             if (!user1.getAuthId().getPassword().equals(password)) {
                 return "Clave incorrecta.";
             }

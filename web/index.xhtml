@@ -107,20 +107,25 @@
                             <label>Apellido</label>
                         </div>
                         <div class="input-field col s12">
-                            <h:inputText value="#{employeeBean.documentId}" required="true" requiredMessage="¡El documento es requerido!" converterMessage="Porfavor ingrese solo valores numericos"/>
+                            <h:inputText value="#{employeeBean.documentId}" required="true" requiredMessage="¡El documento es requerido!" converterMessage="Porfavor ingrese solo valores numéricos"/>
                             <label>Documento</label>
                         </div><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                         <div class="container">
                             <center><p class="indigo-text text-darken-4 col s12">Fecha de nacimiento</p></center>
-                            <div class="input-field col s4"><h:inputText value="#{employeeBean.day}"  converterMessage="Porfavor ingrese solo valores numericos" required="true" requiredMessage="¡El día es requerido!"/>
+                            <div class="input-field col s4"><h:inputText value="#{employeeBean.day}"  converterMessage="Porfavor ingrese solo valores numericos" required="true" requiredMessage="¡El día es requerido!">
+                                    <f:validateLongRange maximum="31" minimum="1" />
+                                </h:inputText>
                                 <label>Dia</label>
                             </div>
                             <div class="input-field col s4">
-                                <h:inputText value="#{employeeBean.month}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos"/>
+                                <h:inputText value="#{employeeBean.month}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos">
+                                <f:validateLongRange maximum="12" minimum="1" />
+                                </h:inputText>
                                 <label>Mes</label>
                             </div>
                             <div class="input-field col s4">
-                                <h:inputText value="#{employeeBean.year}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos"/>
+                                <h:inputText value="#{employeeBean.year}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos">
+                                <f:validateLongRange maximum="2016" minimum="1920" /></h:inputText>
                                 <label>Año</label>
                             </div>               
                         </div>

@@ -33,6 +33,7 @@ public class AuthenticationDAO {
         try {
             auth = (Authentication) q.getSingleResult();
         } catch (Exception e){
+            System.out.println(e);
         } finally {
             em.close();
         }

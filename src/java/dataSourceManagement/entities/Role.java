@@ -53,7 +53,6 @@ public class Role implements Serializable {
     @Size(max = 150)
     @Column(name = "permissions")
     private String permissions;
-
     @Transient
     private Map<Class, List<String>> permissionsMap;
 
@@ -87,7 +86,7 @@ public class Role implements Serializable {
 
     public void setPermissions(String permissions) {
         this.permissions = permissions;
-        createPermissionsMap();
+     //   createPermissionsMap();
     }
 
     @Override

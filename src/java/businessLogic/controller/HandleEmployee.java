@@ -54,4 +54,6 @@ public class HandleEmployee {
         List<MonthlyRegister> mrlist = mrDAO.searchByEmployeeId(employee);
         return mrlist;
     }
+    
+    
 }
