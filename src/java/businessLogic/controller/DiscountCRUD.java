@@ -7,7 +7,6 @@ package businessLogic.controller;
 
 import dataSourceManagement.DAO.DiscountDAO;
 import dataSourceManagement.entities.Discount;
-import dataSourceManagement.entities.Vehicle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

@@ -28,10 +28,10 @@ import javax.persistence.Persistence;
 public class DiscountDAO implements Serializable {
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("autoMarketPU");
-    private EntityTransaction utx = emf.createEntityManager().getTransaction();
 
     public void create(Discount discount) throws RollbackFailureException, Exception {
-        EntityManager em = null;
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction utx = em.getTransaction();
         try {
             utx.begin();
             ShopOrder shopOrderOrderId = discount.getShopOrderOrderId();
@@ -54,7 +54,9 @@ public class DiscountDAO implements Serializable {
                 vehicleId = em.merge(vehicleId);
             }
             utx.commit();
+            System.out.println("discount added: " + discount.getLabel());
         } catch (Exception ex) {
+            System.out.println(ex.toString());
             try {
                 utx.rollback();
             } catch (Exception re) {
@@ -69,7 +71,8 @@ public class DiscountDAO implements Serializable {
     }
 
     public void edit(Discount discount) throws NonexistentEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction utx = em.getTransaction();
         try {
             utx.begin();
             Discount persistentDiscount = em.find(Discount.class, discount.getDiscountId());
@@ -103,6 +106,7 @@ public class DiscountDAO implements Serializable {
                 vehicleIdNew = em.merge(vehicleIdNew);
             }
             utx.commit();
+            System.out.println("discount edited: " + discount.getLabel());
         } catch (Exception ex) {
             try {
                 utx.rollback();
@@ -125,7 +129,8 @@ public class DiscountDAO implements Serializable {
     }
 
     public void destroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
-        EntityManager em = null;
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction utx = em.getTransaction();
         try {
             utx.begin();
             Discount discount;
@@ -147,6 +152,7 @@ public class DiscountDAO implements Serializable {
             }
             em.remove(discount);
             utx.commit();
+            System.out.println("discount destroyed: " + discount.getLabel());
         } catch (Exception ex) {
             try {
                 utx.rollback();
