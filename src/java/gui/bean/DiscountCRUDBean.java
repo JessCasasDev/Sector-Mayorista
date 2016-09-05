@@ -22,6 +22,7 @@ import java.util.Locale;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
 @ManagedBean
@@ -212,6 +213,7 @@ public class DiscountCRUDBean {
         this.setExpirationDate(sdf2.format(selected.getExpirationDate()));
         this.setPercentage(selected.getPercentage());
         this.setSelectedVehicleId(selected.getVehicleId().getVehicleId());
+        FacesContext.getCurrentInstance().renderResponse();
     }
 
 }

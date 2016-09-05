@@ -46,10 +46,6 @@
                                 <f:selectItems value="#{vehicleCRUDBean.availableVehicles}" />
                             </h:selectOneMenu>
                         </div>
-                        
-                        <h:commandButton 
-                            class="waves-effect waves-light btn"
-                            action="#{vehicleCRUDBean.fillVehicleData()}" value="fill"/>
                         <h:panelGrid columns="2">
                             <label>Type</label>
                             <h:inputText value="#{vehicleCRUDBean.type}" required="true" requiredMessage="the type is required"/>
