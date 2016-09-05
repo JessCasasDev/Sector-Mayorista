@@ -48,6 +48,7 @@ public class HandleLogin {
             return "Bienvenido";
         }
         if (user1 != null) { //es un cliente
+
             if (!user1.getAuthId().getPassword().equals(password)) {
                 return "Clave incorrecta.";
             }

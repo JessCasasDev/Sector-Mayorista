@@ -6,7 +6,10 @@
 package dataSourceManagement.DAO;
 
 import dataSourceManagement.entities.Vehicle;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.persistence.EntityManager;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -67,6 +70,14 @@ public class VehicleDAOTest {
         assertEquals(vehicle, vehicles.get(0));
         instance.destroy(vehicles.get(0).getVehicleId());
         assertEquals(0, vehicles.size());
+    }
+
+    @Test
+    public void testDate() throws Exception {
+        System.out.println("date");
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US);
+        Date parse = sdf.parse("Tue Jan 07 19:08:00 COT 2020");
+        assertNotNull(parse);
     }
 
 }

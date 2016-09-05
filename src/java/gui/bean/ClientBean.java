@@ -9,15 +9,16 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class ClientBean implements Serializable{
+public class ClientBean implements Serializable {
+
     private String username;
     private String password;
     private String name;
     private String address;
     private String nit;
     private String message;
-   @ManagedProperty(value="#{userBean}")
-   private AuthenticationBean userBean;
+    @ManagedProperty(value = "#{userBean}")
+    private AuthenticationBean userBean;
 
     public ClientBean() {
     }
@@ -25,10 +26,11 @@ public class ClientBean implements Serializable{
     public AuthenticationBean getUserBean() {
         return userBean;
     }
-   
-   public void setUserBean(AuthenticationBean ub){
-       this.userBean = ub;
-   }
+
+    public void setUserBean(AuthenticationBean ub) {
+        this.userBean = ub;
+    }
+
     public void setMessage(String message) {
         this.message = message;
     }
@@ -52,44 +54,43 @@ public class ClientBean implements Serializable{
     public String getPassword() {
         return password;
     }
-    
-    
-    public void ClientProfileBean(){}
-    
-    public String getName(){
+
+    public void ClientProfileBean() {
+    }
+
+    public String getName() {
         return this.name;
     }
-    
-    public String getNit(){
+
+    public String getNit() {
         return this.nit;
     }
-    
-    public String getAddress(){
+
+    public String getAddress() {
         return this.address;
     }
-    
-    public void setName(String name){
+
+    public void setName(String name) {
         this.name = name;
     }
-    
-    public void setNit(String nit){
+
+    public void setNit(String nit) {
         this.nit = nit;
     }
-    
-    public void setAddress(String address){
+
+    public void setAddress(String address) {
         this.address = address;
     }
-    
-    public void createClient(){
+
+    public void createClient() {
         userBean = new AuthenticationBean();
         Authentication userCreated = userBean.createAccount(username, password, "2");
         if (userCreated != null) {
             HandleClient hc = new HandleClient();
             message = hc.createClient(name, nit, address, userCreated);
         } else {
-            message = "No se pudo crear el usuario";
+            message = "No se pudo crear el usuario. Intente con otro nombre de usuario";
         }
-        
+
     }
 }
-

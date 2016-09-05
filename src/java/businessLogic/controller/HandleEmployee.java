@@ -21,10 +21,10 @@ import java.util.List;
  * @author afacunaa
  */
 public class HandleEmployee {
-    
-    public boolean createEmployee(String name, String lastName, BigInteger documentId, Date birthDate, Authentication user){
+
+    public boolean createEmployee(String name, String lastName, BigInteger documentId, Date birthDate, Authentication user) {
         Employee employee = new Employee();
-        
+
         employee.setName(name);
         employee.setLastName(lastName);
         employee.setDocumentId(documentId);
@@ -32,20 +32,19 @@ public class HandleEmployee {
         employee.setAuthId(user);
         EmployeeDAO employeeDAO = new EmployeeDAO();
         Employee employeeE = employeeDAO.persist(employee);
-        if (employeeE != null){
+        if (employeeE != null) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
     
-    public Collection<Employee> getEmployeeInformation(){
+    public List<Employee> getEmployeeInformation(){
         EmployeeDAO emp_dao = new EmployeeDAO();
         return emp_dao.getEmployees();
     }
 
-    
-    public List<MonthlyRegister> getSalary(String username){
+    public List<MonthlyRegister> getSalary(String username) {
         AuthenticationDAO authDAO = new AuthenticationDAO();
         Authentication auth = authDAO.searchByUsername(username);
         EmployeeDAO employeeDAO = new EmployeeDAO();
@@ -54,4 +53,58 @@ public class HandleEmployee {
         List<MonthlyRegister> mrlist = mrDAO.searchByEmployeeId(employee);
         return mrlist;
     }
+
+    public boolean setMonth(Integer employee_id, Float payment, Float grade) {
+        MonthlyRegisterDAO month = new MonthlyRegisterDAO();
+        MonthlyRegister m_register = new MonthlyRegister();
+        EmployeeDAO empDao = new EmployeeDAO();
+        Employee emp = empDao.searchById(employee_id);
+        if (emp != null) {
+            m_register.setEmployeeEmployeeId(emp);
+            m_register.setPayment(payment);
+            m_register.setGrade(grade);
+            m_register.setDate(new Date());
+            MonthlyRegister mr = month.persist(m_register);
+            if (mr == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public Employee getEmploye(Integer id){
+        EmployeeDAO empDao = new EmployeeDAO();        
+        return empDao.searchById(id);
+        
+    }
+
+    public void editEmployee(Integer id, String employeeName, String employeeLastName, Integer employeeDocumentId, Date date) {
+        EmployeeDAO employee = new EmployeeDAO();
+        Employee emp = employee.searchById(id);
+        
+        if(employeeName!= null){
+            emp.setName(employeeName);
+        }
+        
+        if(employeeLastName!= null){
+            emp.setLastName(employeeLastName);
+        }
+        
+        if(employeeDocumentId!= null){
+            BigInteger bi = BigInteger.valueOf(employeeDocumentId.intValue());
+            emp.setDocumentId(bi);
+        }
+        
+        if(date!= null){
+            emp.setBirthDate(date);
+        }
+        employee.edit(emp);        
+    }
+
+    public boolean deleteEmployee(Integer id) {
+        EmployeeDAO empl = new EmployeeDAO();
+        return empl.deleteEmployee(id);
+    }
+    
 }
+

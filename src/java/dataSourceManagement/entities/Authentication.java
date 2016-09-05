@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Authentication.findByUserName", query = "SELECT a FROM Authentication a WHERE a.userName = :userName"),
     @NamedQuery(name = "Authentication.findByPassword", query = "SELECT a FROM Authentication a WHERE a.password = :password")})
 public class Authentication implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -138,5 +139,5 @@ public class Authentication implements Serializable {
     public String toString() {
         return "dataSourceManagement.entities.Authentication[ authId=" + authId + " ]";
     }
-    
+
 }

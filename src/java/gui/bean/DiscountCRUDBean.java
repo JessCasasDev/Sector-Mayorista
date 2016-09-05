@@ -15,12 +15,14 @@ import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.entities.Discount;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Vehicle;
-import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ValueChangeEvent;
 
 @ManagedBean
 @ViewScoped
@@ -35,23 +37,26 @@ public class DiscountCRUDBean {
     private Integer selectedVehicleId;
     private Integer selectedDiscountId;
 
-    private Date expirationDate;
+    private String expirationDate;
     private String description;
-    private Float discountAmount;
     private Float percentage;
     private ShopOrder shopOrderOrderId;
     private Vehicle vehicleId;
+    private SimpleDateFormat sdf, sdf2;
 
     public DiscountCRUDBean() {
         selectedVehicleId = -1;
         selectedDiscountId = -1;
+        sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",
+                Locale.US);
+        sdf2 = new SimpleDateFormat("dd/mm/yyyy");
     }
 
-    public Date getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -61,14 +66,6 @@ public class DiscountCRUDBean {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Float getDiscountAmount() {
-        return discountAmount;
-    }
-
-    public void setDiscountAmount(Float discountAmount) {
-        this.discountAmount = discountAmount;
     }
 
     public Float getPercentage() {
@@ -115,8 +112,8 @@ public class DiscountCRUDBean {
 
     public Map<String, Integer> getAvailableDiscounts() {
         availableDiscounts = new LinkedHashMap<>();
-        DiscountDAO discountDAO = new DiscountDAO();
-        List<Discount> discounts = discountDAO.findDiscountEntities();
+        DiscountCRUD discountCRUD = new DiscountCRUD();
+        List<Discount> discounts = discountCRUD.findDiscountEntities();
         for (Discount d : discounts) {
             availableDiscounts.put(d.getLabel(), d.getDiscountId());
         }
@@ -136,13 +133,15 @@ public class DiscountCRUDBean {
         try {
             Discount discount = new Discount();
             discount.setDescription(getDescription());
-            discount.setDiscountAmount(getDiscountAmount());
+            System.out.println("Discount date: " + expirationDate);
+            discount.setExpirationDate(sdf.parse(expirationDate));
             discount.setPercentage(getPercentage());
             Vehicle selectedVehicle = getSelectedVehicle();
             if (selectedVehicle == null) {
                 System.out.println("any selected vehicle");
                 return;
             }
+            discount.setDiscountAmount(selectedVehicle.getSellPrice() * getPercentage());
             discount.setVehicleId(selectedVehicle);
             discountCRUD.createDiscount(discount);
         } catch (Exception e) {
@@ -160,7 +159,7 @@ public class DiscountCRUDBean {
             Discount edited = getSelectedDiscount();
             String key = edited.getLabel();
             edited.setDescription(getDescription());
-            edited.setDiscountAmount(getDiscountAmount());
+            edited.setExpirationDate(sdf.parse(expirationDate));
             edited.setPercentage(getPercentage());
             Vehicle selectedVehicle = getSelectedVehicle();
             if (selectedVehicle == null) {
@@ -168,6 +167,7 @@ public class DiscountCRUDBean {
                 return;
             }
             edited.setVehicleId(selectedVehicle);
+            edited.setDiscountAmount(selectedVehicle.getSellPrice() * getPercentage());
             discountCRUD.editDiscount(edited);
             availableDiscounts.remove(key);
             availableDiscounts.put(edited.getLabel(), edited.getDiscountId());
@@ -178,14 +178,14 @@ public class DiscountCRUDBean {
 
     public void deleteDiscount() {
         DiscountCRUD deleteCRUD = new DiscountCRUD();
-        if (selectedVehicleId == -1) {
-            System.err.println("any selected vehicle");
+        if (selectedDiscountId == -1) {
+            System.err.println("any selected discount");
             return;
         }
         Discount deletedDiscount = getSelectedDiscount();
         String key = deletedDiscount.getLabel();
         deleteCRUD.deleteDiscount(getSelectedDiscountId());
-        availableVehicles.remove(key);
+        availableDiscounts.remove(key);
     }
 
     private Vehicle getSelectedVehicle() {
@@ -202,6 +202,16 @@ public class DiscountCRUDBean {
     private Discount getSelectedDiscount() {
         DiscountDAO vdao = new DiscountDAO();
         return vdao.findDiscount(getSelectedDiscountId());
+    }
+
+    public void fillDiscountData(ValueChangeEvent e) {
+        setSelectedDiscountId(Integer.parseInt(e.getNewValue().toString()));
+        Discount selected = getSelectedDiscount();
+        System.out.println("discount to fill " + selected.getLabel());
+        this.setDescription(selected.getDescription());
+        this.setExpirationDate(sdf2.format(selected.getExpirationDate()));
+        this.setPercentage(selected.getPercentage());
+        this.setSelectedVehicleId(selected.getVehicleId().getVehicleId());
     }
 
 }

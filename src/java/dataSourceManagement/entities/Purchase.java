@@ -41,6 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Purchase.findByDeliveryDate", query = "SELECT p FROM Purchase p WHERE p.deliveryDate = :deliveryDate"),
     @NamedQuery(name = "Purchase.findByQuantity", query = "SELECT p FROM Purchase p WHERE p.quantity = :quantity")})
 public class Purchase implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -148,5 +149,5 @@ public class Purchase implements Serializable {
     public String toString() {
         return "dataSourceManagement.entities.Purchase[ purchaseId=" + purchaseId + " ]";
     }
-    
+
 }

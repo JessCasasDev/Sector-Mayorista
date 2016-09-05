@@ -7,7 +7,7 @@ package businessLogic.controller;
 
 import dataSourceManagement.DAO.DiscountDAO;
 import dataSourceManagement.entities.Discount;
-import dataSourceManagement.entities.Vehicle;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,5 +48,10 @@ public class DiscountCRUD {
                 Logger.getLogger(DiscountCRUD.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    public List<Discount> findDiscountEntities() {
+        DiscountDAO dDAO = new DiscountDAO();
+        return dDAO.findDiscountEntities();
     }
 }

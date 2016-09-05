@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "StockElement.findByShopOrderIdAndAvailable", query = "SELECT s FROM StockElement s WHERE s.shopOrderOrderId = :shopOrderOrderId AND s.avaliable = :available"),
     @NamedQuery(name = "StockElement.findByVehicleIdAndAvailable", query = "SELECT s FROM StockElement s WHERE s.vehicleVehicleId = :vehicleVehicleId AND s.avaliable = :available")})
 public class StockElement implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -136,5 +137,5 @@ public class StockElement implements Serializable {
     public String toString() {
         return "dataSourceManagement.entities.StockElement[ elementId=" + elementId + " ]";
     }
-    
+
 }

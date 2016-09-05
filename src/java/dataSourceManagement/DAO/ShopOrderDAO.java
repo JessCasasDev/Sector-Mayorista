@@ -20,17 +20,18 @@ import javax.persistence.Query;
  * @author afacunaa
  */
 public class ShopOrderDAO {
+
     public static final String EFECTIVO = "Efectivo";
     public static final String TARJETA = "Tarjeta";
     public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("autoMarketPU");
-    
+
     public ShopOrder persist(ShopOrder order) {
         EntityManager em = emf1.createEntityManager();
         em.getTransaction().begin();
         try {
             em.persist(order);
             em.getTransaction().commit();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
         } finally {
@@ -38,14 +39,14 @@ public class ShopOrderDAO {
         }
         return order;
     }
-    
-    public void buyAutos(ShopOrder order, String currency, String state, float amount){
-        
+
+    public void buyAutos(ShopOrder order, String currency, String state, float amount) {
+
         PaymentDAO paymentDAO = new PaymentDAO();
         String type = currency;
         Date date = new Date();
         String debt = Float.toString(amount);
-        
+
         Payment payment = new Payment();
         payment.setDate(date);
         payment.setDebt(debt);
@@ -55,15 +56,16 @@ public class ShopOrderDAO {
         order.setState(state);
         editState(order.getOrderId(), state);
     }
-    
+
     public boolean editState(Integer orderId, String state) {
         ShopOrder order;
-        EntityManager em = emf1.createEntityManager();  
+        EntityManager em = emf1.createEntityManager();
         em.getTransaction().begin();
         boolean success = true;
         try {
-            order = em.merge(em.find(ShopOrder.class, orderId)); 
+            order = em.merge(em.find(ShopOrder.class, orderId));
             order.setState(state);
+            order.setDeliveryDate(new Date());
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
@@ -73,30 +75,30 @@ public class ShopOrderDAO {
         }
         return success;
     }
-    
-    public ShopOrder searchByOrderId(Integer orderId){
-        
+
+    public ShopOrder searchByOrderId(Integer orderId) {
+
         EntityManager em = emf1.createEntityManager();
         ShopOrder order = em.find(ShopOrder.class, orderId);
         em.close();
         return order;
     }
-    
-    public Collection<ShopOrder> searchGroupByState(String state){
+
+    public Collection<ShopOrder> searchGroupByState(String state) {
         EntityManager em = emf1.createEntityManager();
         Collection<ShopOrder> orderCollection = null;
         Query q = em.createNamedQuery("ShopOrder.findByState");
         q.setParameter("state", state);
         try {
             orderCollection = q.getResultList();
-        } catch (Exception e){
+        } catch (Exception e) {
         } finally {
             em.close();
         }
         return orderCollection;
     }
-    
-    public Collection<ShopOrder> searchGroupByStateAndClient(String state, Client clientId){
+
+    public Collection<ShopOrder> searchGroupByStateAndClient(String state, Client clientId) {
         EntityManager em = emf1.createEntityManager();
         Collection<ShopOrder> orderCollection = null;
         Query q = em.createNamedQuery("ShopOrder.findByStateAndClient");
@@ -104,11 +106,11 @@ public class ShopOrderDAO {
         q.setParameter("clientId", clientId);
         try {
             orderCollection = q.getResultList();
-        } catch (Exception e){
+        } catch (Exception e) {
         } finally {
             em.close();
         }
         return orderCollection;
     }
-    
+
 }
