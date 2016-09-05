@@ -72,7 +72,7 @@
                             </h:selectOneRadio>
                             <h6>Cantidad a pagar:</h6>
                             <h:inputText class="validate" value="#{shoppingCartBean.amount}" required="true"/>
-                            <h:commandButton action="#{shoppingCartBean.payShopOrder()}" value="Pagar"/>
+                            <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{shoppingCartBean.payShopOrder()}" value="Pagar"/>
                         </div>
                     </div>
                 </h:form>
