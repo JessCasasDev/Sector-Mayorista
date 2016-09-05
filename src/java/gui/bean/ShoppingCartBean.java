@@ -150,6 +150,12 @@ public class ShoppingCartBean {
         orders = has.getShoppingCart();
         return orders;
     }
+    
+    public Collection<ShopOrder> displayHistory() {
+        HandleAutoSell has = new HandleAutoSell();
+        return has.getBuyingHistory();
+        
+    }
 
     public Collection<ShopOrder> getOrders() {
         return orders;

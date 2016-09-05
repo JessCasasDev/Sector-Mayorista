@@ -27,16 +27,16 @@ import javax.faces.context.FacesContext;
  * @author afacunaa
  */
 public class HandleAutoSell {
-
+    
     public static final String ID = "id";
     public static final String SELECCIONADA = "Seleccionada";
     public static final String ESPERA = "En espera";
     public static final String FINALIZADA = "Finalizada";
-
+    
     public void addToCart(Collection<StockElement> stockElementCollection) { //crear una orden
 
         ShopOrderDAO orderDAO = new ShopOrderDAO();
-
+        
         Integer orderId;
         Date orderDate = new Date();
         Date deliveryDate = new Date();
@@ -47,7 +47,7 @@ public class HandleAutoSell {
         for (StockElement se : stockElementCollection) {
             se.setAvaliable(Boolean.FALSE);
         }
-
+        
         ShopOrder order = new ShopOrder();
         order.setClientId(clientId);
         order.setDeliveryDate(deliveryDate);
@@ -56,10 +56,10 @@ public class HandleAutoSell {
         order.setPaymentCollection(paymentCollection);
         order.setState(state);
         order.setStockElementCollection(stockElementCollection);
-
+        
         orderDAO.persist(order);
     }
-
+    
     public Collection<ShopOrder> getShoppingCart() {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ShopOrderDAO orderDAO = new ShopOrderDAO();
@@ -70,7 +70,16 @@ public class HandleAutoSell {
         orderCollection.addAll(orderCollection2);
         return orderCollection;
     }
-
+    
+    public Collection<ShopOrder> getBuyingHistory() {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ShopOrderDAO orderDAO = new ShopOrderDAO();
+        ClientDAO clientDAO = new ClientDAO();
+        Client client = clientDAO.searchByNit((String) ec.getSessionMap().get(ID));
+        Collection<ShopOrder> orderCollection = orderDAO.searchGroupByStateAndClient(FINALIZADA, client);
+        return orderCollection;
+    }
+    
     public float getTotal(ShopOrder order) {
         float total = 0;
         StockElementDAO seDAO = new StockElementDAO();
@@ -84,22 +93,24 @@ public class HandleAutoSell {
             total += v.getSellPrice();
             discountList = dDAO.searchGroupByVehicleId(v);
             for (Discount discount : discountList) {                
-                if (new Date().before(discount.getExpirationDate())){
+                if (new Date().before(discount.getExpirationDate())) {
                     total -= discount.getDiscountAmount();
                 }
             }
         }
-        PaymentDAO payDAO = new PaymentDAO();
-        float debt = total;
-        for (Payment pay : payDAO.searchGroupByOrderId(order)) {
-            if (debt > Float.parseFloat(pay.getDebt())) {
-                total = Float.parseFloat(pay.getDebt());
-                debt = total;
+        if (!order.getState().equals(FINALIZADA)) {
+            PaymentDAO payDAO = new PaymentDAO();
+            float debt = total;
+            for (Payment pay : payDAO.searchGroupByOrderId(order)) {
+                if (debt > Float.parseFloat(pay.getDebt())) {
+                    total = Float.parseFloat(pay.getDebt());
+                    debt = total;
+                }
             }
         }
         return total;
     }
-
+    
     public void payOrder(Integer orderId, String currency, float amount) {
         ShopOrderDAO orderDAO = new ShopOrderDAO();
         ShopOrder order = orderDAO.searchByOrderId(orderId);
@@ -112,5 +123,5 @@ public class HandleAutoSell {
             //Pago de mas
         }
     }
-
+    
 }

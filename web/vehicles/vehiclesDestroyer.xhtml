@@ -8,7 +8,7 @@
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Vehicles Manager</title>
+        <title>Administrador de vehículos</title>
         <f:metadata>
             <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
             <f:event type="preRenderView" listener="#{loginBean.verify_role('Administrator')}"/>
@@ -20,20 +20,24 @@
             <div class="nav-wrapper blue darken-4 white-text">
                 <a href="../index.xhtml" class="brand-logo">Automarket</a>
                 <ul id="nav-mobile" class="right blue darken-4">
+                    <li class="blue-text text-lighten-3"><a href="../admin/admin_index.xhtml">Inicio</a></li>
                     <li class="blue-text text-lighten-3">
-                        <h:form> <h:commandLink action="vehiclesCreator" value="Add new Vehicle"/></h:form>
+                        <h:form> <h:commandLink action="vehiclesCreator" value="Agregar vehículo"/></h:form>
                     </li>
                     <li class="blue-text text-lighten-3">
-                        <h:form> <h:commandLink action="vehiclesEditor" value="Edit a Vehicle"/></h:form>
+                        <h:form> <h:commandLink action="vehiclesEditor" value="Editar vehículo"/></h:form>
                     </li>
+                    <li class="blue-text text-lighten-3"><h:form>
+                            <h:commandButton action="#{loginBean.logout()}" value="Logout" class="blue-text text-darken-3"/>
+                        </h:form></li>
                 </ul>
             </div>
         </nav>    
         <center>
             <div class="container center card-panel col s4 m4 l4">
-                <h1>Vehicles</h1>
+                <h1>Vehículos</h1>
                 <hr/>
-                <h2>Delete</h2>   
+                <h2>Eliminar</h2>   
                 <panel>
                     <h:form>
                         <div class="input-field col s4">
@@ -44,7 +48,7 @@
                         <br/>
                         <h:commandButton 
                             class="waves-effect waves-light btn"
-                            action="#{vehicleCRUDBean.deleteVehicle()}" value="Delete"/>
+                            action="#{vehicleCRUDBean.deleteVehicle()}" value="Eliminar"/>
                         <br/><br/>
                     </h:form>
                 </panel>
