@@ -16,8 +16,7 @@ import javax.faces.event.ValueChangeEvent;
 
 @ManagedBean
 @ViewScoped
-public class AdministratorBean implements Serializable {
-
+public class AdministratorBean implements Serializable{
     private Float payment;
     private Float grade;
     private String selectedItem; // +getter +setter
@@ -38,7 +37,7 @@ public class AdministratorBean implements Serializable {
     public String getMessage() {
         return message;
     }
-
+    
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
     }
@@ -86,14 +85,14 @@ public class AdministratorBean implements Serializable {
     public Integer getEmployeeYear() {
         return employeeYear;
     }
-    @ManagedProperty(value = "#{employeeBean}")
+    @ManagedProperty(value="#{employeeBean}")
     private EmployeeBean employeeBean;
 
     public AdministratorBean() {
         HandleEmployee he = new HandleEmployee();
         List<Employee> collect = he.getEmployeeInformation();
         availableItems = new LinkedHashMap<String, String>();
-        for (Employee emp : collect) {
+        for(Employee emp : collect){
             availableItems.put(emp.getInformation(), emp.getEmployeeId().toString());
         }
     }
@@ -105,7 +104,7 @@ public class AdministratorBean implements Serializable {
     public EmployeeBean getEmployeeBean() {
         return employeeBean;
     }
-
+    
     public void setPayment(Float payment) {
         this.payment = payment;
     }
@@ -121,8 +120,8 @@ public class AdministratorBean implements Serializable {
     public Float getGrade() {
         return grade;
     }
-
-    public Collection<Employee> management() {
+    
+    public Collection<Employee> management(){
         HandleEmployee employee = new HandleEmployee();
         return employee.getEmployeeInformation();
     }
@@ -139,37 +138,38 @@ public class AdministratorBean implements Serializable {
         return availableItems;
     }
 
-    public void updateEmployee(Integer employee_id) {
+    public void updateEmployee(Integer employee_id){
         HandleEmployee employee = new HandleEmployee();
         employee.setMonth(employee_id, payment, grade);
         grade = null;
         payment = null;
     }
-
-    public HashMap<String, String> getEmployeeList() {
+    
+    public HashMap<String, String> getEmployeeList(){
         return availableItems;
     }
-
+    
     public void employeeChanged(ValueChangeEvent e) {
-        selectedItem = (String) e.getNewValue();
-        System.out.println("gui.bean.AdministratorBean.employeeChanged()  " + selectedItem);
-        employeeBean = new EmployeeBean();
-        employeeBean.setValues(selectedItem);
-        FacesContext.getCurrentInstance().renderResponse();
+    selectedItem = (String) e.getNewValue();
+    System.out.println("gui.bean.AdministratorBean.employeeChanged()  " + selectedItem);
+    employeeBean = new EmployeeBean();
+    employeeBean.setValues(selectedItem);    
+    FacesContext.getCurrentInstance().renderResponse();
     }
-
-    public void editEmployee() {
+    public void editEmployee(){
         EmployeeBean employeeBean = new EmployeeBean();
-        employeeBean.setEmployee(selectedItem, employeeName, employeeLastName, employeeDocumentId,
-                employeeDay, employeeMonth, employeeYear);
+        if (!employeeBean.setEmployee(selectedItem, employeeName, employeeLastName, employeeDocumentId,
+                employeeDay, employeeMonth, employeeYear))
+            message="El empleado no se ha podido actualizar";
+        else
+            message="Empleado Actualizado";
     }
-
-    public void deleteEmployee() {
+    
+    public void deleteEmployee(){
         EmployeeBean employee = new EmployeeBean();
-        if (employee.deleteEmployee(Integer.parseInt(selectedItem))) {
+        if (employee.deleteEmployee(Integer.parseInt(selectedItem)))
             message = "Empleado eliminado con éxito";
-        } else {
+        else
             message = "El Empleado no pudo ser eliminado";
-        }
     }
 }

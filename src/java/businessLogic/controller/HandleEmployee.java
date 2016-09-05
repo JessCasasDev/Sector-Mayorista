@@ -78,7 +78,7 @@ public class HandleEmployee {
         
     }
 
-    public void editEmployee(Integer id, String employeeName, String employeeLastName, Integer employeeDocumentId, Date date) {
+    public boolean editEmployee(Integer id, String employeeName, String employeeLastName, Integer employeeDocumentId, Date date) {
         EmployeeDAO employee = new EmployeeDAO();
         Employee emp = employee.searchById(id);
         
@@ -98,7 +98,7 @@ public class HandleEmployee {
         if(date!= null){
             emp.setBirthDate(date);
         }
-        employee.edit(emp);        
+        return employee.edit(emp);        
     }
 
     public boolean deleteEmployee(Integer id) {

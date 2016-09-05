@@ -37,7 +37,7 @@ public class EmployeeDAO {
         return employee;
     }
     
-    public void edit(Employee employee){
+    public boolean edit(Employee employee){
         Employee newEmployee;
         EntityManager em = emf3.createEntityManager();  
         em.getTransaction().begin();
@@ -50,9 +50,11 @@ public class EmployeeDAO {
             em.getTransaction().commit();
         } catch (Exception e){
             em.getTransaction().rollback();
+            return false;
         } finally {
             em.close();
         }
+        return true;
     }
     public Employee searchByUsername(Authentication username){
         EntityManager em = emf3.createEntityManager();

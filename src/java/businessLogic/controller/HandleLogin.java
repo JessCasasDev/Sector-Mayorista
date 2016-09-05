@@ -76,9 +76,10 @@ public class HandleLogin {
                 }
                 ec.getSessionMap().put(USERNAME, username);
                 ec.getSessionMap().put(NAME, user2.getName() + " " + user2.getLastName());
-                ec.getSessionMap().put(ID, user2.getDocumentId());
+                ec.getSessionMap().put(ID, user2.getEmployeeId());
                 ec.getSessionMap().put(ROLE, user2.getAuthId().getRoleId().getName());
                 ec.getSessionMap().put(STATE, true);
+                
                 try {
                     String actionURL = null;
                     if (Role.ADMINISTRATOR.equals(user2.getAuthId().getRoleId().getName())) {
