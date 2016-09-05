@@ -9,6 +9,7 @@ import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.DAO.exceptions.NonexistentEntityException;
 import dataSourceManagement.DAO.exceptions.RollbackFailureException;
 import dataSourceManagement.entities.Vehicle;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,5 +65,10 @@ public class HandleVehicleCRUD {
                 Logger.getLogger(HandleVehicleCRUD.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    public List<Vehicle> getVehicles() {
+        VehicleDAO vh = new VehicleDAO();
+        return vh.findVehicleEntities();
     }
 }

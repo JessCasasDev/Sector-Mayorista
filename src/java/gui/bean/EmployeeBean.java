@@ -181,7 +181,7 @@ public class EmployeeBean implements Serializable{
          FacesContext.getCurrentInstance().renderResponse();
     }
 
-    void setEmployee(String selectedItem, String employeeName, 
+    public boolean setEmployee(String selectedItem, String employeeName, 
                         String employeeLastName, Integer employeeDocumentId, 
                           Integer employeeDay, Integer employeeMonth, Integer employeeYear) {
         HandleEmployee emp = new HandleEmployee();
@@ -191,7 +191,7 @@ public class EmployeeBean implements Serializable{
         } catch (ParseException ex) {
             Logger.getLogger(EmployeeBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        emp.editEmployee(Integer.parseInt(selectedItem), employeeName, employeeLastName, employeeDocumentId, date );
+        return emp.editEmployee(Integer.parseInt(selectedItem), employeeName, employeeLastName, employeeDocumentId, date );
     }
     
     public Date setDateTime(int day, int month, int year) throws ParseException{

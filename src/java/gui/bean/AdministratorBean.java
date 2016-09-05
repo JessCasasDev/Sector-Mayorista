@@ -158,8 +158,11 @@ public class AdministratorBean implements Serializable{
     }
     public void editEmployee(){
         EmployeeBean employeeBean = new EmployeeBean();
-        employeeBean.setEmployee(selectedItem, employeeName, employeeLastName, employeeDocumentId,
-                                employeeDay, employeeMonth, employeeYear); 
+        if (!employeeBean.setEmployee(selectedItem, employeeName, employeeLastName, employeeDocumentId,
+                employeeDay, employeeMonth, employeeYear))
+            message="El empleado no se ha podido actualizar";
+        else
+            message="Empleado Actualizado";
     }
     
     public void deleteEmployee(){
