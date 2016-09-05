@@ -9,6 +9,7 @@ import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.StockElement;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -144,7 +145,51 @@ public class StockElementDAO {
             em.close();
             em2.close();
         }
-        System.out.println(orderId);
+       // System.out.println(orderId);
+    }
+
+    public void removeFromCart(int vehicleId, int clientId,int quantityToRemove) {
+        StringBuilder sb = new StringBuilder();
+        EntityManager em = emf1.createEntityManager();
+        
+        List<Integer> stocks = new ArrayList<Integer>();
+        
+        sb.append("SELECT element_id FROM client, shop_order ,stock_element, vehicle WHERE client.client_id  = shop_order.client_id AND shop_order_order_id = order_id AND shop_order.`state` = \"Seleccionada\" AND vehicle_vehicle_id = vehicle_id AND client.client_id = ");
+        sb.append(clientId);
+        sb.append(" AND vehicle_id = ");
+        sb.append(vehicleId);
+        sb.append(" ;");
+        
+        StockElement se;
+        Query q = em.createNativeQuery(sb.toString());
+        try {
+            stocks = q.getResultList();
+            
+            for (int i = 0; i < quantityToRemove; i++) {
+                EntityManager em2 = emf1.createEntityManager();
+                em2.getTransaction().begin();
+                try {
+                    
+                   
+                    se = em2.merge(em2.find(StockElement.class,  stocks.get(i)));
+                    se.setShopOrderOrderId(null);
+                    se.setAvaliable(true);
+                    em2.getTransaction().commit();
+                } catch (Exception e) {
+                     em2.getTransaction().rollback();
+                }finally{
+                   em2.close(); 
+                }
+                
+                
+            }
+            
+        } catch (Exception e) {
+           
+        } finally {
+            em.close();
+            
+        }     
     }
 
 }

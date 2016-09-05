@@ -7,6 +7,7 @@ package gui.bean;
 
 import businessLogic.controller.HandleAddVehicle;
 import businessLogic.controller.HandleAutoSell;
+import businessLogic.controller.HandleCar;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.Discount;
 import dataSourceManagement.entities.ShopOrder;
@@ -119,6 +120,15 @@ public class ShoppingCartBean {
     private int quantity;
     private int vehicleId;
     private String message;
+    private int quantityToRemove;
+
+    public int getQuantityToRemove() {
+        return quantityToRemove;
+    }
+
+    public void setQuantityToRemove(int quantityToRemove) {
+        this.quantityToRemove = quantityToRemove;
+    }
 
     public float getTotal(ShopOrder order) {
         HandleAutoSell has = new HandleAutoSell();
@@ -188,5 +198,15 @@ public class ShoppingCartBean {
             quantity = 0;
         }
 
+    }
+    public void removeFromCart(int vehicleId,int maxQuantity){
+        if (quantityToRemove > maxQuantity) {
+            message = "Numero de vehicuos no disponible";
+            quantityToRemove = 0;
+        } else {
+            HandleCar handleCar = new HandleCar();
+            handleCar.removeFromCart(vehicleId, quantityToRemove);
+            quantityToRemove = 0;
+        }
     }
 }

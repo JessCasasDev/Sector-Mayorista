@@ -110,4 +110,5 @@ public class ViewCarsBean2 {
         quantity = handleCar.carsSelectedByOrder(vehicleId);
         return quantity;
     }
+    
 }
