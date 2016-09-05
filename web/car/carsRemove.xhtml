@@ -18,7 +18,8 @@
             <div class="nav-wrapper blue darken-4">
                 <a href="../index.xhtml" class="brand-logo">Automarket</a>
                 <ul id="nav-mobile" class="right blue darken-4">
-                    <li class="blue-text text-lighten-3"><a href="#">Automóviles</a></li>
+                    <li class="blue-text text-lighten-3"><a href="../car/carsView.xhtml">Automóviles</a></li>
+                    <li class="blue-text text-lighten-3"><a href="../car/carsRemove.xhtml">Modificar Pedido</a></li>
                     <li class="blue-text text-lighten-3"><a href="../client/shopping_cart.xhtml">Carrito de Compra</a></li>
                     <li class="blue-text text-lighten-3"><a href="#">Compras</a></li>
                     <li class="blue-text text-lighten-3"><a href="../client/client_profile.xhtml">Perfil</a></li>
@@ -73,11 +74,11 @@
                            <f:facet name="header">Remover del Carro</f:facet>
                            <h:form>                              
                           <p>
-                              <h:inputText  value="#{0}"  onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" class="center-align"   ></h:inputText>
-                              <h:inputHidden value=""></h:inputHidden>
+                              <h:inputText  value="#{shoppingCartBean.quantityToRemove}"  onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" class="center-align"   ></h:inputText>
+                            
                           <label >Seleccionar Cantidad a Remover</label>
                           <a class="waves-effect waves-light btn modal-trigger right">
-                          <h:commandButton  value="Remover del Carrito"/>
+                              <h:commandButton action="#{shoppingCartBean.removeFromCart(car.vehicleId,quantity)}" value="Remover del Carrito"/>
                           </a>
                           </p>
                            </h:form>

@@ -56,8 +56,16 @@ public class HandleCar {
         Client client = clientDAO.searchByNit((String) ex.getSessionMap().get(ID));
         Long quantity = null ;
         CarDAO carDAO = new CarDAO();
-        System.out.println(client.getClientId());
+        //System.out.println(client.getClientId());
         quantity = carDAO.carsSelectedByOrder(vehicleId,client.getClientId());
         return quantity;
+    }
+    public void removeFromCart(int vehicleId ,int quantityToRemove){
+        ExternalContext ex = FacesContext.getCurrentInstance().getExternalContext();
+        ClientDAO clientDAO = new ClientDAO();
+        Client client = clientDAO.searchByNit((String) ex.getSessionMap().get(ID));
+        StockElementDAO stockElementDAO = new StockElementDAO();
+        stockElementDAO.removeFromCart(vehicleId, client.getClientId() ,quantityToRemove);
+        
     }
 }
