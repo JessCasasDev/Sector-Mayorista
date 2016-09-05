@@ -20,15 +20,17 @@
             <div class="nav-wrapper blue darken-4 white-text">
                 <a href="../index.xhtml" class="brand-logo">Automarket</a>
                 <ul id="nav-mobile" class="right blue darken-4">
+                    <li class="blue-text text-lighten-3"><a href="../admin/admin_index.xhtml">Inicio</a></li>
                     <li class="blue-text text-lighten-3">
-                        <h:form> <h:commandLink action="discountsCreator" value="Add new Discount"/></h:form>
+                        <h:form> <h:commandLink action="addEmployee" value="Agregar empleado"/></h:form>
                     </li>
                     <li class="blue-text text-lighten-3">
-                        <h:form> <h:commandLink action="discountsEditor" value="Edit a Discount">
-                                Eliminar Empleado
-                            </h:commandLink>
+                        <h:form> <h:commandLink action="editEmployee" value="Editar empleado"></h:commandLink>
                         </h:form>
                     </li>
+                    <li class="blue-text text-lighten-3"><h:form>
+                            <h:commandButton action="#{loginBean.logout()}" value="Logout" class="blue-text text-darken-3"/>
+                        </h:form></li>
                 </ul>
             </div>
         </nav>    
@@ -47,13 +49,13 @@
                                              immediate="true"
                                              onchange="this.form.submit()">
                                 <f:selectItems id="empleaados" value="#{administratorBean.availableItems}" var="em" itemValue="#{em.value}" />
-                                
+
                             </h:selectOneMenu>  
                         </div>
                         <h:commandButton class="waves-effect waves-light btn modal-trigger" value="Eliminar Empleado"
-                                         
+
                                          actionListener="#{administratorBean.deleteEmployee()}">
-                            
+
                         </h:commandButton>
                     </h:form>
                 </panel>

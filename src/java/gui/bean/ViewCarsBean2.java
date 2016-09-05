@@ -91,4 +91,23 @@ public class ViewCarsBean2 {
         totalCarsById = handleCar.searchByVIdAndAvaliablity(carId);
         return totalCarsById;
     }
+    public List<Integer> findByClientOrder(){
+        List<Integer> list = null;
+        HandleCar handleCar = new HandleCar();
+        list = handleCar.getCarsByClientOrder();
+        return list;
+    }
+    public Vehicle findSingleCar(int vehicleId){
+        Vehicle item = new Vehicle();
+        HandleCar handleCar = new HandleCar();
+        item = handleCar.getSingleCar(vehicleId);
+        return item;
+    }
+    public Long carsSelectedByOrder(int vehicleId){
+        System.out.println(vehicleId);
+        Long quantity  = null;
+        HandleCar handleCar = new HandleCar();
+        quantity = handleCar.carsSelectedByOrder(vehicleId);
+        return quantity;
+    }
 }

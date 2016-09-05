@@ -8,15 +8,16 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 public class ClientDAO {
+
     public EntityManagerFactory emf3 = Persistence.createEntityManagerFactory("autoMarketPU");
-    
+
     public Client persist(Client client) {
         EntityManager em = emf3.createEntityManager();
         em.getTransaction().begin();
         try {
             em.persist(client);
             em.getTransaction().commit();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
         } finally {
@@ -24,29 +25,29 @@ public class ClientDAO {
         }
         return client;
     }
-    
-    public Client searchByUsername(Authentication username){
+
+    public Client searchByUsername(Authentication username) {
         EntityManager em = emf3.createEntityManager();
         Query q = em.createNamedQuery("Client.findByAuthenticationId");
         q.setParameter("authId", username);
-        Client client=null;
+        Client client = null;
         try {
             client = (Client) q.getSingleResult();
-        } catch (Exception e){
+        } catch (Exception e) {
         } finally {
             em.close();
         }
         return client;
     }
-    
-    public Client searchByNit(String nit){
+
+    public Client searchByNit(String nit) {
         EntityManager em = emf3.createEntityManager();
         Query q = em.createNamedQuery("Client.findByNit");
         q.setParameter("nit", nit);
-        Client client=null;
+        Client client = null;
         try {
             client = (Client) q.getSingleResult();
-        } catch (Exception e){
+        } catch (Exception e) {
         } finally {
             em.close();
         }

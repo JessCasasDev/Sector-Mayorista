@@ -31,7 +31,7 @@ public class AcquireVehiclesBean {
     public AcquireVehiclesBean() {
         availableItems = new HashMap<>();
         HandleVehicleCRUD handler = new HandleVehicleCRUD();
-        vehicles = handler.getVehicles();
+        vehicles = handler.findVehicleEntities();
         for(Vehicle v : vehicles){
             availableItems.put(v.getLabel(), v.getVehicleId().toString());
         }

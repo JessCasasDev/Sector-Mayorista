@@ -10,6 +10,7 @@ package gui.bean;
  * @author JuanCamilo
  */
 import businessLogic.controller.HandleVehicleCRUD;
+import com.sun.javafx.scene.control.SelectedCellsMap;
 import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.entities.Vehicle;
 import java.util.LinkedHashMap;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ValueChangeEvent;
 
 @ManagedBean
 @ViewScoped
@@ -37,7 +39,6 @@ public class VehicleCRUDBean {
 
     public VehicleCRUDBean() {
         selectedVehicleId = -1;
-        //empty constructor
     }
 
     public String getType() {
@@ -98,8 +99,8 @@ public class VehicleCRUDBean {
 
     public Map<String, Integer> getAvailableVehicles() {
         availableVehicles = new LinkedHashMap<>();
-        VehicleDAO vdao = new VehicleDAO();
-        List<Vehicle> vehicles = vdao.findVehicleEntities();
+        HandleVehicleCRUD vCRUD = new HandleVehicleCRUD();
+        List<Vehicle> vehicles = vCRUD.findVehicleEntities();
         for (Vehicle v : vehicles) {
             availableVehicles.put(v.getLabel(), v.getVehicleId());
         }
@@ -114,19 +115,23 @@ public class VehicleCRUDBean {
         this.selectedVehicleId = selectedVehicleId;
     }
 
+    public void fillVehicleData(ValueChangeEvent e) {
+        int newVal = Integer.parseInt(e.getNewValue().toString());
+        setSelectedVehicleId(newVal);
+        System.out.println("new Val selected: " + newVal);
+        fillVehicleData();
+    }
+
     public void fillVehicleData() {
-        if (selectedVehicleId == -1) {
-            System.out.println("any selected vehicle");
-            return;
-        }
         Vehicle selected = getSelectedVehicle();
         System.out.println("vehicle to fill " + selected.getLabel());
+        this.setType(selected.getType());
         this.setBrand(selected.getBrand());
         this.setColor(selected.getColor());
         this.setDescription(selected.getDescription());
         this.setModel(selected.getModel());
-        this.setCost(String.format("%.2f", selected.getCost()));
-        this.setSellPrice(String.format("%.2f", selected.getSellPrice()));
+        this.setCost(selected.getCost()+"");//String.format("%.2f", selected.getCost()));
+        this.setSellPrice(selected.getSellPrice()+"");//String.format("%.2f", selected.getSellPrice()));
     }
 
     public void createVehicle() {
@@ -180,8 +185,12 @@ public class VehicleCRUDBean {
     }
 
     private Vehicle getSelectedVehicle() {
+        return getSelectedVehicle(getSelectedVehicleId());
+    }
+
+    private Vehicle getSelectedVehicle(int id) {
         VehicleDAO vdao = new VehicleDAO();
-        return vdao.findVehicle(getSelectedVehicleId());
+        return vdao.findVehicle(id);
     }
 
     @Override

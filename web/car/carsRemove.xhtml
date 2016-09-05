@@ -6,83 +6,78 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head>
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-        <!--Import materialize.css-->
+         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Compra de vehículos</title>
-
+        <title>Profile</title>
+   
     </head>
     <body class="light-blue lighten-4">
         <!--MENU-->
-        <nav>
+             <nav>
             <div class="nav-wrapper blue darken-4">
                 <a href="../index.xhtml" class="brand-logo">Automarket</a>
                 <ul id="nav-mobile" class="right blue darken-4">
-                    <li class="blue-text text-lighten-3"><a href="carsView.xhtml">Automóviles</a></li>
+                    <li class="blue-text text-lighten-3"><a href="#">Automóviles</a></li>
                     <li class="blue-text text-lighten-3"><a href="../client/shopping_cart.xhtml">Carrito de Compra</a></li>
-                    <li class="blue-text text-lighten-3"><a href="../client/buying_history.xhtml">Compras</a></li>
+                    <li class="blue-text text-lighten-3"><a href="#">Compras</a></li>
                     <li class="blue-text text-lighten-3"><a href="../client/client_profile.xhtml">Perfil</a></li>
-                    <li class="blue-text text-lighten-3"><h:form>
-                            <h:commandButton action="#{loginBean.logout()}" value="Logout" class="blue-text text-darken-3"/>
-                        </h:form></li>
                 </ul>
             </div>
   </nav>    
          <center>
-              <h1 class="blue-grey-text text-darken-2 col s12">Lista de Autos disponibles</h1>
+              <h1 class="blue-grey-text text-darken-2 col s12">Autos Seleccionados</h1>
             
                
    
-                  <h:dataTable var="item" class="highlight" value="#{viewCarsBean2.findAll()}" cellspacing="2">
+              <h:dataTable var="item" value="#{viewCarsBean2.findByClientOrder()}" class="highlight" cellspacing="2">
+                  <ui:param name="car" value="${viewCarsBean2.findSingleCar(item)}" />
                       <h:column>
                           <f:facet name="header" >
-                             <!-- sort test <h:commandLink action="#{viewCarsBean2.sortById()}" >
-                                #id
-                             <> </h:commandLink> -->
-                              Id
+                             Id
                           </f:facet>
-                          <h:outputText value="#{item.vehicleId}"></h:outputText>
+                          <h:outputText value="#{car.vehicleId}"></h:outputText>
                       </h:column>
                       <h:column>
                           <f:facet name="header">Modelo</f:facet>
-                          <h:outputText value="#{item.model}"></h:outputText>
+                          <h:outputText value="#{car.model}"></h:outputText>
                       </h:column>
                       <h:column>
                           <f:facet name="header">Marca</f:facet>
-                          <h:outputText value="#{item.brand}"></h:outputText>
+                          <h:outputText value="#{car.brand}"></h:outputText>
                       </h:column>
                       <h:column>
                           <f:facet name="header">Color</f:facet>
-                          <h:outputText value="#{item.color}"></h:outputText>
+                          <h:outputText value="#{car.color}"></h:outputText>
                       </h:column>
                       <h:column>
                           <f:facet name="header">Descripcion</f:facet>
-                          <h:outputText value="#{item.description}"></h:outputText>
+                          <h:outputText value="#{car.description}"></h:outputText>
                       </h:column>
                       <h:column>
                           <f:facet name="header">Precio por unidad</f:facet>
-                          <h:outputText value="#{item.sellPrice}"></h:outputText>
+                          <h:outputText value="#{car.sellPrice}"></h:outputText>
                       </h:column>
                       <h:column>
                           <f:facet name="header">Tipo</f:facet>
-                          <div>#{item.type}</div>
+                          <div>#{car.type}</div>
                       </h:column>
                       <h:column>
-                          <ui:param name="quantity" value="#{viewCarsBean2.totalAvaliableCars(item.vehicleId)}" />
-                          <f:facet name="header">Disponibles</f:facet>
+                          <ui:param name="quantity" value="#{viewCarsBean2.carsSelectedByOrder(car.vehicleId)}" />
+                          <f:facet name="header">Actualmente En el Carro</f:facet>
                           <p>
                               <div>#{quantity}</div>
                           </p>
                       </h:column>
                        <h:column>
-                           <f:facet name="header">Cantidad</f:facet>
+                           <f:facet name="header">Remover del Carro</f:facet>
                            <h:form>                              
                           <p>
-                              <h:inputText  value="#{shoppingCartBean.quantity}"  onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" class="center-align"   ></h:inputText>
-                              <h:inputHidden value="#{shoppingCartBean.vehicleId}"></h:inputHidden>
-                          <label >Seleccionar Cantidad</label>
-                          <a class="waves-effect waves-light btn modal-trigger right" href="#msg">
-                          <h:commandButton  action="#{shoppingCartBean.addVehiclesToCart(item.vehicleId,quantity)}" value="Añadir Autos"/>
+                              <h:inputText  value="#{0}"  onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" class="center-align"   ></h:inputText>
+                              <h:inputHidden value=""></h:inputHidden>
+                          <label >Seleccionar Cantidad a Remover</label>
+                          <a class="waves-effect waves-light btn modal-trigger right">
+                          <h:commandButton  value="Remover del Carrito"/>
                           </a>
                           </p>
                            </h:form>
@@ -92,14 +87,8 @@
                           
                       </h:column>
                   </h:dataTable>
-                 <div id="msg" class="modal">
-                    <div class="modal-content">
-                        <h4>Modal Header</h4>
-                    <p>A bunch of text</p>        
-                </div>
-            </div>
-
-        </center>        
+                              
+          </center>        
         <!-- JS FILES-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>

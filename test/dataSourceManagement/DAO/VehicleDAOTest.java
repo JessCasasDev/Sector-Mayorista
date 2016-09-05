@@ -75,7 +75,7 @@ public class VehicleDAOTest {
     @Test
     public void testDate() throws Exception {
         System.out.println("date");
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US);
         Date parse = sdf.parse("Tue Jan 07 19:08:00 COT 2020");
         assertNotNull(parse);
     }

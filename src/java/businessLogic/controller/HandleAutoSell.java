@@ -6,6 +6,7 @@
 package businessLogic.controller;
 
 import dataSourceManagement.DAO.ClientDAO;
+import dataSourceManagement.DAO.DiscountDAO;
 import dataSourceManagement.DAO.PaymentDAO;
 import dataSourceManagement.DAO.ShopOrderDAO;
 import dataSourceManagement.DAO.StockElementDAO;
@@ -15,6 +16,7 @@ import dataSourceManagement.entities.Discount;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Payment;
 import dataSourceManagement.entities.StockElement;
+import dataSourceManagement.entities.Vehicle;
 import java.util.Collection;
 import java.util.Date;
 import javax.faces.context.ExternalContext;
@@ -25,13 +27,14 @@ import javax.faces.context.FacesContext;
  * @author afacunaa
  */
 public class HandleAutoSell {
+    
     public static final String ID = "id";
     public static final String SELECCIONADA = "Seleccionada";
     public static final String ESPERA = "En espera";
     public static final String FINALIZADA = "Finalizada";
-      
-    public void addToCart(Collection<StockElement> stockElementCollection){ //crear una orden
-        
+    
+    public void addToCart(Collection<StockElement> stockElementCollection) { //crear una orden
+
         ShopOrderDAO orderDAO = new ShopOrderDAO();
         
         Integer orderId;
@@ -41,7 +44,7 @@ public class HandleAutoSell {
         Collection<Discount> discountCollection = null;
         Collection<Payment> paymentCollection = null;
         Client clientId = new Client();
-        for (StockElement se:stockElementCollection){
+        for (StockElement se : stockElementCollection) {
             se.setAvaliable(Boolean.FALSE);
         }
         
@@ -57,50 +60,68 @@ public class HandleAutoSell {
         orderDAO.persist(order);
     }
     
-    public Collection<ShopOrder> getShoppingCart(){
+    public Collection<ShopOrder> getShoppingCart() {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ShopOrderDAO orderDAO = new ShopOrderDAO();
         ClientDAO clientDAO = new ClientDAO();
-        Client client = clientDAO.searchByNit((String) ec.getSessionMap().get(ID));        
+        Client client = clientDAO.searchByNit((String) ec.getSessionMap().get(ID));
         Collection<ShopOrder> orderCollection = orderDAO.searchGroupByStateAndClient(SELECCIONADA, client);
         Collection<ShopOrder> orderCollection2 = orderDAO.searchGroupByStateAndClient(ESPERA, client);
         orderCollection.addAll(orderCollection2);
         return orderCollection;
     }
     
-    public float getTotal(ShopOrder order){
-        float total=0;
+    public Collection<ShopOrder> getBuyingHistory() {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ShopOrderDAO orderDAO = new ShopOrderDAO();
+        ClientDAO clientDAO = new ClientDAO();
+        Client client = clientDAO.searchByNit((String) ec.getSessionMap().get(ID));
+        Collection<ShopOrder> orderCollection = orderDAO.searchGroupByStateAndClient(FINALIZADA, client);
+        return orderCollection;
+    }
+    
+    public float getTotal(ShopOrder order) {
+        float total = 0;
         StockElementDAO seDAO = new StockElementDAO();
         VehicleDAO vDAO = new VehicleDAO();
+        DiscountDAO dDAO = new DiscountDAO();
         Collection<StockElement> cars = seDAO.searchGroupByOrderIdAndAvailable(order, Boolean.FALSE);
+        Collection<Discount> discountList;
+        Vehicle v;
         for (StockElement car : cars) {
-            total += vDAO.findVehicle(car.getVehicleVehicleId().getVehicleId()).getSellPrice();
+            v = vDAO.findVehicle(car.getVehicleVehicleId().getVehicleId());
+            total += v.getSellPrice();
+            discountList = dDAO.searchGroupByVehicleId(v);
+            for (Discount discount : discountList) {                
+                if (new Date().before(discount.getExpirationDate())) {
+                    total -= discount.getDiscountAmount();
+                }
+            }
         }
-        PaymentDAO payDAO = new PaymentDAO();
-        float debt = total;
-        for (Payment pay : payDAO.searchGroupByOrderId(order)) {
-            if (debt > Float.parseFloat(pay.getDebt())){
-                total = Float.parseFloat(pay.getDebt());
-                debt = total;
+        if (!order.getState().equals(FINALIZADA)) {
+            PaymentDAO payDAO = new PaymentDAO();
+            float debt = total;
+            for (Payment pay : payDAO.searchGroupByOrderId(order)) {
+                if (debt > Float.parseFloat(pay.getDebt())) {
+                    total = Float.parseFloat(pay.getDebt());
+                    debt = total;
+                }
             }
         }
         return total;
     }
     
-    public void payOrder(Integer orderId, String currency, float amount){
+    public void payOrder(Integer orderId, String currency, float amount) {
         ShopOrderDAO orderDAO = new ShopOrderDAO();
         ShopOrder order = orderDAO.searchByOrderId(orderId);
         float total = getTotal(order);
         if (amount < total) { //Pago parcial
-            orderDAO.buyAutos(order, currency, ESPERA, total-amount);
-        }
-        else if (amount == total){ //Pago total
-                orderDAO.buyAutos(order, currency, FINALIZADA, total-amount);
-            }
-        else{
+            orderDAO.buyAutos(order, currency, ESPERA, total - amount);
+        } else if (amount == total) { //Pago total
+            orderDAO.buyAutos(order, currency, FINALIZADA, total - amount);
+        } else {
             //Pago de mas
         }
     }
-    
     
 }

@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Payment.findByDebt", query = "SELECT p FROM Payment p WHERE p.debt = :debt"),
     @NamedQuery(name = "Payment.findByShopOrderId", query = "SELECT p FROM Payment p WHERE p.shopOrderOrderId = :shopOrderOrderId")})
 public class Payment implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -128,5 +129,5 @@ public class Payment implements Serializable {
     public String toString() {
         return "dataSourceManagement.entities.Payment[ paymentId=" + paymentId + " ]";
     }
-    
+
 }

@@ -15,6 +15,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Vehicle;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -154,6 +155,7 @@ public class DiscountDAO implements Serializable {
             utx.commit();
             System.out.println("discount destroyed: " + discount.getLabel());
         } catch (Exception ex) {
+            System.out.println(ex);
             try {
                 utx.rollback();
             } catch (Exception re) {
@@ -211,6 +213,20 @@ public class DiscountDAO implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+    public Collection<Discount> searchGroupByVehicleId(Vehicle vehicleId){
+        EntityManager em = emf.createEntityManager();
+        Collection<Discount> orderCollection = null;
+        Query q = em.createNamedQuery("Discount.findByVehicleId");
+        q.setParameter("vehicleId", vehicleId);
+        try {
+            orderCollection = q.getResultList();
+        } catch (Exception e){
+        } finally {
+            em.close();
+        }
+        return orderCollection;
     }
 
 }
