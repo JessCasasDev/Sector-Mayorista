@@ -103,4 +103,11 @@ public class ViewCarsBean2 {
         item = handleCar.getSingleCar(vehicleId);
         return item;
     }
+    public Long carsSelectedByOrder(int vehicleId){
+        System.out.println(vehicleId);
+        Long quantity  = null;
+        HandleCar handleCar = new HandleCar();
+        quantity = handleCar.carsSelectedByOrder(vehicleId);
+        return quantity;
+    }
 }

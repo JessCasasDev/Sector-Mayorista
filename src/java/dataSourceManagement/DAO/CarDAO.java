@@ -84,5 +84,26 @@ public class CarDAO {
         return vehicle;
         
     }
+    public Long carsSelectedByOrder(int vehicleId, int clientId){
+        Long quantity = null;
+        StringBuilder sb = new StringBuilder();
+        EntityManager em = emf1.createEntityManager();
+        sb.append("SELECT count(*) FROM client, shop_order, stock_element, vehicle WHERE vehicle_id = ");
+        sb.append(vehicleId);
+        sb.append(" AND client.client_id =shop_order.client_id AND shop_order_order_id = order_id AND client.client_id = ");
+        sb.append(clientId);
+        sb.append(" AND shop_order.`state` = \"Seleccionada\" AND vehicle_id = vehicle_vehicle_id;");
+        //System.out.println(sb.toString());
+        Query q = em.createNativeQuery(sb.toString());
+        try {
+            
+            quantity =(Long) q.getSingleResult();
+        } catch (Exception e) {
+        } finally {
+            em.close();
+        }
+        System.out.println(quantity);
+        return quantity;
+    }
    
 }
