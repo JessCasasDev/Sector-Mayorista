@@ -25,9 +25,9 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 
 public class ViewCarsBean2 {
-
+    
     private Vehicle vehicle;
-    private String call;
+    private String call ;
     List<Vehicle> listProduct = new ArrayList<Vehicle>();
 
     public List<Vehicle> getListProduct() {
@@ -37,14 +37,13 @@ public class ViewCarsBean2 {
     public void setListProduct(List<Vehicle> listProduct) {
         this.listProduct = listProduct;
     }
-
-    /**
+/**
      * Creates a new instance of ViewCarsBean2
      */
     public ViewCarsBean2() {
         vehicle = new Vehicle();
     }
-
+    
     public String getCall() {
         return call;
     }
@@ -61,11 +60,12 @@ public class ViewCarsBean2 {
         this.vehicle = vehicle;
     }
 
-    public String index() {
+
+    public String index(){
         return "index";
     }
 
-    public void sortById() {
+    public void sortById(){
         Collections.reverse(listProduct);
 //         Collections.sort(listProduct, new Comparator<Vehicle>(){
 //             @Override
@@ -75,21 +75,39 @@ public class ViewCarsBean2 {
 //                return compare;
 //            }
 //        });
-
+       
     }
 
-    public List<Vehicle> findAll() {
-
+    public List<Vehicle> findAll(){
+      
         HandleCar handleCar = new HandleCar();
         listProduct = handleCar.getCars();
         //Collections.reverse(listProduct);
         return listProduct;
     }
-
-    public Long totalAvaliableCars(int carId) {
+    public Long totalAvaliableCars(int carId){
         Long totalCarsById;
         HandleCar handleCar = new HandleCar();
         totalCarsById = handleCar.searchByVIdAndAvaliablity(carId);
         return totalCarsById;
+    }
+    public List<Integer> findByClientOrder(){
+        List<Integer> list = null;
+        HandleCar handleCar = new HandleCar();
+        list = handleCar.getCarsByClientOrder();
+        return list;
+    }
+    public Vehicle findSingleCar(int vehicleId){
+        Vehicle item = new Vehicle();
+        HandleCar handleCar = new HandleCar();
+        item = handleCar.getSingleCar(vehicleId);
+        return item;
+    }
+    public Long carsSelectedByOrder(int vehicleId){
+        System.out.println(vehicleId);
+        Long quantity  = null;
+        HandleCar handleCar = new HandleCar();
+        quantity = handleCar.carsSelectedByOrder(vehicleId);
+        return quantity;
     }
 }

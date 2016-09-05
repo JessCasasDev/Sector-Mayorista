@@ -95,13 +95,16 @@ public class StockElementDAO {
         return avaliable;
 
     }
-
-    public void addToCart(int vehicleId) {
-        int orderId = 0;
+    public void addToCart(int vehicleId, int clientId){
+        int orderId  = 0;
         StringBuilder sb = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
         EntityManager em = emf1.createEntityManager();
         EntityManager em2 = emf1.createEntityManager();
-        Query q = em.createNativeQuery("SELECT order_id FROM shop_order, client WHERE shop_order.client_id = client.client_id and `state` = \"Seleccionada\" ; ");
+        sb2.append("SELECT order_id FROM shop_order, client WHERE shop_order.client_id = client.client_id and `state` = \"Seleccionada\" AND client.client_id =  ");
+        sb2.append(clientId);
+        sb2.append(" ;");
+        Query q = em.createNativeQuery(sb2.toString());
         em2.getTransaction().begin();
         sb.append("SELECT element_id FROM vehicle, stock_element WHERE  avaliable = 1 AND vehicle_id = vehicle_vehicle_id and vehicle_vehicle_id = ");
         sb.append(vehicleId);
@@ -122,7 +125,7 @@ public class StockElementDAO {
             } else {
                 ShopOrderDAO shopOrderDAO = new ShopOrderDAO();
                 ShopOrder shopOrder = new ShopOrder();
-                shopOrder.setClientId(em2.find(Client.class, 1));
+                shopOrder.setClientId(em2.find(Client.class, clientId));
                 shopOrder.setOrderDate(Date.from(Instant.now()));
                 shopOrder.setDeliveryDate(null);
                 shopOrder.setState("Seleccionada");

@@ -37,7 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Discount.findByDiscountId", query = "SELECT d FROM Discount d WHERE d.discountId = :discountId"),
     @NamedQuery(name = "Discount.findByExpirationDate", query = "SELECT d FROM Discount d WHERE d.expirationDate = :expirationDate"),
     @NamedQuery(name = "Discount.findByDiscountAmount", query = "SELECT d FROM Discount d WHERE d.discountAmount = :discountAmount"),
-    @NamedQuery(name = "Discount.findByPercentage", query = "SELECT d FROM Discount d WHERE d.percentage = :percentage")})
+    @NamedQuery(name = "Discount.findByPercentage", query = "SELECT d FROM Discount d WHERE d.percentage = :percentage"),
+    @NamedQuery(name = "Discount.findByVehicleId", query = "SELECT d FROM Discount d WHERE d.vehicleId = :vehicleId")})
 public class Discount implements Serializable {
 
     private static final long serialVersionUID = 1L;
