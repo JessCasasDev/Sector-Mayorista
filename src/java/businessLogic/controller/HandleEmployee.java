@@ -22,6 +22,10 @@ import java.util.List;
  */
 public class HandleEmployee {
 
+    public HandleEmployee() {
+    }
+    
+    
     public boolean createEmployee(String name, String lastName, BigInteger documentId, Date birthDate, Authentication user) {
         Employee employee = new Employee();
 

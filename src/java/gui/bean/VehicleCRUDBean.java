@@ -189,6 +189,21 @@ public class VehicleCRUDBean {
         VehicleDAO vdao = new VehicleDAO();
         return vdao.findVehicle(id);
     }
+    
+    public String getVehicleName(int id){
+        return getSelectedVehicle(id).getLabel();
+    }
+     public String getVehiclePrice(int id){
+        return getSelectedVehicle(id).getSellPrice().toString();
+    }
+     
+     public String getDiscount(int id, float discount){
+         Vehicle vh = getSelectedVehicle(id);
+         Float f = (vh.getSellPrice()*discount);
+         return f.toString();
+         
+     }
+    
 
     @Override
     public String toString() {

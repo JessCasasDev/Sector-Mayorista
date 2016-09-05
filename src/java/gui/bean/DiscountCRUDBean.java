@@ -37,7 +37,6 @@ public class DiscountCRUDBean {
 
     private Integer selectedVehicleId;
     private Integer selectedDiscountId;
-
     private String expirationDate;
     private String description;
     private Float percentage;
@@ -214,6 +213,11 @@ public class DiscountCRUDBean {
         this.setPercentage(selected.getPercentage());
         this.setSelectedVehicleId(selected.getVehicleId().getVehicleId());
         FacesContext.getCurrentInstance().renderResponse();
+    }
+    
+    public List<Discount> getDiscounts(){
+        DiscountCRUD dis = new DiscountCRUD();
+        return dis.findDiscountEntities();
     }
 
 }

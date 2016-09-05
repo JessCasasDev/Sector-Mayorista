@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Descuentos</title>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
+            <f:event type="preRenderView" listener="#{loginBean.verify_role('Client')}"/>
+        </f:metadata>
+
+    </h:head>
+    <h:body class="light-blue lighten-4">
+        <!--MENU-->
+        <nav>
+            <div class="nav-wrapper blue darken-4">
+                <a href="../index.xhtml" class="brand-logo">Automarket</a>
+                <ul id="nav-mobile" class="right blue darken-4">
+                    <li class="blue-text text-lighten-3"><a href="../car/carsView.xhtml">Automóviles</a></li>
+                    <li class="blue-text text-lighten-3"><a href="shopping_cart.xhtml">Carrito de Compra</a></li>
+                    <li class="blue-text text-lighten-3"><a href="buying_history.xhtml">Compras</a></li>
+                    <li class="blue-text text-lighten-3"><a href="client_profile.xhtml">Perfil</a></li>
+                    <li class="blue-text text-lighten-3"><h:form>
+                            <h:commandButton action="#{loginBean.logout()}" value="Logout" class="blue-text text-darken-3"/>
+                        </h:form></li>
+                </ul>
+            </div>
+        </nav>    
+        <!--FIN MENU-->
+        <center>
+            <h3 class="blue-grey-text text-darken-2 col s12">¡Estos son los descuentos del momento!</h3>
+
+            <h:dataTable var="item" class="highlight" value="#{discountCRUDBean.getDiscounts()}" cellspacing="2">
+                      <h:column>Id                          
+                          <h:outputText value="#{item.discountId}"></h:outputText>
+                      </h:column>
+                      <h:column>
+                          <f:facet name="header">Fecha de Expiración</f:facet>
+                          <h:outputText value="#{item.expirationDate}"></h:outputText>
+                      </h:column>
+                      <h:column>
+                          <f:facet name="header">Descripción</f:facet>
+                          <h:outputText value="#{item.description}"></h:outputText>
+                      </h:column>
+                      <h:column>
+                          <f:facet name="header">Porcentaje</f:facet>
+                          <h:outputText value="#{item.percentage}"></h:outputText>
+                      </h:column>
+                      <h:column>
+                          <f:facet name="header">Descripcion</f:facet>
+                          <h:outputText value="#{item.description}"></h:outputText>
+                      </h:column>
+                     <h:column>
+                          <f:facet name="header">Vehículo</f:facet>
+                          <h:outputText value="#{vehicleCRUDBean.getVehicleName(item.vehicleId.vehicleId)}"></h:outputText>
+                      </h:column>
+                      <h:column>
+                          <f:facet name="header">Precio por unidad</f:facet>
+                          <h:outputText value="#{vehicleCRUDBean.getVehiclePrice(item.vehicleId.vehicleId)}"></h:outputText>
+                      </h:column>
+                      <h:column>
+                          <f:facet name="header">Precio con Descuento</f:facet>
+                          <h:outputText value="#{vehicleCRUDBean.getDiscount(item.vehicleId.vehicleId, item.percentage)}"></h:outputText>
+                      </h:column>                      
+                  </h:dataTable>
+            <hr/>
+            
+        </center>
+
+        <!-- JS FILES-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+    </h:body>
+</html>
+
