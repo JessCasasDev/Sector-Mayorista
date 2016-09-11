@@ -185,9 +185,9 @@ public class EmployeeBean implements Serializable {
         return wgrade/mrList.size();
     }
 
-    public void setValues(String id) {
+    public void setValues(int id) {
         HandleEmployee emp = new HandleEmployee();
-        Employee employee = emp.getEmploye(Integer.parseInt(id));
+        Employee employee = emp.getEmploye(id);
         if (employee != null) {
             this.setName(employee.getName());
             this.setLastName(employee.getLastName());
@@ -196,9 +196,9 @@ public class EmployeeBean implements Serializable {
         FacesContext.getCurrentInstance().renderResponse();
     }
 
-    public boolean setEmployee(String selectedItem, String employeeName,
-            String employeeLastName, Integer employeeDocumentId,
-            Integer employeeDay, Integer employeeMonth, Integer employeeYear) {
+    public boolean setEmployee(int selectedItem, String employeeName,
+        String employeeLastName, Integer employeeDocumentId,
+        Integer employeeDay, Integer employeeMonth, Integer employeeYear) {
         HandleEmployee emp = new HandleEmployee();
         Date date = new Date();
         try {
@@ -208,7 +208,7 @@ public class EmployeeBean implements Serializable {
             Logger.getLogger(EmployeeBean.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-        return emp.editEmployee(Integer.parseInt(selectedItem), employeeName, employeeLastName, employeeDocumentId, date );
+        return emp.editEmployee(selectedItem, employeeName, employeeLastName, employeeDocumentId, date );
     }
 
     public Date setDateTime(int day, int month, int year) throws ParseException {
@@ -226,6 +226,12 @@ public class EmployeeBean implements Serializable {
     public boolean deleteEmployee(Integer id) {
         HandleEmployee empl = new HandleEmployee();
         return empl.deleteEmployee(id);
+    }
+    
+    public Employee getEmployee(Integer id){
+        HandleEmployee handle = new HandleEmployee();
+        return handle.getEmploye(id);
+            
     }
 
 }
