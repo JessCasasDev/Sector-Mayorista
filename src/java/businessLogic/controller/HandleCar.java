@@ -8,8 +8,11 @@ package businessLogic.controller;
 import static businessLogic.controller.HandleAddVehicle.ID;
 import dataSourceManagement.DAO.CarDAO;
 import dataSourceManagement.DAO.ClientDAO;
+import dataSourceManagement.DAO.DiscountDAO;
 import dataSourceManagement.DAO.StockElementDAO;
+import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.entities.Client;
+import dataSourceManagement.entities.Discount;
 import dataSourceManagement.entities.StockElement;
 import dataSourceManagement.entities.Vehicle;
 import java.util.ArrayList;
@@ -29,6 +32,17 @@ public class HandleCar {
         CarDAO carDao = new CarDAO();
         List<Vehicle> vehicle = carDao.getCars();
         return vehicle;
+    }
+    
+    public float getDiscoutPriceByVehicle(Vehicle v){
+        DiscountDAO dDAO = new DiscountDAO();
+        Collection<Discount> discountList;
+        discountList = dDAO.searchGroupByVehicleId(v);
+        float priceDiscounted = v.getSellPrice();
+        for (Discount discount : discountList) {
+            priceDiscounted -= discount.getDiscountAmount();
+        }
+        return priceDiscounted;
     }
     
     public Long searchByVIdAndAvaliablity(int vehicleId){

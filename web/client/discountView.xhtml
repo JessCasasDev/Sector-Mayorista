@@ -24,6 +24,7 @@
                 <a href="../index.xhtml" class="brand-logo">Automarket</a>
                 <ul id="nav-mobile" class="right blue darken-4">
                     <li class="blue-text text-lighten-3"><a href="../car/carsView.xhtml">Automóviles</a></li>
+                    <li class="blue-text text-lighten-3"><a href="../client/discountView.xhtml">Descuentos</a></li>
                     <li class="blue-text text-lighten-3"><a href="shopping_cart.xhtml">Carrito de Compra</a></li>
                     <li class="blue-text text-lighten-3"><a href="buying_history.xhtml">Compras</a></li>
                     <li class="blue-text text-lighten-3"><a href="client_profile.xhtml">Perfil</a></li>
@@ -67,7 +68,7 @@
                       </h:column>
                       <h:column>
                           <f:facet name="header">Precio con Descuento</f:facet>
-                          <h:outputText value="#{vehicleCRUDBean.getDiscount(item.vehicleId.vehicleId, item.percentage)}"></h:outputText>
+                          <h:outputText value="#{vehicleCRUDBean.getDiscount(item.vehicleId.vehicleId, item.discountAmount)}"></h:outputText>
                       </h:column>                      
                   </h:dataTable>
             <hr/>

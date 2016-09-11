@@ -110,5 +110,9 @@ public class ViewCarsBean2 {
         quantity = handleCar.carsSelectedByOrder(vehicleId);
         return quantity;
     }
+    public float getDiscountedPrice(Vehicle v){
+        HandleCar handleCar = new HandleCar();
+        return handleCar.getDiscoutPriceByVehicle(v);
+    }
     
 }

@@ -134,6 +134,11 @@ public class ShoppingCartBean {
         HandleAutoSell has = new HandleAutoSell();
         return has.getTotal(order);
     }
+    
+    public String getSumm(ShopOrder order){
+        HandleAutoSell has = new HandleAutoSell();
+        return has.getSummary(order);
+    }
 
     public float getAmount() {
         return amount;
@@ -185,7 +190,7 @@ public class ShoppingCartBean {
 
     public void payShopOrder() {
         HandleAutoSell has = new HandleAutoSell();
-        has.payOrder(orderId, currency, amount);
+        message = has.payOrder(orderId, currency, amount);
     }
 
     public void addVehiclesToCart(int vehicleId, int maxQuantity) {

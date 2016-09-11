@@ -251,7 +251,6 @@ public class DiscountCRUDBean {
     }
     
     public Date setDateTime(int day, int month, int year) throws ParseException {
-        Date birth = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
         String s_day = String.valueOf(day);
         String s_month = String.valueOf(month);

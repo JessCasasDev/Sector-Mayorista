@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
         <!--Import materialize.css-->
@@ -19,7 +20,7 @@
                 <a href="../index.xhtml" class="brand-logo">Automarket</a>
                 <ul id="nav-mobile" class="right blue darken-4">
                     <li class="blue-text text-lighten-3"><a href="carsView.xhtml">Automóviles</a></li>
-                    <li class="blue-text text-lighten-3"><a href="../car/carsRemove.xhtml">Modificar Pedido</a></li>
+                    <li class="blue-text text-lighten-3"><a href="../client/discountView.xhtml">Descuentos</a></li>
                     <li class="blue-text text-lighten-3"><a href="../client/shopping_cart.xhtml">Carrito de Compra</a></li>
                     <li class="blue-text text-lighten-3"><a href="../client/buying_history.xhtml">Compras</a></li>
                     <li class="blue-text text-lighten-3"><a href="../client/client_profile.xhtml">Perfil</a></li>
@@ -35,15 +36,6 @@
                
    
                   <h:dataTable var="item" class="highlight" value="#{viewCarsBean2.findAll()}" cellspacing="2">
-                      <h:column>
-                          <f:facet name="header" >
-                             <!-- sort test <h:commandLink action="#{viewCarsBean2.sortById()}" >
-                                #id
-                             <> </h:commandLink> -->
-                              Id
-                          </f:facet>
-                          <h:outputText value="#{item.vehicleId}"></h:outputText>
-                      </h:column>
                       <h:column>
                           <f:facet name="header">Modelo</f:facet>
                           <h:outputText value="#{item.model}"></h:outputText>
@@ -62,7 +54,11 @@
                       </h:column>
                       <h:column>
                           <f:facet name="header">Precio por unidad</f:facet>
-                          <h:outputText value="#{item.sellPrice}"></h:outputText>
+                          <h:outputText value="$ #{item.sellPrice}"></h:outputText>
+                      </h:column>
+                      <h:column>
+                          <f:facet name="header">Precio con descuento</f:facet>
+                          <h:outputText class="green-text text-darken-4" value="$ #{viewCarsBean2.getDiscountedPrice(item)}"></h:outputText>
                       </h:column>
                       <h:column>
                           <f:facet name="header">Tipo</f:facet>

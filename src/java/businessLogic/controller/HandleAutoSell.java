@@ -17,8 +17,10 @@ import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Payment;
 import dataSourceManagement.entities.StockElement;
 import dataSourceManagement.entities.Vehicle;
+import gui.bean.ShoppingCartBean;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -111,16 +113,41 @@ public class HandleAutoSell {
         return total;
     }
     
-    public void payOrder(Integer orderId, String currency, float amount) {
+    public String getSummary(ShopOrder order){
+        String summary = "";
+        StockElementDAO seDAO = new StockElementDAO();
+        VehicleDAO vDAO = new VehicleDAO();
+        HandleCar hc = new HandleCar();
+        Collection<StockElement> cars = seDAO.searchGroupByOrderIdAndAvailable(order, Boolean.FALSE);
+        Vehicle v;
+        HashMap<Vehicle, Integer> hm = new HashMap<>();
+        for (StockElement car : cars) {
+            v = vDAO.findVehicle(car.getVehicleVehicleId().getVehicleId());
+            if (!hm.containsKey(v)){
+                hm.put(v, 1);
+            }else{
+                hm.put(v, hm.get(v)+1);
+            }
+        }
+        for (Vehicle x : hm.keySet()) {
+            summary += x.getType()+" "+x.getColor()+" - Cantidad: "+hm.get(x)+" - Precio unidad: $ "+x.getSellPrice()+" - Precio unidad con descuento: $ "+hc.getDiscoutPriceByVehicle(x)+" || "+"\n ";
+        }
+        return summary;
+    }
+    
+    public String payOrder(Integer orderId, String currency, float amount) {
         ShopOrderDAO orderDAO = new ShopOrderDAO();
         ShopOrder order = orderDAO.searchByOrderId(orderId);
         float total = getTotal(order);
         if (amount < total) { //Pago parcial
             orderDAO.buyAutos(order, currency, ESPERA, total - amount);
+            return "Pago parcial";
         } else if (amount == total) { //Pago total
             orderDAO.buyAutos(order, currency, FINALIZADA, total - amount);
+            return "Pago total";
         } else {
             //Pago de mas
+            return "Cantidad incorrecta: Pago de mas";
         }
     }
     

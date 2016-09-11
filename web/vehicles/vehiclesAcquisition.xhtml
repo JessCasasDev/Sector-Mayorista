@@ -22,6 +22,9 @@
                 <ul id="nav-mobile" class="right blue darken-4">
                     <li class="blue-text text-lighten-3"><a href="../admin/admin_index.xhtml">Inicio</a></li>
                     <li class="blue-text text-lighten-3">
+                        <h:form> <h:commandLink action="vehiclesCreator" value="Agregar vehículo"/></h:form>
+                    </li>
+                    <li class="blue-text text-lighten-3">
                         <h:form> <h:commandLink action="vehiclesEditor" value="Editar vehículo"/></h:form>
                     </li>
                     <li class="blue-text text-lighten-3">
@@ -40,50 +43,63 @@
                 <hr/>
                 <h2>Adquirir Vehículos</h2>   
                 <panel>
-                <h:form>
-                <hr/>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <h3 class="indigo-text text-darken-4">Comprar Autos a la Fábrica</h3>
-                        
-                        <h:form>
-                            
-                        <div class="input-field col s12">
-                            <label>Seleccionar Tipo de Vehiculo</label><br/><br/>
-                            <h:selectOneMenu value="#{acquireVehiclesBean.selectedItem}" 
-                                             label="Seleccione un Vehiculo..."
-                                             valueChangeListener="#{acquireVehiclesBean.vehicleChanged}" 
-                                             immediate="true"
-                                             onchange="this.form.submit()">
-                                <f:selectItems value="#{acquireVehiclesBean.availableItems}" var="em" itemValue="#{em.value}" />
-                                
-                            </h:selectOneMenu>  
-                        </div>
-                         <div class="input-field col s6">
-                             <h:inputText value="#{acquireVehiclesBean.deliverydate}" required="true" requiredMessage="¡La fecha es requerida!">
-                                 <f:convertDateTime pattern="dd/mm/yyyy" />
-                             </h:inputText>
-                            <label>Fecha de Entrega. Formato dd//mm//yyyy</label>
-                        </div>
-                            <div class="input-field col s6">
-                                <h:inputText value="#{acquireVehiclesBean.quantity}" required="true" requiredMessage="¡La cantidad es requerida!">
-                                    <f:validateLongRange minimum="0"/>                                
-                                </h:inputText>
-                            <label>Cantidad</label>
-                            <div class="input-field col s6">
-                                <h:inputText value="#{acquireVehiclesBean.location}" required="true" requiredMessage="¡La locación es requerida!"/>         
-                            <label>Locación</label>
-                            </div>
-                            </div>
-                    </h:form>
-                        
-                <br/>
-                <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{acquireVehiclesBean.createPurchase()}" value="Crear Compra"/>
-                <br/><br/>
-                <p>Mensaje: </p>
-                <h:outputText value="#{acquireVehiclesBean.message}"/>
-                <br/><br/>
-                    </div></div></h:form>
+                    <h:form>
+                        <hr/>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <h3 class="indigo-text text-darken-4">Comprar Autos a la Fábrica</h3>
+
+                                <h:form>
+
+                                    <div class="input-field col s12">
+                                        <label>Seleccionar Tipo de Vehiculo</label><br/><br/>
+                                        <h:selectOneMenu value="#{acquireVehiclesBean.selectedItem}" 
+                                                         label="Seleccione un Vehiculo..."
+                                                         valueChangeListener="#{acquireVehiclesBean.vehicleChanged}" 
+                                                         immediate="true"
+                                                         onchange="this.form.submit()">
+                                            <f:selectItems value="#{acquireVehiclesBean.availableItems}" var="em" itemValue="#{em.value}" />
+
+                                        </h:selectOneMenu>  
+                                    </div>
+                                    <div class="row">
+                                        <label>Fecha de expiración</label>
+                                        <div class="input-field col s4"><h:inputText value="#{acquireVehiclesBean.day}"  converterMessage="Porfavor ingrese solo valores numericos" required="true" requiredMessage="¡El día es requerido!">
+                                                <f:validateLongRange maximum="31" minimum="1" />
+                                            </h:inputText>
+                                            <label>Dia</label>
+                                        </div>
+                                        <div class="input-field col s4">
+                                            <h:inputText value="#{acquireVehiclesBean.month}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos">
+                                                <f:validateLongRange maximum="12" minimum="1" />
+                                            </h:inputText>
+                                            <label>Mes</label>
+                                        </div>
+                                        <div class="input-field col s4">
+                                            <h:inputText value="#{acquireVehiclesBean.year}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos">
+                                                <f:validateLongRange maximum="2016" minimum="1920" /></h:inputText>
+                                            <label>Año</label>
+                                        </div>               
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <h:inputText value="#{acquireVehiclesBean.quantity}" required="true" requiredMessage="¡La cantidad es requerida!">
+                                            <f:validateLongRange minimum="0"/>                                
+                                        </h:inputText>
+                                        <label>Cantidad</label>
+                                        <div class="input-field col s6">
+                                            <h:inputText value="#{acquireVehiclesBean.location}" required="true" requiredMessage="¡La locación es requerida!"/>         
+                                            <label>Locación</label>
+                                        </div>
+                                    </div>
+                                </h:form>
+
+                                <br/>
+                                <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{acquireVehiclesBean.createPurchase()}" value="Crear Compra"/>
+                                <br/><br/>
+                                <p>Mensaje: </p>
+                                <h:outputText value="#{acquireVehiclesBean.message}"/>
+                                <br/><br/>
+                            </div></div></h:form>
                 </panel>
             </div>
         </center>

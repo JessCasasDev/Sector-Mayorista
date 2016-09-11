@@ -24,6 +24,7 @@
                 <a href="../index.xhtml" class="brand-logo">Automarket</a>
                 <ul id="nav-mobile" class="right blue darken-4">
                     <li class="blue-text text-lighten-3"><a href="../car/carsView.xhtml">Automóviles</a></li>
+                    <li class="blue-text text-lighten-3"><a href="discountView.xhtml">Descuentos</a></li>
                     <li class="blue-text text-lighten-3"><a href="shopping_cart.xhtml">Carrito de Compra</a></li>
                     <li class="blue-text text-lighten-3"><a href="buying_history.xhtml">Compras</a></li>
                     <li class="blue-text text-lighten-3"><a href="client_profile.xhtml">Perfil</a></li>
@@ -40,21 +41,24 @@
             <table class="highlight">
                 <tr>
                     <th>Numero de orden</th>
-                    <th>Nombre</th>
+                    <th>Resumen de la orden</th>
                     <th>Fecha de pedido</th>
                     <th>Fecha de entrega</th>
                     <th>Total de la orden</th>
+                    <th>Pagos parciales</th>
                 </tr>
                 <ui:repeat value="#{shoppingCartBean.displayCart()}" var="cart">
                     <tr>
                         <td><h5>#{cart.orderId}</h5></td>
-                        <td><h6>#{cart.clientId.name}</h6></td>
+                        <td><h:outputText value="#{shoppingCartBean.getSumm(cart)}" /> </td>
                         <td><h6>#{cart.orderDate}</h6></td>
                         <td><h6>#{cart.deliveryDate}</h6></td>
                         <td><h6>$ #{shoppingCartBean.getTotal(cart)}</h6></td>
+                        <td><h6>$ Pendiente de hacer</h6></td>
                     </tr>
                 </ui:repeat>
             </table>
+            <a class="waves-effect waves-light btn modal-trigger" href="../car/carsRemove.xhtml">Modificar Pedido</a>
             <hr/>
             <div class="container">
                 <h:form>
@@ -75,6 +79,7 @@
                             <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{shoppingCartBean.payShopOrder()}" value="Pagar"/>
                         </div>
                     </div>
+                    <p>Mensaje: <h:outputFormat value="#{shoppingCartBean.message}" /></p>
                 </h:form>
             </div>
         </center>
