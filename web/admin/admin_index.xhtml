@@ -20,7 +20,7 @@ and open the template in the editor.
             <f:event type="preRenderView" listener="#{loginBean.verify_role('Administrator')}"/>
         </f:metadata>
     </h:head>
-    <h:body class="light-blue lighten-4">
+    <h:body class="grey lighten-4">
         <nav>
             <div class="nav-wrapper blue darken-4">
                 <a href="../index.xhtml" class="brand-logo">Automarket</a>
@@ -32,89 +32,137 @@ and open the template in the editor.
                 </ul>
             </div>
         </nav>    
-        <center><h2 class="light-blue-text darken-3">Gestión del Sistema</h2></center>
+        <center><h2 class="light-blue-text darken-4">Gestión del Sistema</h2></center>
         <center>
             <div class="container">
-                <ul id="nav-mobile" class="center">
-                    <h:form> 
-                        <!--vehicles-->
-                        <center><div class="card s8">
-                                <div class="card-image s4 waves-effect waves-block waves-light">
-                                    <img style="width:280px; height:200px;" class="responsive-img activator" width="240" src="../images/vehicle.png"/>
-                                </div>
+                <ul class=" row center">
+                    <!--vehicles-->
+                    <li class="col l4 m6 s12 clearfix">
+                        <div class="card horizontal">
+                            <span class="card-title activator light-blue-text darken-3"><h4>Gestión de Vehiculos</h4></span>
+                            <div class="card-image s4 waves-effect waves-block waves-light">
+                                <center><img class="responsive-img center activator" width="60" src="../images/vehicle.png"/></center>
+                            </div>
+                            <div class="card-stacked">
                                 <div class="card-content">
-                                    <span class="card-title activator grey-text text-darken-4">Gestión Vehículos</span>
-                                    <p><i class="material-icons circle white">settings</i>
-                                        <a 
-                                            class="waves-effect s4 waves-teal btn-flat"
-                                            href="../vehicles/vehiclesCreator.xhtml">Agregar Vehículo</a>
-                                        <i class="material-icons circle white">settings</i>
-                                        <a 
-                                            class="waves-effect s4 waves-teal btn-flat"
-                                            href="../vehicles/vehiclesEditor.xhtml">Editar Vehículo</a>
-                                        <i class="material-icons circle white">settings</i>
-                                        <a 
-                                            class="waves-effect s4 waves-teal btn-flat"
-                                            href="../vehicles/vehiclesDestroyer.xhtml">Eliminar Vehículo</a>
-                                        <i class="material-icons circle white">settings</i>
-                                        <a 
-                                            class="waves-effect s4 waves-teal btn-flat"
-                                            href="../vehicles/vehiclesAcquisition.xhtml">Adquirir Vehículos</a>
-                                    </p>
+                                    <ul class="collection">
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">add</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="../vehicles/vehiclesCreator.xhtml">Agregar Vehículo</a>
+                                            <br/>
+                                        </li>
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">edit</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="../vehicles/vehiclesEditor.xhtml">Editar Vehículo</a>
+                                            <br/>
+                                        </li>
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">delete</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="../vehicles/vehiclesDestroyer.xhtml">Eliminar Vehículo</a>
+                                            <br/>
+                                        </li>
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">store</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="../vehicles/vehiclesAcquisition.xhtml">Adquirir Vehículos</a>
+                                            <br/>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                            <!--fin vehicles-->
-                            <!--Discounts-->
-                            <div class="card s8">
-                                <div class="card-image s4 waves-effect waves-block waves-light">
-                                    <center><img style="width:200px; height:200px;" class="responsive-img activator" width="240" src="../images/discounts.png"/></center>
-                                </div>
+                        </div>
+                    </li>
+
+                    <!--fin vehicles-->
+
+                    <!--Discounts-->
+                    <li class="col l4 m6 s12 clearfix">
+                        <div class="card horizontal">
+                            <span class="card-title activator light-blue-text darken-3"><h4>Gestión Descuentos</h4></span>
+                            <div class="card-image s4 waves-effect waves-block waves-light">
+                                <center><img class="responsive-img center activator" width="60" src="../images/discounts.png"/></center>
+                            </div>
+                            <div class="card-stacked">
                                 <div class="card-content">
-                                    <span class="card-title activator grey-text text-darken-4">Gestión Descuentos</span>
-                                    <p><i class="material-icons circle white">settings</i>
-                                        <a 
-                                            class="waves-effect s4 waves-teal btn-flat"
-                                            href="../discounts/discountsCreator.xhtml">Agregar Descuento</a>
-                                        <i class="material-icons circle white">settings</i>
-                                        <a 
-                                            class="waves-effect s4 waves-teal btn-flat"
-                                            href="../discounts/discountsEditor.xhtml">Editar Descuento</a>
-                                        <i class="material-icons circle white">settings</i>
-                                        <a 
-                                            class="waves-effect s4 waves-teal btn-flat"
-                                            href="../discounts/discountsDestroyer.xhtml">Eliminar Descuento</a>
-                                    </p>
+                                    <ul class="collection">
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">add</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="../discounts/discountsCreator.xhtml">Agregar Descuento</a>
+                                            <br/>
+                                        </li>
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">edit</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="../discounts/discountsEditor.xhtml">Editar Descuento</a>
+                                            <br/>
+                                        </li>
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">delete</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="../discounts/discountsDestroyer.xhtml">Eliminar Descuento</a>
+                                            <br/>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                            <!--fin discounts-->
-                            <div class="card s8">
-                                <div class="card-image s4 waves-effect waves-block waves-light">
-                                    <center><img style="width:200px; height:200px;" class="responsive-img activator" width="240" src="../images/empleados.jpg"/></center>
-                                </div>
+                        </div>
+                    </li>
+                    <!--fin discounts-->
+                    <!--employees-->
+                    <li class="col l4 m6 s12 clearfix">
+                        <div class="card horizontal">
+                            <span class="card-title activator light-blue-text darken-3"><h4>Gestión de Empleados</h4></span>
+                            <div class="card-image s4 waves-effect waves-block waves-light">
+                                <center><img class="responsive-img center activator" width="60" src="../images/empleados.jpg"/></center>
+                            </div>
+                            <div class="card-stacked">
                                 <div class="card-content">
-                                    <span class="card-title activator grey-text text-darken-4">Gestión Empleados</span>
-                                    <p>
-                                        <i class="material-icons circle white">settings</i>
-                                        <a 
-                                            class="waves-effect s4 waves-teal btn-flat"
-                                            href="addEmployee.xhtml">Agregar Empleado</a>
-                                        <i class="material-icons circle white">settings</i>
-                                        <a 
-                                            class="waves-effect s4 waves-teal btn-flat"
-                                            href="editEmployee.xhtml">Editar Empleado</a>
-                                        <i class="material-icons circle white">settings</i>
-                                        <a 
-                                            class="waves-effect s4 waves-teal btn-flat"
-                                            href="deleteEmployee.xhtml">Eliminar Empleado</a>
-                                        <i class="material-icons circle white">settings</i>
-                                        <a 
-                                            class="waves-effect s4 waves-teal btn-flat"
-                                            href="employee_management.xhtml">Pagar/Calificar Empleados</a>
-                                    </p>
+                                    <ul class="collection">
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">add</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="addEmployee.xhtml">Agregar Empleado</a>
+                                            <br/>
+                                        </li>
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">edit</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"     
+                                                href="editEmployee.xhtml">Editar Empleado</a>
+                                            <br/>
+                                        </li>
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">delete</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="deleteEmployee.xhtml">Eliminar Empleado</a>
+                                            <br/>
+                                        </li>
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">payment</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="employee_management.xhtml">Pagar/Calificar Empleados</a>
+                                            <br/>
+                                        </li>
+                                    </ul>
                                 </div>
-                            </div></center>
-                    </h:form>
-                    
+                            </div>
+                        </div>
+                    </li>
+                    <!--fin employees-->
                 </ul>
             </div>  
         </center>
