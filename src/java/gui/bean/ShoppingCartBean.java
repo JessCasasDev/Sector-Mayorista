@@ -37,6 +37,15 @@ public class ShoppingCartBean {
     private Collection<ShopOrder> orders;
     private String currency;
     private float amount;
+    private String vFalse;
+
+    public String getvFalse() {
+        return vFalse;
+    }
+
+    public void setvFalse(String vFalse) {
+        this.vFalse = vFalse;
+    }
 
     public Date getOrderDate() {
         return orderDate;
@@ -130,9 +139,18 @@ public class ShoppingCartBean {
         this.quantityToRemove = quantityToRemove;
     }
 
-    public float getTotal(ShopOrder order) {
+    public float getTotal(ShopOrder order, String withPayments) {
         HandleAutoSell has = new HandleAutoSell();
-        return has.getTotal(order);
+        if (withPayments.equals("False")){
+            return has.getTotal(order, Boolean.FALSE);
+        }else{
+            return has.getTotal(order, Boolean.TRUE);
+        }
+    }
+    
+    public float getAlreadyPaid(ShopOrder order) {
+        HandleAutoSell has = new HandleAutoSell();
+        return has.getTotal(order, Boolean.FALSE) - has.getTotal(order, Boolean.TRUE);
     }
     
     public String getSumm(ShopOrder order){

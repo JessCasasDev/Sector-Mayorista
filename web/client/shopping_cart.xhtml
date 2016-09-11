@@ -44,8 +44,9 @@
                         <th>Resumen de la orden</th>
                         <th>Fecha de pedido</th>
                         <th>Fecha de entrega</th>
+                        <th>Saldo pendiente</th>
+                        <th>Pagos hechos</th>
                         <th>Total de la orden</th>
-                        <th>Pagos parciales</th>
                     </tr>
                     <ui:repeat value="#{shoppingCartBean.displayCart()}" var="cart">
                         <tr>
@@ -53,8 +54,9 @@
                             <td><h:outputText value="#{shoppingCartBean.getSumm(cart)}" /> </td>
                             <td><h6>#{cart.orderDate}</h6></td>
                             <td><h6>#{cart.deliveryDate}</h6></td>
-                            <td><h6>$ #{shoppingCartBean.getTotal(cart)}</h6></td>
-                            <td><h6>$ Pendiente de hacer</h6></td>
+                            <td><h6>$ #{shoppingCartBean.getTotal(cart, "True")}</h6></td>
+                            <td><h6>$ #{shoppingCartBean.getAlreadyPaid(cart)}</h6></td>
+                            <td><h6>$ #{shoppingCartBean.getTotal(cart, "False")}</h6></td>
                         </tr>
                     </ui:repeat>
                 </table>
