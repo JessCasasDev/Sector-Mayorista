@@ -73,7 +73,7 @@
                             </h:inputText>
                             <label>Precio de venta</label>
                             <h:inputText value="#{vehicleCRUDBean.sellPrice}" required="true" requiredMessage="the sell price is required">
-                                <f:validateDoubleRange minimum="#{vehicleCRUDBean.cost}" maximum="100000000" />
+                                <f:validateDoubleRange minimum="0" maximum="100000000" />
                             </h:inputText></h:panelGrid>
                         <br/>
                         <h:commandButton 

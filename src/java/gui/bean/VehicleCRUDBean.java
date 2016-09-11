@@ -152,8 +152,9 @@ public class VehicleCRUDBean {
         try {
             Float costF = Float.valueOf(getCost());
             Float sellCF = Float.valueOf(getSellPrice());
-            if (Float.compare(costF, sellCF) < 0) {
-                setMessage("the sell price must be greater than cost");
+            if (Float.compare(costF, sellCF) > 0) {
+                setMessage("the sell price: " + sellPrice
+                        + " must be greater than cost: " + cost);
                 return;
             }
             createVehicle.createVehicle(getBrand(), getModel(), getColor(),
@@ -173,8 +174,9 @@ public class VehicleCRUDBean {
         try {
             Float costF = Float.valueOf(getCost());
             Float sellCF = Float.valueOf(getSellPrice());
-            if (Float.compare(costF, sellCF) < 0) {
-                setMessage("the sell price must be greater than cost");
+            if (Float.compare(costF, sellCF) > 0) {
+                setMessage("the sell price: " + sellPrice
+                        + " must be greater than cost: " + cost);
                 return;
             }
             Vehicle edited = getSelectedVehicle();
