@@ -12,79 +12,123 @@
         <link href="css/test.css" rel="stylesheet" type="text/css"></link>
     </head>
 
-    <h:body class="light-blue lighten-4">
+    <h:body>
         <!--MENU-->
         <nav>
             <div class="nav-wrapper blue darken-4">
                 <a href="#" class="brand-logo">Automarket</a>
                 <ul id="nav-mobile" class="right blue darken-4">
-                    <li class="blue-text text-lighten-3"><a href="#client-reg">Registro Clientes</a></li>
+                    <li class="blue-text text-lighten-3">
+                        <a class="modal-trigger" href="#clientRegister" id="openClientRegisterMenu">Registrar Cliente</a>
+                    </li>
                 </ul>
             </div>
         </nav>
         <!--FIN MENU-->
-        <center>
-            <h1 class="indigo-text text-darken-4">Bienvenido a Automarket</h1>
-            <img src="images/auto.jpg" class="cover_img" alt="AutoMarket"></img>
-        </center>
-
-        <div id="client-reg">
-            <div class="container">
-                <h3 class="indigo-text text-darken-4">Ingresar a tu cuenta</h3>
-            <h:form>
-                <div class="input-field col s6">
-                    <h:inputText value="#{loginBean.username}" required="true" requiredMessage="¡El nombre es requerido!"/>
-                    <label>Nombre de Usuario</label>
-                </div> 
-                <div class="input-field col s6">
-                    <div class="input-field col s6"></div> <h:inputSecret value="#{loginBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>
-                    <label>Contraseña</label>
-                </div>
-                
-                <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{loginBean.login()}" value="Entrar"/>
-                <h:outputText value=" #{loginBean.message}"/>
-            </h:form>
-                </div>
-            <div class="container">
-                <h:form>
+                 <div class="parallax-container">
+            <div class="parallax"><img src="images/imagen1.jpg"/></div>
+                <div class="container center">
+                    <h1 class="light-blue-text text-accent-4" >Bienvenido a Automarket</h1>
+                    <h2 class="light-blue-text text-darken-4" >Sector Mayorista de Autos</h2>
+                    <br/><br/>
                     <div class="row">
-                        <div class="input-field col s6">
-                            <h3 class="indigo-text text-darken-4">Crear Cuenta Cliente</h3>
-
-                            <div class="input-field col s6">
-                                <h:inputText class="validate" value="#{clientBean.username}" required="true" requiredMessage="¡El usuario es requerido!"/>
-                                <label>Nombre de Usuario</label>
-                            </div>
-                            <div class="input-field col s6">
-                                <h:inputSecret class="validate" value="#{clientBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>
-                                <label>Contraseña</label>
-                            </div>
-                            <div class="input-field col s6">
-                                <h:inputText class="validate" value="#{clientBean.name}" required="true" requiredMessage="¡El nombre es requerido!"/>
-                                <label>Nombre de Cliente</label>
-                            </div>
-                            <div class="input-field col s6">
-                                <h:inputText class="validate" value="#{clientBean.address}" required="true" requiredMessage="¡La dirección es requerida!"/>
-                                <label>Direccion</label>
-                            </div>
-                            <div class="input-field col s6">
-                                <h:inputText class="validate" value="#{clientBean.nit}" required="true" requiredMessage="¡El nit es requerido!" converterMessage="Porfavor ingrese solo valores numericos"/>
-                                <label>NIT</label>
-                            </div>
-                            <br/>
-                            <h:commandButton class="waves-effect waves-light btn modal-trigger" action="#{clientBean.createClient()}" value="Crear Cliente"/>
-                            <br/><br/>
-                            <p>Mensaje: </p>
-                            <h:outputText value="#{clientBean.message}"/>
-
-                        </div>
+                        <h:form>
+                            <a class="waves-effect waves-light btn modal-trigger indigo darken-4" href="#login" id="openLogin">Iniciar Sesión</a>
+                        </h:form>
+                        <br/>
+                        <h:form>
+                            <a class="waves-effect waves-light btn modal-trigger indigo darken-4" href="#clientRegister" id="openClientRegister">Registrar Cliente</a>
+                        </h:form>
                     </div>
-                </h:form>
-            </div>
-        </div>
+                        <!-- Modal LOGIN -->
+                        <div id="login" class="modal">
+                            <div class="modal-content">
+                                <div class="container">
+                                    <h3 class="indigo-text text-darken-4">Ingresar a tu cuenta</h3>
+                                    <h:form>
+                                        <div class="input-field col s6">
+                                            <h:inputText value="#{loginBean.username}" required="true" requiredMessage="¡El nombre es requerido!"/>
+                                            <label>Nombre de Usuario</label>
+                                        </div> 
+                                        <div class="input-field col s6">
+                                            <div class="input-field col s6"></div> <h:inputSecret value="#{loginBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>
+                                            <label>Contraseña</label>
+                                        </div>
+                                        <h:commandButton class="waves-effect waves-light btn modal-trigger indigo darken-4" action="#{loginBean.login()}" value="Entrar"/>
+                                <h:outputText value=" #{loginBean.message}"/>
+                                </h:form>
+                                     </div>
+                            </div>
+                            <br/><br/>
+                        </div>
+                        <!-- Modal REGISTER CLIENT -->
+                        <div id="clientRegister" class="modal modal-fixed-footer">
+                            <div class="modal-content">                 
+                                <div class="container">
+                                    <h:form>
+                                        <h3 class="indigo-text text-darken-4">Crear Cuenta Cliente</h3>
 
+                                        <div class="input-field col s6">
+                                            <h:inputText class="validate" value="#{clientBean.username}" required="true" requiredMessage="¡El usuario es requerido!"/>
+                                            <label>Nombre de Usuario</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <h:inputSecret class="validate" value="#{clientBean.password}" required="true" requiredMessage="¡La contraseña es requerida!"/>
+                                            <label>Contraseña</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <h:inputText class="validate" value="#{clientBean.name}" required="true" requiredMessage="¡El nombre es requerido!"/>
+                                            <label>Nombre de Cliente</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <h:inputText class="validate" value="#{clientBean.address}" required="true" requiredMessage="¡La dirección es requerida!"/>
+                                            <label>Direccion</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <h:inputText class="validate" value="#{clientBean.nit}" required="true" requiredMessage="¡El nit es requerido!" converterMessage="Porfavor ingrese solo valores numericos"/>
+                                            <label>NIT</label>
+                                        </div>
+                                        <br/>
+                                        <h:commandButton class="waves-effect waves-light btn modal-trigger indigo darken-4" id="buttonCreateClient" action="#{clientBean.createClient()}" value="Crear Cliente"/>
+                                        <br/><br/>
+                                    </h:form>
+                                </div>    
+                            </div>
+                        </div>
+                        <h4><h:outputText class="light-blue-text text-accent-4" value="#{clientBean.message}"/></h4>
+                </div>                
+        </div>
+        <!-- FOOTER -->
+        <footer class="page-footer  blue darken-4">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">AutoMarket</h5>
+                <p class="grey-text text-lighten-4">La empresa mayorista de automóviles es la encargada de vender carros a los concesionarios y comprarlos a la fábrica CKD, estos vehiculos son adquiridos al por mayor ya fabricados y funcionales. Toda empresa mayorista necesita un sistema con el cuál gestionar sus vehículos para vender y las empresas a las cuales les vende los autos (Concesionario)</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Autores</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="https://github.com/JessicaCasas8712">Jessica Casas</a></li>
+                  <li><a class="grey-text text-lighten-3" href="https://github.com/afacunaa">Andrés Acuña</a></li>
+                  <li><a class="grey-text text-lighten-3" href="https://github.com/zayos">Michael González</a></li>
+                  <li><a class="grey-text text-lighten-3" href="https://github.com/juanka588">Juan Camilo Rodriguez</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2016 Arquitectura de Software
+            <a class="grey-text text-lighten-4 right" href="https://github.com/JessicaCasas8712/Sector-Mayorista">Proyecto</a>
+            </div>
+          </div>
+        </footer>
         <!-- JS FILES-->
+        
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="js/initial.js"/>
+        
     </h:body>
 </html>
