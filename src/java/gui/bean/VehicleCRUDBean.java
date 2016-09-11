@@ -199,7 +199,7 @@ public class VehicleCRUDBean {
      
      public String getDiscount(int id, float discount){
          Vehicle vh = getSelectedVehicle(id);
-         Float f = (vh.getSellPrice()*discount);
+         Float f = (vh.getSellPrice() - discount);
          return f.toString();
          
      }

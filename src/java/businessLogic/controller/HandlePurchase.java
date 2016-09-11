@@ -15,15 +15,12 @@ import javax.faces.context.FacesContext;
 public class HandlePurchase {
     public static final String ID = "id";
     
-    public Purchase createPurchase(String deliverydate, Integer quantity) throws ParseException {
+    public Purchase createPurchase(Date date, Integer quantity) throws ParseException {
         PurchaseDAO purchase = new PurchaseDAO();
         EmployeeDAO emp = new EmployeeDAO();
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",
-                Locale.US);
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         Integer current_id = (Integer) ec.getSessionMap().get(ID);
         Employee employee = emp.searchById(current_id);
-        Date date = sdf.parse(deliverydate);
         
         Purchase p = new Purchase();
         p.setDeliveryDate(date);

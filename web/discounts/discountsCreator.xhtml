@@ -47,13 +47,27 @@
                                          required="true" requiredMessage="the percentage is required">
                                 <f:validateDoubleRange minimum="0.0" maximum="1.0" />
                             </h:inputText>
-                            <label>Fecha de expiración<br/>Uso: dd/mm/yyyy</label>
-                            <div class="input-field col s6">  
-                                <h:inputText class="validate" value="#{discountCRUDBean.expirationDate}" 
-                                             required="true" requiredMessage="the expiration date is required">
-                                    <f:convertDateTime pattern="dd/mm/yyyy" />
-                                </h:inputText>
+                            </h:panelGrid>
+                            <label>Fecha de expiración</label>
+                            <div class="row">
+                                <div class="input-field col s4"><h:inputText value="#{discountCRUDBean.day}"  converterMessage="Porfavor ingrese solo valores numericos" required="true" requiredMessage="¡El día es requerido!">
+                                        <f:validateLongRange maximum="31" minimum="1" />
+                                    </h:inputText>
+                                    <label>Dia</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <h:inputText value="#{discountCRUDBean.month}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos">
+                                        <f:validateLongRange maximum="12" minimum="1" />
+                                    </h:inputText>
+                                    <label>Mes</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <h:inputText value="#{discountCRUDBean.year}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos">
+                                        <f:validateLongRange maximum="2016" minimum="1920" /></h:inputText>
+                                    <label>Año</label>
+                                </div>               
                             </div>
+                            <h:panelGrid columns="2">
                             <label>Vehículo para descuento</label>
                             <div class="input-field col s4">
                                 <h:selectOneMenu value="#{discountCRUDBean.selectedVehicleId}">
