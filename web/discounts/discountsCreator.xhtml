@@ -7,6 +7,7 @@
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="../css/automarketStyle.css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Administración de descuentos</title>
         <f:metadata>
@@ -14,7 +15,7 @@
             <f:event type="preRenderView" listener="#{loginBean.verify_role('Administrator')}"/>
         </f:metadata>
     </head>
-    <body>
+    <body class="grey lighten-4">
         <!--MENU-->
         <nav>
             <div class="nav-wrapper blue darken-4 white-text">
@@ -47,27 +48,27 @@
                                          required="true" requiredMessage="the percentage is required">
                                 <f:validateDoubleRange minimum="0.0" maximum="1.0" />
                             </h:inputText>
-                            </h:panelGrid>
-                            <label>Fecha de expiración</label>
-                            <div class="row">
-                                <div class="input-field col s4"><h:inputText value="#{discountCRUDBean.day}"  converterMessage="Porfavor ingrese solo valores numericos" required="true" requiredMessage="¡El día es requerido!">
-                                        <f:validateLongRange maximum="31" minimum="1" />
-                                    </h:inputText>
-                                    <label>Dia</label>
-                                </div>
-                                <div class="input-field col s4">
-                                    <h:inputText value="#{discountCRUDBean.month}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos">
-                                        <f:validateLongRange maximum="12" minimum="1" />
-                                    </h:inputText>
-                                    <label>Mes</label>
-                                </div>
-                                <div class="input-field col s4">
-                                    <h:inputText value="#{discountCRUDBean.year}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos">
-                                        <f:validateLongRange maximum="2016" minimum="1920" /></h:inputText>
-                                    <label>Año</label>
-                                </div>               
+                        </h:panelGrid>
+                        <label>Fecha de expiración</label>
+                        <div class="row">
+                            <div class="input-field col s4"><h:inputText value="#{discountCRUDBean.day}"  converterMessage="Porfavor ingrese solo valores numericos" required="true" requiredMessage="¡El día es requerido!">
+                                    <f:validateLongRange maximum="31" minimum="1" />
+                                </h:inputText>
+                                <label>Dia</label>
                             </div>
-                            <h:panelGrid columns="2">
+                            <div class="input-field col s4">
+                                <h:inputText value="#{discountCRUDBean.month}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos">
+                                    <f:validateLongRange maximum="12" minimum="1" />
+                                </h:inputText>
+                                <label>Mes</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <h:inputText value="#{discountCRUDBean.year}" required="true" requiredMessage="¡El mes es requerido!" converterMessage="Porfavor ingrese solo valores numericos">
+                                    <f:validateLongRange maximum="2016" minimum="1920" /></h:inputText>
+                                <label>Año</label>
+                            </div>               
+                        </div>
+                        <h:panelGrid columns="2">
                             <label>Vehículo para descuento</label>
                             <div class="input-field col s4">
                                 <h:selectOneMenu value="#{discountCRUDBean.selectedVehicleId}">
@@ -80,8 +81,11 @@
                         </h:panelGrid>
                         <br/>
                         <h:commandButton 
-                            class="waves-effect waves-light btn"
+                            class="indigo darken-4 waves-effect waves-light btn"
                             action="#{discountCRUDBean.createDiscount()}" value="Crear"/>
+                        <br/><br/>
+                        <p>Mensaje: </p>
+                        <h:outputText value="#{discountCRUDBean.message}"/>
                         <br/><br/>
                     </h:form>
                 </panel>
@@ -91,5 +95,31 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
         <script type="text/javascript" src="../js/materialize.min.js"></script>
         <script type="text/javascript" src="../js/navBarUtil.js"></script>
+          <!-- FOOTER -->
+        <footer class="page-footer  blue darken-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">AutoMarket</h5>
+                        <p class="grey-text text-lighten-4">La empresa mayorista de automóviles es la encargada de vender carros a los concesionarios y comprarlos a la fábrica CKD, estos vehiculos son adquiridos al por mayor ya fabricados y funcionales. Toda empresa mayorista necesita un sistema con el cuál gestionar sus vehículos para vender y las empresas a las cuales les vende los autos (Concesionario)</p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Autores</h5>
+                        <ul>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/JessicaCasas8712">Jessica Casas</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/afacunaa">Andrés Acuña</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/zayos">Michael González</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/juanka588">Juan Camilo Rodriguez</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2016 Arquitectura de Software
+                    <a class="grey-text text-lighten-4 right" href="https://github.com/JessicaCasas8712/Sector-Mayorista">Proyecto</a>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

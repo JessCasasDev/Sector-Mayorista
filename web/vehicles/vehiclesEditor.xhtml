@@ -7,6 +7,7 @@
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="../css/automarketStyle.css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Administrador de vehículos</title>
         <script name="jquery/jquery.js" library="primefaces"></script>
@@ -15,7 +16,7 @@
             <f:event type="preRenderView" listener="#{loginBean.verify_role('Administrator')}"/>
         </f:metadata>
     </h:head>
-    <h:body>
+    <h:body class="grey lighten-4">
         <!--MENU-->
         <nav>
             <div class="nav-wrapper blue darken-4 white-text">
@@ -37,9 +38,9 @@
         <!--FIN MENU-->
         <center>
             <div class="container center card-panel col s4 m4 l4">
-                <h1>Vehículos</h1>
+                <h1 class="blue-text darken-4">Vehículos</h1>
                 <hr/>
-                <h2>Editar</h2>   
+                <h5 class="blue-text darken-4">Editar</h5>   
                 <panel>
                     <h:form>
                         <div class="input-field col s4">
@@ -56,8 +57,12 @@
                             <h:inputText value="#{vehicleCRUDBean.type}" required="true" requiredMessage="the type is required"/>
                             <label>Modelo</label>
                             <h:inputText value="#{vehicleCRUDBean.model}" required="true" requiredMessage="the model is required"/>
-                            <h:outputText value="Color" />
-                            <h:inputText value="#{vehicleCRUDBean.color}" required="true" requiredMessage="the color is required"/>
+                            <label>Color</label>
+                            <div class="input-field col s4">
+                                <h:selectOneMenu value="#{vehicleCRUDBean.color}">
+                                    <f:selectItems value="#{vehicleCRUDBean.availableColors}" />
+                                </h:selectOneMenu>
+                            </div>
                             <label>Brand</label>
                             <h:inputText value="#{vehicleCRUDBean.brand}" required="true" requiredMessage="the brand is required"/>
                             <label>Descripción</label>
@@ -72,8 +77,11 @@
                             </h:inputText></h:panelGrid>
                         <br/>
                         <h:commandButton 
-                            class="waves-effect waves-light btn"
+                            class="indigo darken-4 waves-effect waves-light btn"
                             action="#{vehicleCRUDBean.editVehicle()}" value="Editar"/>
+                        <br/><br/>
+                        <p>Mensaje: </p>
+                        <h:outputText value="#{vehicleCRUDBean.message}"/>
                         <br/><br/>
                     </h:form>
                 </panel>
@@ -83,5 +91,31 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
         <script type="text/javascript" src="../js/materialize.min.js"></script>
         <script type="text/javascript" src="../js/navBarUtil.js"></script>
+        <!-- FOOTER -->
+        <footer class="page-footer  blue darken-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">AutoMarket</h5>
+                        <p class="grey-text text-lighten-4">La empresa mayorista de automóviles es la encargada de vender carros a los concesionarios y comprarlos a la fábrica CKD, estos vehiculos son adquiridos al por mayor ya fabricados y funcionales. Toda empresa mayorista necesita un sistema con el cuál gestionar sus vehículos para vender y las empresas a las cuales les vende los autos (Concesionario)</p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Autores</h5>
+                        <ul>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/JessicaCasas8712">Jessica Casas</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/afacunaa">Andrés Acuña</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/zayos">Michael González</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/juanka588">Juan Camilo Rodriguez</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2016 Arquitectura de Software
+                    <a class="grey-text text-lighten-4 right" href="https://github.com/JessicaCasas8712/Sector-Mayorista">Proyecto</a>
+                </div>
+            </div>
+        </footer>
     </h:body>
 </html>

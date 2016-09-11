@@ -17,11 +17,15 @@ import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Vehicle;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -44,10 +48,17 @@ public class DiscountCRUDBean {
     private Float percentage;
     private ShopOrder shopOrderOrderId;
     private Vehicle vehicleId;
-    private SimpleDateFormat sdf, sdf2;
+    private SimpleDateFormat sdf;
     private Integer day;
     private Integer month;
     private Integer year;
+    private String message;
+
+    public DiscountCRUDBean() {
+        selectedVehicleId = -1;
+        selectedDiscountId = -1;
+        sdf = new SimpleDateFormat("dd-M-yyyy");
+    }
 
     public Integer getDay() {
         return day;
@@ -55,6 +66,14 @@ public class DiscountCRUDBean {
 
     public void setDay(Integer day) {
         this.day = day;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public Integer getMonth() {
@@ -71,14 +90,6 @@ public class DiscountCRUDBean {
 
     public void setYear(Integer year) {
         this.year = year;
-    }
-
-    public DiscountCRUDBean() {
-        selectedVehicleId = -1;
-        selectedDiscountId = -1;
-        sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",
-                Locale.US);
-        sdf2 = new SimpleDateFormat("dd/mm/yyyy");
     }
 
     public String getExpirationDate() {
@@ -168,21 +179,22 @@ public class DiscountCRUDBean {
             discount.setPercentage(getPercentage());
             Vehicle selectedVehicle = getSelectedVehicle();
             if (selectedVehicle == null) {
-                System.out.println("any selected vehicle");
+                setMessage("any selected vehicle");
                 return;
             }
             discount.setDiscountAmount(selectedVehicle.getSellPrice() * getPercentage());
             discount.setVehicleId(selectedVehicle);
             discountCRUD.createDiscount(discount);
+            setMessage("Discount created: " + discount.getLabel());
         } catch (Exception e) {
-            System.err.println(e);
+            setMessage(e.toString());
         }
     }
 
     public void editDiscount() {
         DiscountCRUD discountCRUD = new DiscountCRUD();
         if (selectedVehicleId == -1) {
-            System.err.println("any selected vehicle");
+            setMessage("any selected discount");
             return;
         }
         try {
@@ -194,7 +206,7 @@ public class DiscountCRUDBean {
             edited.setPercentage(getPercentage());
             Vehicle selectedVehicle = getSelectedVehicle();
             if (selectedVehicle == null) {
-                System.out.println("any selected vehicle");
+                setMessage("any selected vehicle");
                 return;
             }
             edited.setVehicleId(selectedVehicle);
@@ -202,21 +214,23 @@ public class DiscountCRUDBean {
             discountCRUD.editDiscount(edited);
             availableDiscounts.remove(key);
             availableDiscounts.put(edited.getLabel(), edited.getDiscountId());
+            setMessage("Discount edited: " + edited.getLabel());
         } catch (Exception e) {
-            System.err.println(e);
+            setMessage(e.toString());
         }
     }
 
     public void deleteDiscount() {
         DiscountCRUD deleteCRUD = new DiscountCRUD();
         if (selectedDiscountId == -1) {
-            System.err.println("any selected discount");
+            setMessage("any selected discount");
             return;
         }
         Discount deletedDiscount = getSelectedDiscount();
         String key = deletedDiscount.getLabel();
         deleteCRUD.deleteDiscount(getSelectedDiscountId());
         availableDiscounts.remove(key);
+        setMessage("Discount removed : " + deletedDiscount.getLabel());
     }
 
     private Vehicle getSelectedVehicle() {
@@ -236,22 +250,26 @@ public class DiscountCRUDBean {
     }
 
     public void fillDiscountData(ValueChangeEvent e) {
+        Calendar c = new GregorianCalendar();
         setSelectedDiscountId(Integer.parseInt(e.getNewValue().toString()));
         Discount selected = getSelectedDiscount();
         System.out.println("discount to fill " + selected.getLabel());
-        this.setDescription(selected.getDescription());       
+        this.setDescription(selected.getDescription());
         this.setPercentage(selected.getPercentage());
         this.setSelectedVehicleId(selected.getVehicleId().getVehicleId());
+        c.setTime(selected.getExpirationDate());
+        this.setDay(c.get(Calendar.DAY_OF_MONTH));
+        this.setMonth(c.get(Calendar.MONTH) + 1);
+        this.setYear(c.get(Calendar.YEAR));
         FacesContext.getCurrentInstance().renderResponse();
     }
-    
-    public List<Discount> getDiscounts(){
+
+    public List<Discount> getDiscounts() {
         DiscountCRUD dis = new DiscountCRUD();
         return dis.findDiscountEntities();
     }
-    
+
     public Date setDateTime(int day, int month, int year) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
         String s_day = String.valueOf(day);
         String s_month = String.valueOf(month);
         String s_year = String.valueOf(year);
