@@ -15,7 +15,9 @@ import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.entities.Discount;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Vehicle;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -43,6 +45,33 @@ public class DiscountCRUDBean {
     private ShopOrder shopOrderOrderId;
     private Vehicle vehicleId;
     private SimpleDateFormat sdf, sdf2;
+    private Integer day;
+    private Integer month;
+    private Integer year;
+
+    public Integer getDay() {
+        return day;
+    }
+
+    public void setDay(Integer day) {
+        this.day = day;
+    }
+
+    public Integer getMonth() {
+        return month;
+    }
+
+    public void setMonth(Integer month) {
+        this.month = month;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
 
     public DiscountCRUDBean() {
         selectedVehicleId = -1;
@@ -134,7 +163,8 @@ public class DiscountCRUDBean {
             Discount discount = new Discount();
             discount.setDescription(getDescription());
             System.out.println("Discount date: " + expirationDate);
-            discount.setExpirationDate(sdf.parse(expirationDate));
+            Date date = this.setDateTime(day, month, year);
+            discount.setExpirationDate(date);
             discount.setPercentage(getPercentage());
             Vehicle selectedVehicle = getSelectedVehicle();
             if (selectedVehicle == null) {
@@ -159,7 +189,8 @@ public class DiscountCRUDBean {
             Discount edited = getSelectedDiscount();
             String key = edited.getLabel();
             edited.setDescription(getDescription());
-            edited.setExpirationDate(sdf.parse(expirationDate));
+            Date date = this.setDateTime(day, month, year);
+            edited.setExpirationDate(date);
             edited.setPercentage(getPercentage());
             Vehicle selectedVehicle = getSelectedVehicle();
             if (selectedVehicle == null) {
@@ -208,8 +239,7 @@ public class DiscountCRUDBean {
         setSelectedDiscountId(Integer.parseInt(e.getNewValue().toString()));
         Discount selected = getSelectedDiscount();
         System.out.println("discount to fill " + selected.getLabel());
-        this.setDescription(selected.getDescription());
-        this.setExpirationDate(sdf2.format(selected.getExpirationDate()));
+        this.setDescription(selected.getDescription());       
         this.setPercentage(selected.getPercentage());
         this.setSelectedVehicleId(selected.getVehicleId().getVehicleId());
         FacesContext.getCurrentInstance().renderResponse();
@@ -218,6 +248,17 @@ public class DiscountCRUDBean {
     public List<Discount> getDiscounts(){
         DiscountCRUD dis = new DiscountCRUD();
         return dis.findDiscountEntities();
+    }
+    
+    public Date setDateTime(int day, int month, int year) throws ParseException {
+        Date birth = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        String s_day = String.valueOf(day);
+        String s_month = String.valueOf(month);
+        String s_year = String.valueOf(year);
+        String dateInString = s_day + "-" + s_month + "-" + s_year + " 23:59:59";
+        Date date = sdf.parse(dateInString);
+        return date;
     }
 
 }
