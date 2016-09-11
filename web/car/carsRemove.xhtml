@@ -79,7 +79,7 @@
                                 <h:inputText  value="#{shoppingCartBean.quantityToRemove}"  onkeypress="if (event.which & lt; 48 || event.which & gt; 57) return false;" class="center-align"   ></h:inputText>
 
                                 <label >Seleccionar Cantidad a Remover</label>
-                                <a class="waves-effect waves-light btn modal-trigger right">
+                                <a class="waves-effect waves-light btn modal-trigger indigo darken-4">
                                     <h:commandButton action="#{shoppingCartBean.removeFromCart(car.vehicleId,quantity)}" value="Remover del Carrito"/>
                                 </a>
                             </p>
