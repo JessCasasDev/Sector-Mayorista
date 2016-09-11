@@ -65,7 +65,12 @@ public class ShopOrderDAO {
         try {
             order = em.merge(em.find(ShopOrder.class, orderId));
             order.setState(state);
-            order.setDeliveryDate(new Date());
+            if (order.getDeliveryDate() == null){
+                Date date = new Date();
+                long oneMonth = 2590000000l;
+                date.setTime(date.getTime() + oneMonth);
+                order.setDeliveryDate(date);
+            }
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
