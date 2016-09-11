@@ -19,7 +19,7 @@ import javax.faces.event.ValueChangeEvent;
 public class AdministratorBean implements Serializable{
     private Float payment;
     private Float grade;
-    private String selectedItem; // +getter +setter
+    private int selectedItem; // +getter +setter
     private String employeeName;
     private String employeeLastName;
     private Integer employeeDocumentId;
@@ -126,11 +126,11 @@ public class AdministratorBean implements Serializable{
         return employee.getEmployeeInformation();
     }
 
-    public void setSelectedItem(String selectedItem) {
+    public void setSelectedItem(int selectedItem) {
         this.selectedItem = selectedItem;
     }
 
-    public String getSelectedItem() {
+    public int getSelectedItem() {
         return selectedItem;
     }
 
@@ -150,12 +150,20 @@ public class AdministratorBean implements Serializable{
     }
     
     public void employeeChanged(ValueChangeEvent e) {
-    selectedItem = (String) e.getNewValue();
+    selectedItem = (int) e.getNewValue();
     System.out.println("gui.bean.AdministratorBean.employeeChanged()  " + selectedItem);
     employeeBean = new EmployeeBean();
-    employeeBean.setValues(selectedItem);    
+    Employee emp = employeeBean.getEmployee(selectedItem);
+    this.setEmployeeName(emp.getName());
+    this.setEmployeeLastName(emp.getLastName());
+    this.setEmployeeDocumentId(emp.getDocumentId().intValue());
+    this.setEmployeeDay(emp.getBirthDate().getDay());
+    this.setEmployeeMonth(emp.getBirthDate().getMonth());
+    this.setEmployeeYear(emp.getBirthDate().getYear());
+    
     FacesContext.getCurrentInstance().renderResponse();
     }
+    
     public void editEmployee(){
         EmployeeBean employeeBean = new EmployeeBean();
         if (!employeeBean.setEmployee(selectedItem, employeeName, employeeLastName, employeeDocumentId,
@@ -167,7 +175,7 @@ public class AdministratorBean implements Serializable{
     
     public void deleteEmployee(){
         EmployeeBean employee = new EmployeeBean();
-        if (employee.deleteEmployee(Integer.parseInt(selectedItem)))
+        if (employee.deleteEmployee(selectedItem))
             message = "Empleado eliminado con éxito";
         else
             message = "El Empleado no pudo ser eliminado";
