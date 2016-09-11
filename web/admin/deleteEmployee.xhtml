@@ -47,15 +47,14 @@
                     <h:form>
                         <div class="input-field col s4">
                             <h:selectOneMenu value="#{administratorBean.selectedItem}" 
-                                             label="Seleccione un Empleado..."
                                              valueChangeListener="#{administratorBean.employeeChanged}" 
                                              immediate="true"
-                                             onchange="this.form.submit()">
-                                <f:selectItems id="empleaados" value="#{administratorBean.availableItems}" var="em" itemValue="#{em.value}" />
+                                             onchange="submit()">
+                                <f:selectItems id="empleados" value="#{administratorBean.availableItems}" var="em" itemValue="#{em.value}" />
 
                             </h:selectOneMenu>  
                         </div>
-                        <h:commandButton class="waves-effect waves-light btn modal-trigger" value="Eliminar Empleado"
+                        <h:commandButton class="indigo darken-4 waves-effect waves-light btn modal-trigger" value="Eliminar Empleado"
 
                                          actionListener="#{administratorBean.deleteEmployee()}">
 
