@@ -112,8 +112,7 @@ public class VehicleCRUDBean {
 
     public Map<String, String> getAvailableColors() {
         availableColors = new LinkedHashMap<>();
-        String[] allColors = new String[]{"Rojo", "Verde", "Morado", "Amarillo",
-            "Plateado", "Dorado", "Blanco", "Negro", "Gris"};
+        String[] allColors = Vehicle.getAvailableColors();
         Arrays.sort(allColors);
         for (String c : allColors) {
             availableColors.put(c, c);
