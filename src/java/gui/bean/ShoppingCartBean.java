@@ -13,10 +13,12 @@ import dataSourceManagement.entities.Discount;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Payment;
 import dataSourceManagement.entities.StockElement;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import utils.Util;
 
 /**
  *
@@ -37,6 +39,10 @@ public class ShoppingCartBean {
     private Collection<ShopOrder> orders;
     private String currency;
     private float amount;
+    private int quantity;
+    private int vehicleId;
+    private String message;
+    private int quantityToRemove;
 
     public Date getOrderDate() {
         return orderDate;
@@ -117,10 +123,6 @@ public class ShoppingCartBean {
     public void setMessage(String message) {
         this.message = message;
     }
-    private int quantity;
-    private int vehicleId;
-    private String message;
-    private int quantityToRemove;
 
     public int getQuantityToRemove() {
         return quantityToRemove;
@@ -134,8 +136,8 @@ public class ShoppingCartBean {
         HandleAutoSell has = new HandleAutoSell();
         return has.getTotal(order);
     }
-    
-    public String getSumm(ShopOrder order){
+
+    public String getSumm(ShopOrder order) {
         HandleAutoSell has = new HandleAutoSell();
         return has.getSummary(order);
     }
@@ -165,11 +167,11 @@ public class ShoppingCartBean {
         orders = has.getShoppingCart();
         return orders;
     }
-    
+
     public Collection<ShopOrder> displayHistory() {
         HandleAutoSell has = new HandleAutoSell();
         return has.getBuyingHistory();
-        
+
     }
 
     public Collection<ShopOrder> getOrders() {
@@ -193,7 +195,8 @@ public class ShoppingCartBean {
         message = has.payOrder(orderId, currency, amount);
     }
 
-    public void addVehiclesToCart(int vehicleId, int maxQuantity) {
+    public void addVehiclesToCart(int vehicleId, int maxQuantity) throws IOException {
+
         if (quantity > maxQuantity) {
             message = "Numero de vehicuos no disponible";
             quantity = 0;
@@ -202,9 +205,11 @@ public class ShoppingCartBean {
             handleAddVehicle.addToCart(vehicleId, quantity);
             quantity = 0;
         }
+        Util.showVehicle(vehicleId);
 
     }
-    public void removeFromCart(int vehicleId,int maxQuantity){
+
+    public void removeFromCart(int vehicleId, int maxQuantity) {
         if (quantityToRemove > maxQuantity) {
             message = "Numero de vehicuos no disponible";
             quantityToRemove = 0;

@@ -91,7 +91,7 @@ public class AdministratorBean implements Serializable{
     public AdministratorBean() {
         HandleEmployee he = new HandleEmployee();
         List<Employee> collect = he.getEmployeeInformation();
-        availableItems = new LinkedHashMap<String, String>();
+        availableItems = new LinkedHashMap<>();
         for(Employee emp : collect){
             availableItems.put(emp.getInformation(), emp.getEmployeeId().toString());
         }

@@ -8,12 +8,8 @@ package gui.bean;
 import businessLogic.controller.HandleCar;
 import dataSourceManagement.entities.Vehicle;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -25,10 +21,19 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 
 public class ViewCarsBean2 {
-    
+
     private Vehicle vehicle;
-    private String call ;
-    List<Vehicle> listProduct = new ArrayList<Vehicle>();
+    private String call;
+    private List<Vehicle> listProduct;
+
+    /**
+     * Creates a new instance of ViewCarsBean2
+     */
+    public ViewCarsBean2() {
+        vehicle = new Vehicle();
+        listProduct = new ArrayList<>();
+
+    }
 
     public List<Vehicle> getListProduct() {
         return listProduct;
@@ -37,13 +42,7 @@ public class ViewCarsBean2 {
     public void setListProduct(List<Vehicle> listProduct) {
         this.listProduct = listProduct;
     }
-/**
-     * Creates a new instance of ViewCarsBean2
-     */
-    public ViewCarsBean2() {
-        vehicle = new Vehicle();
-    }
-    
+
     public String getCall() {
         return call;
     }
@@ -60,12 +59,11 @@ public class ViewCarsBean2 {
         this.vehicle = vehicle;
     }
 
-
-    public String index(){
+    public String index() {
         return "index";
     }
 
-    public void sortById(){
+    public void sortById() {
         Collections.reverse(listProduct);
 //         Collections.sort(listProduct, new Comparator<Vehicle>(){
 //             @Override
@@ -75,44 +73,49 @@ public class ViewCarsBean2 {
 //                return compare;
 //            }
 //        });
-       
+
     }
 
-    public List<Vehicle> findAll(){
-      
+    public List<Vehicle> findAll() {
+
         HandleCar handleCar = new HandleCar();
         listProduct = handleCar.getCars();
         //Collections.reverse(listProduct);
         return listProduct;
     }
-    public Long totalAvaliableCars(int carId){
+
+    public Long totalAvaliableCars(int carId) {
         Long totalCarsById;
         HandleCar handleCar = new HandleCar();
         totalCarsById = handleCar.searchByVIdAndAvaliablity(carId);
         return totalCarsById;
     }
-    public List<Integer> findByClientOrder(){
-        List<Integer> list = null;
+
+    public List<Integer> findByClientOrder() {
+        List<Integer> list;
         HandleCar handleCar = new HandleCar();
         list = handleCar.getCarsByClientOrder();
         return list;
     }
-    public Vehicle findSingleCar(int vehicleId){
-        Vehicle item = new Vehicle();
+
+    public Vehicle findSingleCar(int vehicleId) {
+        Vehicle item;
         HandleCar handleCar = new HandleCar();
         item = handleCar.getSingleCar(vehicleId);
         return item;
     }
-    public Long carsSelectedByOrder(int vehicleId){
+
+    public Long carsSelectedByOrder(int vehicleId) {
         System.out.println(vehicleId);
-        Long quantity  = null;
+        Long quantity;
         HandleCar handleCar = new HandleCar();
         quantity = handleCar.carsSelectedByOrder(vehicleId);
         return quantity;
     }
-    public float getDiscountedPrice(Vehicle v){
+
+    public float getDiscountedPrice(Vehicle v) {
         HandleCar handleCar = new HandleCar();
         return handleCar.getDiscoutPriceByVehicle(v);
     }
-    
+
 }

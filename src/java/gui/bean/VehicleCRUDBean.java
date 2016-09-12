@@ -39,9 +39,19 @@ public class VehicleCRUDBean {
     private String cost;
     private String sellPrice;
     private String message;
+    private String show;
 
     public VehicleCRUDBean() {
         selectedVehicleId = -1;
+        show = "hide";
+    }
+
+    public String getShow() {
+        return show;
+    }
+
+    public void setShow(String show) {
+        this.show = show;
     }
 
     public String getType() {
@@ -144,6 +154,7 @@ public class VehicleCRUDBean {
         this.setModel(selected.getModel());
         this.setCost(selected.getCost() + "");//String.format("%.2f", selected.getCost()));
         this.setSellPrice(selected.getSellPrice() + "");//String.format("%.2f", selected.getSellPrice()));
+        setShow("");
         FacesContext.getCurrentInstance().renderResponse();
     }
 
