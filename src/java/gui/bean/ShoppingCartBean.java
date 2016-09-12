@@ -132,9 +132,18 @@ public class ShoppingCartBean {
         this.quantityToRemove = quantityToRemove;
     }
 
-    public float getTotal(ShopOrder order) {
+    public float getTotal(ShopOrder order, String withPayments) {
         HandleAutoSell has = new HandleAutoSell();
-        return has.getTotal(order);
+        if (withPayments.equals("False")){
+            return has.getTotal(order, Boolean.FALSE);
+        }else{
+            return has.getTotal(order, Boolean.TRUE);
+        }
+    }
+    
+    public float getAlreadyPaid(ShopOrder order) {
+        HandleAutoSell has = new HandleAutoSell();
+        return has.getTotal(order, Boolean.FALSE) - has.getTotal(order, Boolean.TRUE);
     }
 
     public String getSumm(ShopOrder order) {

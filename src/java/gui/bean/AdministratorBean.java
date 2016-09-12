@@ -89,6 +89,9 @@ public class AdministratorBean implements Serializable{
     private EmployeeBean employeeBean;
 
     public AdministratorBean() {
+        this.setAvailableItem();
+    }
+    public void setAvailableItem(){
         HandleEmployee he = new HandleEmployee();
         List<Employee> collect = he.getEmployeeInformation();
         availableItems = new LinkedHashMap<>();
@@ -96,7 +99,6 @@ public class AdministratorBean implements Serializable{
             availableItems.put(emp.getInformation(), emp.getEmployeeId().toString());
         }
     }
-
     public void setEmployeeBean(EmployeeBean employeeBean) {
         this.employeeBean = employeeBean;
     }
@@ -175,8 +177,10 @@ public class AdministratorBean implements Serializable{
     
     public void deleteEmployee(){
         EmployeeBean employee = new EmployeeBean();
-        if (employee.deleteEmployee(selectedItem))
+        if (employee.deleteEmployee(selectedItem)){
             message = "Empleado eliminado con éxito";
+            this.setAvailableItem();
+        }
         else
             message = "El Empleado no pudo ser eliminado";
     }

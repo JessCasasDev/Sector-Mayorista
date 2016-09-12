@@ -29,16 +29,16 @@ import javax.faces.context.FacesContext;
  * @author afacunaa
  */
 public class HandleAutoSell {
-    
+
     public static final String ID = "id";
     public static final String SELECCIONADA = "Seleccionada";
     public static final String ESPERA = "En espera";
     public static final String FINALIZADA = "Finalizada";
-    
+
     public void addToCart(Collection<StockElement> stockElementCollection) { //crear una orden
 
         ShopOrderDAO orderDAO = new ShopOrderDAO();
-        
+
         Integer orderId;
         Date orderDate = new Date();
         Date deliveryDate = new Date();
@@ -49,7 +49,7 @@ public class HandleAutoSell {
         for (StockElement se : stockElementCollection) {
             se.setAvaliable(Boolean.FALSE);
         }
-        
+
         ShopOrder order = new ShopOrder();
         order.setClientId(clientId);
         order.setDeliveryDate(deliveryDate);
@@ -58,10 +58,10 @@ public class HandleAutoSell {
         order.setPaymentCollection(paymentCollection);
         order.setState(state);
         order.setStockElementCollection(stockElementCollection);
-        
+
         orderDAO.persist(order);
     }
-    
+
     public Collection<ShopOrder> getShoppingCart() {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ShopOrderDAO orderDAO = new ShopOrderDAO();
@@ -72,7 +72,7 @@ public class HandleAutoSell {
         orderCollection.addAll(orderCollection2);
         return orderCollection;
     }
-    
+
     public Collection<ShopOrder> getBuyingHistory() {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ShopOrderDAO orderDAO = new ShopOrderDAO();
@@ -81,8 +81,8 @@ public class HandleAutoSell {
         Collection<ShopOrder> orderCollection = orderDAO.searchGroupByStateAndClient(FINALIZADA, client);
         return orderCollection;
     }
-    
-    public float getTotal(ShopOrder order) {
+
+    public float getTotal(ShopOrder order, Boolean withPayments) {
         float total = 0;
         StockElementDAO seDAO = new StockElementDAO();
         VehicleDAO vDAO = new VehicleDAO();
@@ -94,13 +94,13 @@ public class HandleAutoSell {
             v = vDAO.findVehicle(car.getVehicleVehicleId().getVehicleId());
             total += v.getSellPrice();
             discountList = dDAO.searchGroupByVehicleId(v);
-            for (Discount discount : discountList) {                
+            for (Discount discount : discountList) {
                 if (new Date().before(discount.getExpirationDate())) {
                     total -= discount.getDiscountAmount();
                 }
             }
         }
-        if (!order.getState().equals(FINALIZADA)) {
+        if (!order.getState().equals(FINALIZADA) && withPayments) {
             PaymentDAO payDAO = new PaymentDAO();
             float debt = total;
             for (Payment pay : payDAO.searchGroupByOrderId(order)) {
@@ -112,8 +112,8 @@ public class HandleAutoSell {
         }
         return total;
     }
-    
-    public String getSummary(ShopOrder order){
+
+    public String getSummary(ShopOrder order) {
         String summary = "";
         StockElementDAO seDAO = new StockElementDAO();
         VehicleDAO vDAO = new VehicleDAO();
@@ -123,22 +123,22 @@ public class HandleAutoSell {
         HashMap<Vehicle, Integer> hm = new HashMap<>();
         for (StockElement car : cars) {
             v = vDAO.findVehicle(car.getVehicleVehicleId().getVehicleId());
-            if (!hm.containsKey(v)){
+            if (!hm.containsKey(v)) {
                 hm.put(v, 1);
-            }else{
-                hm.put(v, hm.get(v)+1);
+            } else {
+                hm.put(v, hm.get(v) + 1);
             }
         }
         for (Vehicle x : hm.keySet()) {
-            summary += x.getType()+" "+x.getColor()+" - Cantidad: "+hm.get(x)+" - Precio unidad: $ "+x.getSellPrice()+" - Precio unidad con descuento: $ "+hc.getDiscoutPriceByVehicle(x)+" || "+"\n ";
+            summary += x.getType() + " " + x.getColor() + " - Cantidad: " + hm.get(x) + " - Precio unidad: $ " + x.getSellPrice() + " - Precio unidad con descuento: $ " + hc.getDiscoutPriceByVehicle(x) + " || " + "\n ";
         }
         return summary;
     }
-    
+
     public String payOrder(Integer orderId, String currency, float amount) {
         ShopOrderDAO orderDAO = new ShopOrderDAO();
         ShopOrder order = orderDAO.searchByOrderId(orderId);
-        float total = getTotal(order);
+        float total = getTotal(order, Boolean.TRUE);
         if (amount < total) { //Pago parcial
             orderDAO.buyAutos(order, currency, ESPERA, total - amount);
             return "Pago parcial";
@@ -150,5 +150,5 @@ public class HandleAutoSell {
             return "Cantidad incorrecta: Pago de mas";
         }
     }
-    
+
 }
