@@ -218,12 +218,13 @@ public class ShoppingCartBean {
     
     public void removeFromCart(int vehicleId, int maxQuantity) {
         if (quantityToRemove > maxQuantity) {
-            message = "Numero de vehicuos no disponible";
+            message = "Numero de vehículos no disponible";
             quantityToRemove = 0;
         } else {
             HandleCar handleCar = new HandleCar();
             handleCar.removeFromCart(vehicleId, quantityToRemove);
             quantityToRemove = 0;
+            message = "Vehículos retirados correctamente";
         }
     }
     
