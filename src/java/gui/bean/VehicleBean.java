@@ -5,8 +5,12 @@
  */
 package gui.bean;
 
+import dataSourceManagement.DAO.DiscountDAO;
 import dataSourceManagement.DAO.VehicleDAO;
+import dataSourceManagement.entities.Colors;
+import dataSourceManagement.entities.Discount;
 import dataSourceManagement.entities.Vehicle;
+import java.util.Collection;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
@@ -23,6 +27,7 @@ public class VehicleBean {
 
     public static final String VEHICLE_ID = "vehicle";
     private Vehicle vehicle;
+    private Float subTotal;
     private String message;
     private String title;
     private String imageSRC;
@@ -33,6 +38,7 @@ public class VehicleBean {
     private String brand;
     private String cost;
     private String sellPrice;
+    private Collection<Discount> discounts;
 
     /**
      * Creates a new instance of VehicleBean
@@ -47,6 +53,20 @@ public class VehicleBean {
         VehicleDAO vdao = new VehicleDAO();
         vehicle = vdao.findVehicle(id);
         fillData(vehicle);
+        DiscountDAO dDAO = new DiscountDAO();
+        discounts = dDAO.searchGroupByVehicleId(vehicle);
+        subTotal = vehicle.getSellPrice();
+        for (Discount d : discounts) {
+            subTotal -= d.getDiscountAmount();
+        }
+    }
+
+    public Float getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(Float subTotal) {
+        this.subTotal = subTotal;
     }
 
     public Vehicle getVehicle() {
@@ -146,6 +166,34 @@ public class VehicleBean {
         setBrand(v.getBrand());
         setCost(String.valueOf(v.getCost()));
         setSellPrice(String.valueOf(v.getSellPrice()));
+        setImageSRC("../images/" + getSource(v.getColor()));
+    }
+
+    private String getSource(String color) {
+        switch (color) {
+            case Colors.YELLOW:
+                return "yellow.png";
+            case Colors.RED:
+                return "red.png";
+            case Colors.GRAY:
+                return "gray.png";
+            case Colors.BLACK:
+                return "black.png";
+            case Colors.WHITE:
+                return "white.png";
+            case Colors.PURPLE:
+                return "purple.png";
+            case Colors.GREEN:
+                return "green.png";
+            case Colors.BLUE:
+                return "blue.png";
+            case Colors.GOLDEN:
+                return "golden.png";
+            case Colors.SILVER:
+                return "silver.png";
+            default:
+                return "not_available.png";
+        }
     }
 
 }

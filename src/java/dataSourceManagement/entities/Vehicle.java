@@ -73,17 +73,7 @@ public class Vehicle implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "vehicleVehicleId")
     private Collection<StockElement> stockElementCollection;
 
-    @Transient
-    private static final String[] colors = new String[]{
-        "Rojo", "Verde", "Morado", "Amarillo",
-        "Plateado", "Dorado", "Blanco", "Negro", "Gris"
-    };
-
     public Vehicle() {
-    }
-
-    public static String[] getAvailableColors() {
-        return colors.clone();
     }
 
     public Vehicle(Integer vehicleId) {

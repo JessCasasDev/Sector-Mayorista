@@ -83,6 +83,16 @@
                         </h:form>
                     </h:column>
                     <h:column>
+                        <f:facet name="header">Mas Info</f:facet>
+                        <h:form>                              
+                            <p>
+                                <a class="waves-effect waves-light btn modal-trigger indigo darken-4" href="#msg">
+                                    <h:commandButton  action="#{shoppingCartBean.showVehicle(item.vehicleId)}" value="Ver Mas"/>
+                                </a>
+                            </p>
+                        </h:form>
+                    </h:column>
+                    <h:column>
                         <f:facet name="header"></f:facet>
 
                     </h:column>

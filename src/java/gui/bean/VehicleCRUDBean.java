@@ -11,6 +11,7 @@ package gui.bean;
  */
 import businessLogic.controller.HandleVehicleCRUD;
 import dataSourceManagement.DAO.VehicleDAO;
+import dataSourceManagement.entities.Colors;
 import dataSourceManagement.entities.Vehicle;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -122,7 +123,7 @@ public class VehicleCRUDBean {
 
     public Map<String, String> getAvailableColors() {
         availableColors = new LinkedHashMap<>();
-        String[] allColors = Vehicle.getAvailableColors();
+        String[] allColors = Colors.getAvailableColors();
         Arrays.sort(allColors);
         for (String c : allColors) {
             availableColors.put(c, c);

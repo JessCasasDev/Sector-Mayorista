@@ -27,7 +27,7 @@ import utils.Util;
 @ManagedBean
 @ViewScoped
 public class ShoppingCartBean {
-
+    
     private Integer orderId;
     private Date orderDate;
     private Date deliveryDate;
@@ -43,100 +43,100 @@ public class ShoppingCartBean {
     private int vehicleId;
     private String message;
     private int quantityToRemove;
-
+    
     public Date getOrderDate() {
         return orderDate;
     }
-
+    
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
-
+    
     public Date getDeliveryDate() {
         return deliveryDate;
     }
-
+    
     public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
-
+    
     public String getState() {
         return state;
     }
-
+    
     public void setState(String state) {
         this.state = state;
     }
-
+    
     public Collection<Discount> getDiscountCollection() {
         return discountCollection;
     }
-
+    
     public void setDiscountCollection(Collection<Discount> discountCollection) {
         this.discountCollection = discountCollection;
     }
-
+    
     public Collection<StockElement> getStockElementCollection() {
         return stockElementCollection;
     }
-
+    
     public void setStockElementCollection(Collection<StockElement> stockElementCollection) {
         this.stockElementCollection = stockElementCollection;
     }
-
+    
     public Collection<Payment> getPaymentCollection() {
         return paymentCollection;
     }
-
+    
     public void setPaymentCollection(Collection<Payment> paymentCollection) {
         this.paymentCollection = paymentCollection;
     }
-
+    
     public Client getClientId() {
         return clientId;
     }
-
+    
     public void setClientId(Client clientId) {
         this.clientId = clientId;
     }
-
+    
     public int getQuantity() {
         return quantity;
     }
-
+    
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
+    
     public int getVehicleId() {
         return vehicleId;
     }
-
+    
     public void setVehicleId(int vehicleId) {
         this.vehicleId = vehicleId;
     }
-
+    
     public String getMessage() {
         return message;
     }
-
+    
     public void setMessage(String message) {
         this.message = message;
     }
-
+    
     public int getQuantityToRemove() {
         return quantityToRemove;
     }
-
+    
     public void setQuantityToRemove(int quantityToRemove) {
         this.quantityToRemove = quantityToRemove;
     }
-
+    
     public float getTotal(ShopOrder order, String withPayments) {
         HandleAutoSell has = new HandleAutoSell();
-        if (withPayments.equals("False")){
+        if (withPayments.equals("False")) {
             return has.getTotal(order, Boolean.FALSE);
-        }else{
+        } else {
             return has.getTotal(order, Boolean.TRUE);
         }
     }
@@ -145,67 +145,66 @@ public class ShoppingCartBean {
         HandleAutoSell has = new HandleAutoSell();
         return has.getTotal(order, Boolean.FALSE) - has.getTotal(order, Boolean.TRUE);
     }
-
+    
     public String getSumm(ShopOrder order) {
         HandleAutoSell has = new HandleAutoSell();
         return has.getSummary(order);
     }
-
+    
     public float getAmount() {
         return amount;
     }
-
+    
     public void setAmount(float amount) {
         this.amount = amount;
     }
-
+    
     public String getCurrency() {
         return currency;
     }
-
+    
     public void setCurrency(String currency) {
         this.currency = currency;
     }
-
+    
     public ShoppingCartBean() {
         orderId = 0;
     }
-
+    
     public Collection<ShopOrder> displayCart() {
         HandleAutoSell has = new HandleAutoSell();
         orders = has.getShoppingCart();
         return orders;
     }
-
+    
     public Collection<ShopOrder> displayHistory() {
         HandleAutoSell has = new HandleAutoSell();
         return has.getBuyingHistory();
-
+        
     }
-
+    
     public Collection<ShopOrder> getOrders() {
         return orders;
     }
-
+    
     public void setOrders(Collection<ShopOrder> orders) {
         this.orders = orders;
     }
-
+    
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
-
+    
     public Integer getOrderId() {
         return orderId;
     }
-
+    
     public void payShopOrder() {
         HandleAutoSell has = new HandleAutoSell();
         message = has.payOrder(orderId, currency, amount);
     }
-
+    
     public void addVehiclesToCart(int vehicleId, int maxQuantity) throws IOException {
-
         if (quantity > maxQuantity) {
             message = "Numero de vehicuos no disponible";
             quantity = 0;
@@ -214,10 +213,8 @@ public class ShoppingCartBean {
             handleAddVehicle.addToCart(vehicleId, quantity);
             quantity = 0;
         }
-        Util.showVehicle(vehicleId);
-
     }
-
+    
     public void removeFromCart(int vehicleId, int maxQuantity) {
         if (quantityToRemove > maxQuantity) {
             message = "Numero de vehicuos no disponible";
@@ -227,5 +224,9 @@ public class ShoppingCartBean {
             handleCar.removeFromCart(vehicleId, quantityToRemove);
             quantityToRemove = 0;
         }
+    }
+    
+    public void showVehicle(int vehicleId) throws IOException {
+        Util.showVehicle(vehicleId);
     }
 }

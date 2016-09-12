@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
         <!--Import materialize.css-->
@@ -30,21 +29,34 @@
         </nav>    
 
         <center>
-            <div class="container center card-panel col s4 m4 l4">
-                <div class="card">
+            <div class="container center row">
+                <div class="card l12 m6 s4">
                     <div class="card-image">
-                        <center><img class="responsive-img center activator" width="60" src="#{vehicleBean.imageSRC}"/></center>
+                        <img class="responsive-img center activator" width="60" src="#{vehicleBean.imageSRC}"/>
                     </div>
                     <div class="card-content">
                         <span class="card-title activator light-blue-text darken-3"><h4>#{vehicleBean.title}</h4></span>
-
-                        <span class="blue-text darken-3">#{vehicleBean.model}</span>
-                        <span class="blue-text darken-3">#{vehicleBean.type}</span>
-                        <span class="blue-text darken-3">#{vehicleBean.color}</span>
-                        <span class="blue-text darken-3">#{vehicleBean.brand}</span>
-                        <span class="blue-text darken-3">#{vehicleBean.description}</span>
-                        <span class="blue-text darken-3">#{vehicleBean.cost}</span>
-                        <span class="blue-text darken-3">#{vehicleBean.sellPrice}</span>
+                        <p>
+                            Modelo: <span class="blue-text darken-3">#{vehicleBean.model}</span>
+                        </p>
+                        <p>
+                            Tipo: <span class="blue-text darken-3">#{vehicleBean.type}</span>
+                        </p>
+                        <p>
+                            Color: <span class="blue-text darken-3">#{vehicleBean.color}</span>
+                        </p>
+                        <p>
+                            Marca: <span class="blue-text darken-3">#{vehicleBean.brand}</span>
+                        </p>
+                        <p>
+                            Precio Original: <span class="blue-text darken-3">#{vehicleBean.sellPrice}</span>
+                        </p>
+                        <p>
+                            Precio Final: <span class="blue-text darken-3">#{vehicleBean.subTotal}</span>
+                        </p>
+                        <p>
+                            Descripcion:  <span class="blue-text darken-3">#{vehicleBean.description}</span>
+                        </p>
                     </div>
                 </div>
                 <br/><br/>

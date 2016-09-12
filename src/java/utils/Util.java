@@ -5,6 +5,9 @@
  */
 package utils;
 
+import businessLogic.controller.Actions;
+import businessLogic.controller.AuthentificationManager;
+import dataSourceManagement.entities.Vehicle;
 import gui.bean.VehicleBean;
 import java.io.IOException;
 import javax.faces.context.ExternalContext;
