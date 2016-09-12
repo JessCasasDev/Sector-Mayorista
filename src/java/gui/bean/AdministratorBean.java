@@ -145,6 +145,7 @@ public class AdministratorBean implements Serializable{
         employee.setMonth(employee_id, payment, grade);
         grade = null;
         payment = null;
+        message = "Pago y calificación exitosa";
     }
     
     public HashMap<String, String> getEmployeeList(){
