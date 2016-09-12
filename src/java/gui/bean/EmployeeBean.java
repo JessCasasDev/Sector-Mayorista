@@ -182,7 +182,15 @@ public class EmployeeBean implements Serializable {
         for (MonthlyRegister monthlyRegister : mrList) {
             wgrade += monthlyRegister.getGrade();
         }
-        return wgrade/mrList.size();
+        return (wgrade/mrList.size());
+    }
+    
+    public void displayProfile(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        Integer employeeId = (Integer) ec.getSessionMap().get("id");
+        Employee employee = getEmployee(employeeId);
+        setBirthDate(employee.getBirthDate());
+        setDocumentId(employee.getDocumentId().intValue());
     }
 
     public void setValues(int id) {

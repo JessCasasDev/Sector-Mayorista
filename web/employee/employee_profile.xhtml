@@ -13,6 +13,7 @@
         <f:metadata>
             <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
             <f:event type="preRenderView" listener="#{loginBean.verify_role('Employee')}"/>
+            <f:event type="preRenderView" listener="#{employeeBean.displayProfile()}"/>
         </f:metadata>
     </head>
     <body class="grey lighten-4">
@@ -35,8 +36,10 @@
                 <hr/>
                 <h2 class=" blue-grey-text text-darken-4 col s8">Nombre: </h2>
                 <h3 class="blue-grey-text text-lighten-1 col s6">#{sessionScope.name}</h3>
-                <h2 class=" blue-grey-text text-darken-4 col s8">Id:  </h2>
-                <h3 class="blue-grey-text text-lighten-1 col s6">#{sessionScope.id}</h3>
+                <h2 class=" blue-grey-text text-darken-4 col s8">Documento:  </h2>
+                <h3 class="blue-grey-text text-lighten-1 col s6">#{employeeBean.documentId}</h3>
+                <h2 class=" blue-grey-text text-darken-4 col s8">Fecha de nacimiento:  </h2>
+                <h3 class="blue-grey-text text-lighten-1 col s6">#{employeeBean.birthDate}</h3>
                 <hr/>
                 <h3 class=" blue-grey-text text-darken-4 col s8">Historial:</h3>
                 <table class="highlight">
