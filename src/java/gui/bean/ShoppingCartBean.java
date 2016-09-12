@@ -207,14 +207,14 @@ public class ShoppingCartBean {
     public void addVehiclesToCart(int vehicleId, int maxQuantity) throws IOException {
 
         if (quantity > maxQuantity) {
-            message = "Numero de vehicuos no disponible";
+            message = "Numero de vehiculos no disponible";
             quantity = 0;
         } else {
             HandleAddVehicle handleAddVehicle = new HandleAddVehicle();
             handleAddVehicle.addToCart(vehicleId, quantity);
             quantity = 0;
+            Util.showVehicle(vehicleId);
         }
-        Util.showVehicle(vehicleId);
 
     }
 
