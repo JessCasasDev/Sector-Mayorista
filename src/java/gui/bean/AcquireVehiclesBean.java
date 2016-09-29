@@ -6,18 +6,21 @@ import businessLogic.controller.HandleVehicleCRUD;
 import dataSourceManagement.entities.Purchase;
 import dataSourceManagement.entities.StockElement;
 import dataSourceManagement.entities.Vehicle;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
 
 @ManagedBean
 @ViewScoped
-public class AcquireVehiclesBean {
+public class AcquireVehiclesBean implements Serializable{
 
     private String deliverydate;
     private Integer quantity;
@@ -67,23 +70,27 @@ public class AcquireVehiclesBean {
         }
     }
 
-    public void createPurchase() throws ParseException {
+    public void createPurchase(){
+        System.out.println("gui.bean.AcquireVehiclesBean.createPurchase()   -   " + quantity);
         HandlePurchase hp = new HandlePurchase();
         HandleStockElement stock = new HandleStockElement();
-        Date date = setDateTime(day, month, year);
-        Purchase purchase = hp.createPurchase(date, quantity);
+        Date date;
+        try {
+            date = setDateTime(day, month, year);
+            Purchase purchase = hp.createPurchase(date, quantity);
 
-        if (purchase != null) {
-            StockElement st = null;
-            for (int i = 0; i < purchase.getQuantity(); i++) {
-                st = stock.createStock(location, Integer.parseInt(selectedItem), purchase.getPurchaseId());
+            if (purchase != null) {
+                boolean st = stock.createStock(location, Integer.parseInt(selectedItem), purchase.getPurchaseId(), getQuantity());
+                if (st) {
+                    message = "Compra realizada éxitosamente";
+                }
+            } else {
+                message = "Compra fallida";
             }
-            if (st != null) {
-                message = "Compra realizada éxitosamente";
-            }
-        } else {
-            message = "Compra fallida";
+        } catch (ParseException ex) {
+            Logger.getLogger(AcquireVehiclesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     public void vehicleChanged(ValueChangeEvent e) {

@@ -22,7 +22,8 @@ import javax.persistence.PersistenceContext;
  * @author afacunaa
  */
 public class HandleLogin {
-
+    
+    public static final String STARTPAGE = "/Sector-Mayorista";
     public static final String INDEXXHTML = "/index.xhtml";
     public static final String EMPLOYEEEMPLOYEE_PROFILEXHTML = "/employee/employee_profile.xhtml";
     public static final String ADMININDEXXHTML = "/admin/admin_index.xhtml";
@@ -63,7 +64,7 @@ public class HandleLogin {
                         .getActionURL(FacesContext.getCurrentInstance(),
                                 CLIENTCLIENT_PROFILEXHTML));
                 System.out.println("you are logged as client");
-                ec.redirect(url);
+                ec.redirect(STARTPAGE + CLIENTCLIENT_PROFILEXHTML);
                 return "Ha entrado correctamente a su cuenta";
             } catch (IOException ex) {
                 return "Error en redireccionamiento";

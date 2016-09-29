@@ -6,10 +6,11 @@ import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.entities.Purchase;
 import dataSourceManagement.entities.StockElement;
 import dataSourceManagement.entities.Vehicle;
+import java.util.ArrayList;
 
 public class HandleStockElement {
 
-    public StockElement createStock(String location, int vehicleId, Integer purchaseId) {
+    public boolean createStock(String location, int vehicleId, Integer purchaseId, int quantity) {
         StockElement stock = new StockElement();
         StockElementDAO stockElement = new StockElementDAO();
         PurchaseDAO pd = new PurchaseDAO();
@@ -22,9 +23,10 @@ public class HandleStockElement {
         stock.setAvaliable(true);
         if (vehicle != null)
             stock.setVehicleVehicleId(vehicle);
-        
-        return stockElement.persist(stock);   
-        
+     
+        boolean result = stockElement.persist(stock, quantity);   
+                
+        return result;
     }
     
 }

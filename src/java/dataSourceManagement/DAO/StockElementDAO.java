@@ -26,19 +26,29 @@ public class StockElementDAO {
 
     public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("autoMarketPU");
 
-    public StockElement persist(StockElement se) {
+    public boolean persist(StockElement se, int quantity) {
         EntityManager em = emf1.createEntityManager();
+        boolean transaction = true;
+        
         em.getTransaction().begin();
-        try {
-            em.persist(se);
-            em.getTransaction().commit();
+        try {   
+            for(int i=0; i<quantity; i++){
+                em.createNativeQuery("INSERT INTO stock_element(location, avaliable,"
+                        + "vehicle_vehicle_id, purchase_purchase_id) VALUES('" +se.getLocation()+"',true,"
+                        + se.getVehicleVehicleId().getVehicleId()+","+
+                        se.getPurchasePurchaseId().getPurchaseId()+");").executeUpdate();
+                
+            }
+            em.getTransaction().commit();       
+            
         } catch (Exception e) {
             e.printStackTrace();
+            transaction = false;
             em.getTransaction().rollback();
         } finally {
             em.close();
         }
-        return se;
+        return transaction;
     }
 
     public boolean editAvailability(Integer elementId, Boolean availability) {
