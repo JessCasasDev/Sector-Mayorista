@@ -5,6 +5,7 @@
  */
 package dataSourceManagement.DAO;
 
+import config.GlobalConfig;
 import dataSourceManagement.DAO.exceptions.NonexistentEntityException;
 import dataSourceManagement.DAO.exceptions.RollbackFailureException;
 import dataSourceManagement.entities.Discount;
@@ -28,7 +29,7 @@ import javax.persistence.Persistence;
  */
 public class DiscountDAO implements Serializable {
 
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("autoMarketPU");
+    public EntityManagerFactory emf = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 
     public void create(Discount discount) throws RollbackFailureException, Exception {
         EntityManager em = emf.createEntityManager();

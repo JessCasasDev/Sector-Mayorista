@@ -5,6 +5,7 @@
  */
 package dataSourceManagement.DAO;
 
+import config.GlobalConfig;
 import dataSourceManagement.DAO.exceptions.IllegalOrphanException;
 import dataSourceManagement.DAO.exceptions.NonexistentEntityException;
 import dataSourceManagement.DAO.exceptions.PreexistingEntityException;
@@ -32,7 +33,8 @@ import javax.transaction.UserTransaction;
 public class VehicleDAO implements Serializable {
 
     private UserTransaction utx = null;
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("autoMarketPU");
+    
+    public EntityManagerFactory emf = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 
     public Vehicle persist(Vehicle vehicle) {
         EntityManager em = getEntityManager();

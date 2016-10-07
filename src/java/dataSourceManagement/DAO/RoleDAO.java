@@ -1,6 +1,6 @@
 package dataSourceManagement.DAO;
 
-import dataSourceManagement.entities.Employee;
+import config.GlobalConfig;
 import dataSourceManagement.entities.Role;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,7 +9,7 @@ import javax.persistence.Query;
 
 public class RoleDAO {
 
-    public EntityManagerFactory emf = Persistence.createEntityManagerFactory("autoMarketPU");
+    public EntityManagerFactory emf = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 
     public Role searchById(int id) {
         EntityManager em = emf.createEntityManager();

@@ -5,6 +5,7 @@
  */
 package dataSourceManagement.DAO;
 
+import config.GlobalConfig;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Payment;
 import java.util.Collection;
@@ -19,7 +20,7 @@ import javax.persistence.Query;
  */
 public class PaymentDAO {
 
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("autoMarketPU");
+   public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 
     public Payment persist(Payment payment) {
         EntityManager em = emf1.createEntityManager();

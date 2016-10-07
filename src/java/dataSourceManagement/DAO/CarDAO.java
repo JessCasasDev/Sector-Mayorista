@@ -5,11 +5,10 @@
  */
 package dataSourceManagement.DAO;
 
+import config.GlobalConfig;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.Vehicle;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,8 +20,8 @@ import javax.persistence.Query;
  * @author mssg_
  */
 public class CarDAO {
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("autoMarketPU");
-    
+   public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
+ 
     public Vehicle persist(Vehicle vehicle) {
         EntityManager em = emf1.createEntityManager();
         em.getTransaction().begin();

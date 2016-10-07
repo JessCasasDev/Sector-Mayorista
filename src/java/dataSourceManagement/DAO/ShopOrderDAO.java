@@ -5,6 +5,7 @@
  */
 package dataSourceManagement.DAO;
 
+import config.GlobalConfig;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Payment;
@@ -23,7 +24,8 @@ public class ShopOrderDAO {
 
     public static final String EFECTIVO = "Efectivo";
     public static final String TARJETA = "Tarjeta";
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("autoMarketPU");
+
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 
     public ShopOrder persist(ShopOrder order) {
         EntityManager em = emf1.createEntityManager();
@@ -65,7 +67,7 @@ public class ShopOrderDAO {
         try {
             order = em.merge(em.find(ShopOrder.class, orderId));
             order.setState(state);
-            if (order.getDeliveryDate() == null){
+            if (order.getDeliveryDate() == null) {
                 Date date = new Date();
                 long oneMonth = 2590000000l;
                 date.setTime(date.getTime() + oneMonth);

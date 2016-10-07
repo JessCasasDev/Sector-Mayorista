@@ -1,5 +1,6 @@
 package dataSourceManagement.DAO;
 
+import config.GlobalConfig;
 import dataSourceManagement.entities.Authentication;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,7 +9,7 @@ import javax.persistence.Query;
 
 public class AuthenticationDAO {
 
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("autoMarketPU");
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 
     public Authentication persist(Authentication auth) {
         EntityManager em = emf1.createEntityManager();

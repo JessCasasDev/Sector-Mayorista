@@ -5,6 +5,7 @@
  */
 package dataSourceManagement.DAO;
 
+import config.GlobalConfig;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.StockElement;
@@ -24,7 +25,7 @@ import javax.persistence.Query;
  */
 public class StockElementDAO {
 
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("autoMarketPU");
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 
     public boolean persist(StockElement se, int quantity) {
         EntityManager em = emf1.createEntityManager();

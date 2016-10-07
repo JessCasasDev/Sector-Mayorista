@@ -5,6 +5,7 @@
  */
 package dataSourceManagement.DAO;
 
+import config.GlobalConfig;
 import dataSourceManagement.entities.Employee;
 import dataSourceManagement.entities.MonthlyRegister;
 import java.util.List;
@@ -19,7 +20,7 @@ import javax.persistence.Query;
  */
 public class MonthlyRegisterDAO {
 
-    public EntityManagerFactory emf3 = Persistence.createEntityManagerFactory("autoMarketPU");
+    public EntityManagerFactory emf3 = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 
     public MonthlyRegister persist(MonthlyRegister mr) {
         EntityManager em = emf3.createEntityManager();
