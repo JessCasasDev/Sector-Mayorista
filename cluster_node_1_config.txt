@@ -1,0 +1,13 @@
+cd ~/glassfish_4.1/glassfish/bin
+sudo ./asadmin change-admin-password
+#user_name : admin password: 123
+sudo ./asadmin start-domain domain1
+sudo ./asadmin enable-secure-admin
+sudo ./asadmin restart-domain domain1
+sudo ./asadmin --host 192.168.2.130 --port 4848 create-local-instance --cluster c1 i1
+cd ~/glassfish_4.1/glassfish/lib
+sudo chmod +x nadmin
+sudo ./nadmin start-local-instance --node nodo1 --sync normal
+
+#optional if errors
+sudo ./asadmin restart-local-instance
