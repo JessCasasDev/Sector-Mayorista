@@ -5,9 +5,9 @@
  */
 package dataSourceManagement.DAO;
 
+import config.GlobalConfig;
 import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Employee;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -20,7 +20,7 @@ import javax.persistence.Query;
  */
 public class EmployeeDAO {
 
-    public EntityManagerFactory emf3 = Persistence.createEntityManagerFactory("autoMarketPU");
+    public EntityManagerFactory emf3 = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 
     public Employee persist(Employee employee) {
         EntityManager em = emf3.createEntityManager();
