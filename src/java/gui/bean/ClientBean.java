@@ -1,11 +1,15 @@
 package gui.bean;
 
 import businessLogic.controller.HandleClient;
+import dataSourceManagement.DAO.AuthenticationDAO;
 import dataSourceManagement.entities.Authentication;
+import dataSourceManagement.entities.Client;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
@@ -92,5 +96,15 @@ public class ClientBean implements Serializable {
             message = "No se pudo crear el usuario. Intente con otro nombre de usuario";
         }
 
+    }
+    public void setProfile(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        HandleClient hc = new HandleClient();
+        AuthenticationDAO authDAO = new AuthenticationDAO();
+        Authentication auth = authDAO.searchByUsername(this.getUsername());
+        Client client = hc.getClient(auth);    
+        this.setAddress(client.getAddress());
+        this.setNit(client.getNit());
+        this.setName(client.getName());
     }
 }

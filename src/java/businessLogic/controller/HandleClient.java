@@ -28,4 +28,8 @@ public class HandleClient {
             return "La cuenta no pudo ser creada";
         }
     }
+    public Client getClient(Authentication clientUsername){
+        ClientDAO clientDao = new ClientDAO();
+        return clientDao.searchByUsername(clientUsername);
+    }
 }
