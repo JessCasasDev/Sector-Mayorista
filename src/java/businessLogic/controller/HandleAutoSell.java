@@ -17,7 +17,6 @@ import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Payment;
 import dataSourceManagement.entities.StockElement;
 import dataSourceManagement.entities.Vehicle;
-import gui.bean.ShoppingCartBean;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;

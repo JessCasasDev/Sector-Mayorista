@@ -4,11 +4,8 @@ import dataSourceManagement.DAO.EmployeeDAO;
 import dataSourceManagement.DAO.PurchaseDAO;
 import dataSourceManagement.entities.Employee;
 import dataSourceManagement.entities.Purchase;
-import java.math.BigInteger;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 

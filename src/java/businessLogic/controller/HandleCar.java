@@ -5,17 +5,13 @@
  */
 package businessLogic.controller;
 
-import static businessLogic.controller.HandleAddVehicle.ID;
 import dataSourceManagement.DAO.CarDAO;
 import dataSourceManagement.DAO.ClientDAO;
 import dataSourceManagement.DAO.DiscountDAO;
 import dataSourceManagement.DAO.StockElementDAO;
-import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.Discount;
-import dataSourceManagement.entities.StockElement;
 import dataSourceManagement.entities.Vehicle;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.faces.context.ExternalContext;
@@ -60,7 +56,7 @@ public class HandleCar {
     }
     public Vehicle getSingleCar(int vehicleId){
         CarDAO carDao = new CarDAO();
-        Vehicle vehicle = new Vehicle();
+        Vehicle vehicle;
         vehicle = carDao.getSingleCar(vehicleId);
         return vehicle;
     }
@@ -68,7 +64,7 @@ public class HandleCar {
         ExternalContext ex = FacesContext.getCurrentInstance().getExternalContext();
         ClientDAO clientDAO = new ClientDAO();
         Client client = clientDAO.searchByNit((String) ex.getSessionMap().get(ID));
-        Long quantity = null ;
+        Long quantity;
         CarDAO carDAO = new CarDAO();
         //System.out.println(client.getClientId());
         quantity = carDAO.carsSelectedByOrder(vehicleId,client.getClientId());

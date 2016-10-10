@@ -12,7 +12,6 @@ import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Employee;
 import dataSourceManagement.entities.MonthlyRegister;
 import java.math.BigInteger;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -95,7 +94,7 @@ public class HandleEmployee {
         }
         
         if(employeeDocumentId!= null){
-            BigInteger bi = BigInteger.valueOf(employeeDocumentId.intValue());
+            BigInteger bi = BigInteger.valueOf(employeeDocumentId);
             emp.setDocumentId(bi);
         }
         

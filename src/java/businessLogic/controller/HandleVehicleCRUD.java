@@ -9,7 +9,6 @@ import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.DAO.exceptions.NonexistentEntityException;
 import dataSourceManagement.DAO.exceptions.RollbackFailureException;
 import dataSourceManagement.entities.Vehicle;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -6,7 +6,6 @@ import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.entities.Purchase;
 import dataSourceManagement.entities.StockElement;
 import dataSourceManagement.entities.Vehicle;
-import java.util.ArrayList;
 
 public class HandleStockElement {
 
