@@ -1,6 +1,7 @@
 package gui.bean;
 
 import businessLogic.controller.HandleEmployee;
+import config.GlobalConfig;
 import dataSourceManagement.entities.Employee;
 import java.io.Serializable;
 import java.util.Collection;
@@ -11,6 +12,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
@@ -29,6 +31,8 @@ public class AdministratorBean implements Serializable{
     private Integer employeeYear;
     private HashMap<String, String> availableItems; // +getter
     private String message;
+    private String session_id;
+    private int session_counter;
 
     public void setMessage(String message) {
         this.message = message;
@@ -36,6 +40,29 @@ public class AdministratorBean implements Serializable{
 
     public String getMessage() {
         return message;
+    }
+    
+    public String getSession_id(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        this.session_id = ec.getSessionId(true);
+        System.out.println("Session id Administrator " + session_id);
+        return this.session_id;
+    }
+    
+    public int getSession_counter(){
+        this.session_counter = GlobalConfig.session_counter;
+        return this.session_counter;
+    }
+
+    public void setSession_counter(int counter){
+        this.session_counter = GlobalConfig.session_counter;
+        System.out.println("Session counter Administrator: " + GlobalConfig.session_counter);
+    }
+    
+    public void setSession_id(String id){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        this.session_id = ec.getSessionId(true);
+        System.out.println("Session id Administrator: " + session_id);
     }
     
     public void setEmployeeName(String employeeName) {

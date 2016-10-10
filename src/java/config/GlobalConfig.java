@@ -12,5 +12,6 @@ package config;
 public class GlobalConfig {
 
     public static final String PERSISTENCE_UNIT = "automarketPU4";
+    public static int session_counter;
 
 }

@@ -1,6 +1,7 @@
 package gui.bean;
 
 import businessLogic.controller.HandleEmployee;
+import config.GlobalConfig;
 import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Employee;
 import dataSourceManagement.entities.MonthlyRegister;
@@ -34,7 +35,10 @@ public class EmployeeBean implements Serializable {
     private String message;
     private Integer day;
     private Integer month;
-    private Integer year;
+    private Integer year;    
+    private String session_id;
+    private int session_counter;
+    
     @ManagedProperty(value = "#{userBean}")
     private AuthenticationBean userBean;
 
@@ -68,6 +72,28 @@ public class EmployeeBean implements Serializable {
 
     public void setAdministrator(int administrator) {
         this.administrator = administrator;
+    }
+    public void setSession_counter(int counter){
+        this.session_counter = GlobalConfig.session_counter;
+        System.out.println("Session counter Administrator: " + GlobalConfig.session_counter);
+    }
+    
+    public void setSession_id(String id){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        this.session_id = ec.getSessionId(true);
+        System.out.println("Session id Administrator: " + session_id);
+    }
+    
+    public String getSession_id(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        this.session_id = ec.getSessionId(true);
+        System.out.println("Session id Employee: " + session_id);
+        return this.session_id;
+    }
+    
+    public int getSession_counter(){
+        this.session_counter = GlobalConfig.session_counter;
+        return this.session_counter;
     }
 
     public String getUsername() {

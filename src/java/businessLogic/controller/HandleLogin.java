@@ -5,6 +5,7 @@
  */
 package businessLogic.controller;
 
+import config.GlobalConfig;
 import dataSourceManagement.DAO.AuthenticationDAO;
 import dataSourceManagement.DAO.ClientDAO;
 import dataSourceManagement.DAO.EmployeeDAO;
@@ -44,10 +45,11 @@ public class HandleLogin {
         EmployeeDAO employeeDAO = new EmployeeDAO();
         Employee user2 = employeeDAO.searchByUsername(auth);
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-
+        
         if (username == null && password == null) {
             return "Bienvenido";
         }
+                        
         if (user1 != null) { //es un cliente
 
             if (!user1.getAuthId().getPassword().equals(password)) {
@@ -65,6 +67,8 @@ public class HandleLogin {
                                 CLIENTCLIENT_PROFILEXHTML));
                 System.out.println("you are logged as client");
                 ec.redirect(STARTPAGE + CLIENTCLIENT_PROFILEXHTML);
+                GlobalConfig.session_counter++;
+                System.out.println("Session Counter add: " + GlobalConfig.session_counter);
                 return "Ha entrado correctamente a su cuenta";
             } catch (IOException ex) {
                 return "Error en redireccionamiento";
@@ -85,18 +89,22 @@ public class HandleLogin {
                     String actionURL = null;
                     if (Role.ADMINISTRATOR.equals(user2.getAuthId().getRoleId().getName())) {
                         System.out.println("you are logged as admin");
+                        GlobalConfig.session_counter++;
+                        System.out.println("Session Counter add: " + GlobalConfig.session_counter);
                         actionURL = FacesContext.getCurrentInstance()
                                 .getApplication().getViewHandler()
                                 .getActionURL(FacesContext.getCurrentInstance(),
                                         ADMININDEXXHTML);
                     } else if (Role.EMPLOYEE.equals(user2.getAuthId().getRoleId().getName())) {
                         System.out.println("you are logged as employee");
+                        GlobalConfig.session_counter++;
+                        System.out.println("Session Counter add: " + GlobalConfig.session_counter);
                         actionURL = FacesContext.getCurrentInstance()
                                 .getApplication().getViewHandler()
                                 .getActionURL(FacesContext.getCurrentInstance(),
                                         EMPLOYEEEMPLOYEE_PROFILEXHTML);
                     } else {
-                        System.out.println("you are user doesnt exist");
+                        System.out.println("your user doesn't exist");
                         actionURL = actionURL = FacesContext.getCurrentInstance()
                                 .getApplication().getViewHandler()
                                 .getActionURL(FacesContext.getCurrentInstance(),
@@ -108,11 +116,13 @@ public class HandleLogin {
                 } catch (IOException ex) {
                     return "Error en redireccionamiento";
                 }
-
             } else {
                 return "Usuario incorrecto";
             }
+            
+            
         }
+        
     }
 
     public void logout() {
@@ -129,6 +139,8 @@ public class HandleLogin {
                     FacesContext.getCurrentInstance().getApplication()
                     .getViewHandler().getActionURL(FacesContext
                             .getCurrentInstance(), INDEXXHTML));
+            GlobalConfig.session_counter--;
+            System.out.println("Session Counter del: " + GlobalConfig.session_counter);
             extContext.redirect(url);
             //return "Ha entrado correctamente a su cuenta";
         } catch (IOException ex) {

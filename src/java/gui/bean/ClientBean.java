@@ -1,6 +1,7 @@
 package gui.bean;
 
 import businessLogic.controller.HandleClient;
+import config.GlobalConfig;
 import dataSourceManagement.DAO.AuthenticationDAO;
 import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Client;
@@ -21,6 +22,9 @@ public class ClientBean implements Serializable {
     private String address;
     private String nit;
     private String message;
+    private String session_id;
+    private int session_counter;
+    
     @ManagedProperty(value = "#{userBean}")
     private AuthenticationBean userBean;
 
@@ -73,6 +77,18 @@ public class ClientBean implements Serializable {
     public String getAddress() {
         return this.address;
     }
+    
+    public String getSession_id(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        this.session_id = ec.getSessionId(true);
+        System.out.println("Session id Client: " + session_id);
+        return this.session_id;
+    }
+    
+    public int getSession_counter(){
+        this.session_counter = GlobalConfig.session_counter;
+        return this.session_counter;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -84,6 +100,17 @@ public class ClientBean implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+    
+    public void setSession_counter(int counter){
+        this.session_counter = GlobalConfig.session_counter;
+        System.out.println("Session counter Client: " + GlobalConfig.session_counter);
+    }
+    
+    public void setSession_id(String id){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        this.session_id = ec.getSessionId(true);
+        System.out.println("Session id Client: " + session_id);
     }
 
     public void createClient() {
@@ -99,6 +126,7 @@ public class ClientBean implements Serializable {
     }
     public void setProfile(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        
         HandleClient hc = new HandleClient();
         AuthenticationDAO authDAO = new AuthenticationDAO();
         Authentication auth = authDAO.searchByUsername(this.getUsername());
