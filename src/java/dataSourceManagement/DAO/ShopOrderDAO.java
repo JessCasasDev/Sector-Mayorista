@@ -82,6 +82,24 @@ public class ShopOrderDAO {
         }
         return success;
     }
+    
+    public boolean editTotalSale(Integer orderId, float total) {
+        ShopOrder order;
+        EntityManager em = emf1.createEntityManager();
+        em.getTransaction().begin();
+        boolean success = true;
+        try {
+            order = em.merge(em.find(ShopOrder.class, orderId));
+            order.setTotalSale(order.getTotalSale()+total);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            success = false;
+        } finally {
+            em.close();
+        }
+        return success;
+    }
 
     public ShopOrder searchByOrderId(Integer orderId) {
 
@@ -118,6 +136,21 @@ public class ShopOrderDAO {
             em.close();
         }
         return orderCollection;
+    }
+    
+    public ShopOrder searchByStateAndClient(String state, Client clientId) {
+        EntityManager em = emf1.createEntityManager();
+        ShopOrder order = null;
+        Query q = em.createNamedQuery("ShopOrder.findByStateAndClient");
+        q.setParameter("state", state);
+        q.setParameter("clientId", clientId);
+        try {
+            order = (ShopOrder) q.getSingleResult();
+        } catch (Exception e) {
+        } finally {
+            em.close();
+        }
+        return order;
     }
 
 }

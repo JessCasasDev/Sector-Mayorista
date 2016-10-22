@@ -4,7 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <head>
-        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="../css/automarketStyle.css"/>
@@ -59,7 +59,7 @@
                                         </h:selectOneMenu>  
                                     </div>
                                     <div class="row">
-                                        <label>Fecha de expiración</label>
+                                        <label>Fecha de entrega</label>
                                         <div class="input-field col s4"><h:inputText value="#{acquireVehiclesBean.day}"  converterMessage="Porfavor ingrese solo valores numericos" required="true" requiredMessage="¡El día es requerido!">
                                                 <f:validateLongRange maximum="31" minimum="1" />
                                             </h:inputText>
@@ -100,7 +100,8 @@
             </div>
         </center>
         <!-- JS FILES-->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
+        <script type="text/javascript" src="../js/jquery-2.1.1.js"></script>
+        <script type="text/javascript" src="../js/code.jquery.com_jquery-2.1.1.js"></script>
         <script type="text/javascript" src="../js/materialize.min.js"></script>
         <script type="text/javascript" src="../js/navBarUtil.js"></script>
         <!-- FOOTER -->

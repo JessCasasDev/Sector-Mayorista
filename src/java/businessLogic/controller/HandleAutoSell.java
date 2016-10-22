@@ -83,8 +83,8 @@ public class HandleAutoSell {
     }
 
     public float getTotal(ShopOrder order, Boolean withPayments) {
-        float total = 0;
-        StockElementDAO seDAO = new StockElementDAO();
+        float total = order.getTotalSale();
+        /*StockElementDAO seDAO = new StockElementDAO();
         VehicleDAO vDAO = new VehicleDAO();
         DiscountDAO dDAO = new DiscountDAO();
         Collection<StockElement> cars = seDAO.searchGroupByOrderIdAndAvailable(order, Boolean.FALSE);
@@ -99,7 +99,7 @@ public class HandleAutoSell {
                     total -= discount.getDiscountAmount();
                 }
             }
-        }
+        }*/
         if (!order.getState().equals(FINALIZADA) && withPayments) {
             PaymentDAO payDAO = new PaymentDAO();
             float debt = total;

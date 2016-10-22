@@ -5,6 +5,7 @@
  */
 package dataSourceManagement.DAO;
 
+import businessLogic.controller.HandleAddVehicle;
 import config.GlobalConfig;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.ShopOrder;
@@ -16,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -27,20 +29,22 @@ public class StockElementDAO {
 
     public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 
-    public boolean persist(StockElement se, int quantity) {
+    public boolean persist(List<StockElement> se) {
         EntityManager em = emf1.createEntityManager();
         boolean transaction = true;
         
-        em.getTransaction().begin();
+        EntityTransaction transaction1 = em.getTransaction();
+        transaction1.begin();
         try {   
-            for(int i=0; i<quantity; i++){
-                em.createNativeQuery("INSERT INTO stock_element(location, avaliable,"
+            for(int i=0; i<se.size(); i++){
+                em.persist(se.get(i));
+                /*em.createNativeQuery("INSERT INTO stock_element(location, avaliable,"
                         + "vehicle_vehicle_id, purchase_purchase_id) VALUES('" +se.getLocation()+"',true,"
                         + se.getVehicleVehicleId().getVehicleId()+","+
-                        se.getPurchasePurchaseId().getPurchaseId()+");").executeUpdate();
+                        se.getPurchasePurchaseId().getPurchaseId()+");").executeUpdate();*/
                 
             }
-            em.getTransaction().commit();       
+            transaction1.commit();       
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,7 +111,7 @@ public class StockElementDAO {
         return avaliable;
 
     }
-    public void addToCart(int vehicleId, int clientId){
+    public Integer addToCart(int vehicleId, int clientId, int quantity){
         int orderId  = 0;
         StringBuilder sb = new StringBuilder();
         StringBuilder sb2 = new StringBuilder();
@@ -122,7 +126,7 @@ public class StockElementDAO {
         sb.append(vehicleId);
         sb.append(" ;");
         Query q2 = em.createNativeQuery(sb.toString());
-        StockElement se;
+        StockElement se = null;
         try {
             try {
                 orderId = (Integer) q.getResultList().get(0);
@@ -141,6 +145,7 @@ public class StockElementDAO {
                 shopOrder.setOrderDate(Date.from(Instant.now()));
                 shopOrder.setDeliveryDate(null);
                 shopOrder.setState("Seleccionada");
+                shopOrder.setTotalSale(0);
                 shopOrderDAO.persist(shopOrder);
                 System.out.println(q.getResultList());
                 orderId = (Integer) q.getResultList().get(0);
@@ -157,6 +162,7 @@ public class StockElementDAO {
             em2.close();
         }
        // System.out.println(orderId);
+       return se.getShopOrderOrderId().getOrderId();
     }
 
     public void removeFromCart(int vehicleId, int clientId,int quantityToRemove) {

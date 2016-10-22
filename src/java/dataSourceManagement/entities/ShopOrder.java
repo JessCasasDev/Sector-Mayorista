@@ -23,13 +23,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author JuanCamilo
+ * @author afacunaa
  */
 @Entity
 @Table(name = "shop_order")
@@ -40,6 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ShopOrder.findByOrderDate", query = "SELECT s FROM ShopOrder s WHERE s.orderDate = :orderDate"),
     @NamedQuery(name = "ShopOrder.findByDeliveryDate", query = "SELECT s FROM ShopOrder s WHERE s.deliveryDate = :deliveryDate"),
     @NamedQuery(name = "ShopOrder.findByState", query = "SELECT s FROM ShopOrder s WHERE s.state = :state"),
+    @NamedQuery(name = "ShopOrder.findByTotalSale", query = "SELECT s FROM ShopOrder s WHERE s.totalSale = :totalSale"),
     @NamedQuery(name = "ShopOrder.findByStateAndClient", query = "SELECT s FROM ShopOrder s WHERE s.state = :state AND s.clientId = :clientId")})
 public class ShopOrder implements Serializable {
 
@@ -58,6 +60,10 @@ public class ShopOrder implements Serializable {
     @Size(max = 45)
     @Column(name = "state")
     private String state;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "total_sale")
+    private float totalSale;
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     @ManyToOne(optional = false)
     private Client clientId;
@@ -73,6 +79,11 @@ public class ShopOrder implements Serializable {
 
     public ShopOrder(Integer orderId) {
         this.orderId = orderId;
+    }
+
+    public ShopOrder(Integer orderId, float totalSale) {
+        this.orderId = orderId;
+        this.totalSale = totalSale;
     }
 
     public Integer getOrderId() {
@@ -107,6 +118,14 @@ public class ShopOrder implements Serializable {
         this.state = state;
     }
 
+    public float getTotalSale() {
+        return totalSale;
+    }
+
+    public void setTotalSale(float totalSale) {
+        this.totalSale = totalSale;
+    }
+
     public Client getClientId() {
         return clientId;
     }
@@ -114,7 +133,7 @@ public class ShopOrder implements Serializable {
     public void setClientId(Client clientId) {
         this.clientId = clientId;
     }
-
+    
     @XmlTransient
     public Collection<Discount> getDiscountCollection() {
         return discountCollection;
@@ -166,5 +185,5 @@ public class ShopOrder implements Serializable {
     public String toString() {
         return "dataSourceManagement.entities.ShopOrder[ orderId=" + orderId + " ]";
     }
-
+    
 }

@@ -9,6 +9,7 @@ import static businessLogic.controller.HandleAddVehicle.ID;
 import dataSourceManagement.DAO.CarDAO;
 import dataSourceManagement.DAO.ClientDAO;
 import dataSourceManagement.DAO.DiscountDAO;
+import dataSourceManagement.DAO.ShopOrderDAO;
 import dataSourceManagement.DAO.StockElementDAO;
 import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.entities.Client;
@@ -17,6 +18,7 @@ import dataSourceManagement.entities.StockElement;
 import dataSourceManagement.entities.Vehicle;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -78,8 +80,25 @@ public class HandleCar {
         ExternalContext ex = FacesContext.getCurrentInstance().getExternalContext();
         ClientDAO clientDAO = new ClientDAO();
         Client client = clientDAO.searchByNit((String) ex.getSessionMap().get(ID));
+        ShopOrderDAO orderDao = new ShopOrderDAO();
         StockElementDAO stockElementDAO = new StockElementDAO();
         stockElementDAO.removeFromCart(vehicleId, client.getClientId() ,quantityToRemove);
-        
+        int orderId = orderDao.searchByStateAndClient("Seleccionada", client).getOrderId();
+        orderDao.editTotalSale(orderId, -1*getTotalSale(vehicleId, quantityToRemove));
+    }
+    
+    public float getTotalSale(Integer vehicleId, int quantity){
+        VehicleDAO vehicleDao = new VehicleDAO();
+        Vehicle vehicle = vehicleDao.findVehicle(vehicleId);
+        float total = vehicle.getSellPrice() * quantity;
+        DiscountDAO dDAO = new DiscountDAO();
+        Collection<Discount> discountList;
+        discountList = dDAO.searchGroupByVehicleId(vehicle);
+        for (Discount discount : discountList) {
+                if (new Date().before(discount.getExpirationDate())) {
+                    total -= discount.getDiscountAmount();
+                }
+            }
+        return total;
     }
 }
