@@ -32,6 +32,12 @@ public class autoMarketWS {
     @WebMethod(operationName = "getVehicleInformation")
     public AutoMResponseMessage getVehicleInformation(String userName, String password, String id) {
         MakeTransaction mkt = new MakeTransaction();
+        return mkt.request(userName, password, id);
+    }
+    
+    @WebMethod(operationName = "sellVehicle")
+    public AutoMResponseMessage sellVehicle(String userName, String password, String id, String quantity) {
+        MakeTransaction mkt = new MakeTransaction();
         return mkt.make(userName, password);
     }
 }

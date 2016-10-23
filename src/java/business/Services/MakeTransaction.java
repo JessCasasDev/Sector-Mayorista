@@ -5,6 +5,7 @@
  */
 package business.Services;
 
+import businessLogic.controller.HandleAddVehicle;
 import businessLogic.controller.HandleCar;
 import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.entities.Vehicle;
@@ -56,6 +57,20 @@ public class MakeTransaction {
         vMap.put(VEHICLE_TYPE, String.valueOf(vehicle.getType()));
         vMap.put(VEHICLE_DESCRIPTION, String.valueOf(vehicle.getDescription()));
         responseList.add(vMap);
+        return new AutoMResponseMessage(userName, responseList, true);
+    }
+    
+    public AutoMResponseMessage sell(String userName, String password, String vehicleId, String quantity) {
+        List<Map<String, String>> responseList = new ArrayList<>(1);
+        Map<String, String> vMap = new HashMap<>();
+        VehicleDAO vDAO = new VehicleDAO();
+        Vehicle vehicle = vDAO.findVehicle(Integer.valueOf(vehicleId));
+        HandleAddVehicle hav = new HandleAddVehicle();
+        String pago = hav.addToCartAsService(Integer.parseInt(vehicleId), Integer.parseInt(quantity), userName);
+        vMap.put("Tipo vehiculo", vehicleId);
+        vMap.put("Cantidad", quantity);
+        vMap.put("Resumen transaccion", pago);
+        
         return new AutoMResponseMessage(userName, responseList, true);
     }
 }
