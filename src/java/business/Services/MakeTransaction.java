@@ -71,6 +71,6 @@ public class MakeTransaction {
         vMap.put("Cantidad", quantity);
         vMap.put("Resumen transaccion", pago);
         
-        return new AutoMResponseMessage(userName, responseList, true);
+        return new AutoMResponseMessage(userName+": "+pago, responseList, true);
     }
 }
