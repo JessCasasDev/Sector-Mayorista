@@ -18,14 +18,20 @@ public class autoMarketWS {
 
     /**
      * This is a sample web service operation
-     
-    @WebMethod(operationName = "hello")
-    public String hello(@WebParam(name = "name") String txt) {
-        return "Hello " + txt + " !";
-    }*/
+     *
+     * @WebMethod(operationName = "hello") public String hello(@WebParam(name =
+     * "name") String txt) { return "Hello " + txt + " !";
+    }
+     */
     @WebMethod(operationName = "checkAvailableIds")
-    public AutoMResponseMessage checkAvailableIds (String userName, String password){
-        MakeTransaction mkt    = new MakeTransaction();
-        return mkt.make(userName,password);
+    public AutoMResponseMessage checkAvailableIds(String userName, String password) {
+        MakeTransaction mkt = new MakeTransaction();
+        return mkt.make(userName, password);
+    }
+
+    @WebMethod(operationName = "getVehicleInformation")
+    public AutoMResponseMessage getVehicleInformation(String userName, String password, String id) {
+        MakeTransaction mkt = new MakeTransaction();
+        return mkt.make(userName, password);
     }
 }
