@@ -1,0 +1,11 @@
+create-system-properties --target i1 AJP_PORT=8011
+create-system-properties --target i1 AJP_INSTANCE_NAME=nodo1
+
+create-system-properties --target i3 AJP_PORT=8013
+create-system-properties --target i3 AJP_INSTANCE_NAME=nodo3
+
+create-system-properties --target i4 AJP_PORT=8014
+create-system-properties --target i4 AJP_INSTANCE_NAME=nodo4
+
+create-jvm-options --target c1 -DjvmRoute=${AJP_INSTANCE_NAME}
+create-network-listener --protocol http-listener-1 --target c1 --listenerport ${AJP_PORT} --jkenabled true jk-listener

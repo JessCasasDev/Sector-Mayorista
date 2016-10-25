@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="../css/automarketStyle.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Vista del vehiculo</title>
+    </h:head>
+    <body class="grey lighten-4">
+        <!--MENU-->
+        <nav>
+            <div class="nav-wrapper blue darken-4">
+                <a href="../index.xhtml" class="brand-logo">Automarket</a>
+                <ul id="nav-mobile" class="right blue darken-4">
+                    <li class="blue-text text-lighten-3"><a href="carsView.xhtml">Automóviles</a></li>
+                    <li class="blue-text text-lighten-3"><a href="../client/discountView.xhtml">Descuentos</a></li>
+                    <li class="blue-text text-lighten-3"><a href="../client/shopping_cart.xhtml">Carrito de Compra</a></li>
+                    <li class="blue-text text-lighten-3"><a href="../client/buying_history.xhtml">Compras</a></li>
+                    <li class="blue-text text-lighten-3"><a href="../client/client_profile.xhtml">Perfil</a></li>
+                    <li class="blue-text text-lighten-3"><h:form>
+                            <h:commandButton action="#{loginBean.logout()}" value="Logout" class="blue-text text-darken-3"/>
+                        </h:form></li>
+                </ul>
+            </div>
+        </nav>    
+
+        <center>
+            <div class="container center row">
+                <div class="card l12 m6 s4">
+                    <div class="card-image">
+                        <img class="responsive-img center activator" width="60" src="#{vehicleBean.imageSRC}"/>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator light-blue-text darken-3"><h4>#{vehicleBean.title}</h4></span>
+                        <p>
+                            Modelo: <span class="blue-text darken-3">#{vehicleBean.model}</span>
+                        </p>
+                        <p>
+                            Tipo: <span class="blue-text darken-3">#{vehicleBean.type}</span>
+                        </p>
+                        <p>
+                            Color: <span class="blue-text darken-3">#{vehicleBean.color}</span>
+                        </p>
+                        <p>
+                            Marca: <span class="blue-text darken-3">#{vehicleBean.brand}</span>
+                        </p>
+                        <p>
+                            Precio Original: <span class="blue-text darken-3">#{vehicleBean.sellPrice}</span>
+                        </p>
+                        <p>
+                            Precio Final: <span class="blue-text darken-3">#{vehicleBean.subTotal}</span>
+                        </p>
+                        <p>
+                            Descripcion:  <span class="blue-text darken-3">#{vehicleBean.description}</span>
+                        </p>
+                    </div>
+                </div>
+                <br/><br/>
+                <p>Mensaje: </p>
+                <h:outputText value="#{acquireVehiclesBean.message}"/>
+                <br/><br/>
+            </div>
+
+        </center>
+        <!-- JS FILES-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
+        <script type="text/javascript" src="../js/materialize.min.js"></script>
+        <script type="text/javascript" src="../js/navBarUtil.js"></script>
+        <!-- FOOTER -->
+        <footer class="page-footer  blue darken-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">AutoMarket</h5>
+                        <p class="grey-text text-lighten-4">La empresa mayorista de automóviles es la encargada de vender carros a los concesionarios y comprarlos a la fábrica CKD, estos vehiculos son adquiridos al por mayor ya fabricados y funcionales. Toda empresa mayorista necesita un sistema con el cuál gestionar sus vehículos para vender y las empresas a las cuales les vende los autos (Concesionario)</p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Autores</h5>
+                        <ul>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/JessicaCasas8712">Jessica Casas</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/afacunaa">Andrés Acuña</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/zayos">Michael González</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/juanka588">Juan Camilo Rodriguez</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2016 Arquitectura de Software
+                    <a class="grey-text text-lighten-4 right" href="https://github.com/JessicaCasas8712/Sector-Mayorista">Proyecto</a>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
+

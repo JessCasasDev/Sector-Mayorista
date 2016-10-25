@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="../css/automarketStyle.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Cuenta de Administrador</title>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
+            <f:event type="preRenderView" listener="#{loginBean.verify_role('Administrator')}"/>
+        </f:metadata>
+    </h:head>
+    <h:body class="grey lighten-4">
+        <nav>
+            <div class="nav-wrapper blue darken-4">
+                <a href="../index.xhtml" class="brand-logo">Automarket</a>
+                <ul id="nav-mobile" class="right blue darken-4">                    
+                    <li class="blue-text text-lighten-3"><a href="admin_index.xhtml">Inicio</a></li>
+                    <li class="blue-text text-lighten-3"><h:form>
+                            <h:commandButton action="#{loginBean.logout()}" value="Logout" class="blue-text text-darken-3"/>
+                        </h:form></li>
+                </ul>
+            </div>
+        </nav>    
+        <center><h2 class="light-blue-text darken-4">Gestión del Sistema</h2></center>
+        <center>
+            <div class="container">
+                <ul class=" row center">
+                    <!--vehicles-->
+                    <li class="col l4 m6 s12 clearfix2">
+                        <div class="card horizontal">
+                            <span class="card-title activator light-blue-text darken-3"><h4>Gestión de Vehiculos</h4></span>
+                            <div class="card-image s4 waves-effect waves-block waves-light">
+                                <center><img class="responsive-img center activator" width="60" src="../images/vehicles.png"/></center>
+                            </div>
+                            <div class="card-stacked">
+                                <div class="card-content">
+                                    <ul class="collection">
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">add</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="../vehicles/vehiclesCreator.xhtml">Agregar Vehículo</a>
+                                            <br/>
+                                        </li>
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">edit</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="../vehicles/vehiclesEditor.xhtml">Editar Vehículo</a>
+                                            <br/>
+                                        </li>
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">delete</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="../vehicles/vehiclesDestroyer.xhtml">Eliminar Vehículo</a>
+                                            <br/>
+                                        </li>
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">store</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="../vehicles/vehiclesAcquisition.xhtml">Adquirir Vehículos</a>
+                                            <br/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!--fin vehicles-->
+
+                    <!--Discounts-->
+                    <li class="col l4 m6 s12 clearfix2">
+                        <div class="card horizontal">
+                            <span class="card-title activator light-blue-text darken-3"><h4>Gestión Descuentos</h4></span>
+                            <div class="card-image s4 waves-effect waves-block waves-light">
+                                <center><img class="responsive-img center activator" width="60" src="../images/discounts.png"/></center>
+                            </div>
+                            <div class="card-stacked">
+                                <div class="card-content">
+                                    <ul class="collection">
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">add</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="../discounts/discountsCreator.xhtml">Agregar Descuento</a>
+                                            <br/>
+                                        </li>
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">edit</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="../discounts/discountsEditor.xhtml">Editar Descuento</a>
+                                            <br/>
+                                        </li>
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">delete</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="../discounts/discountsDestroyer.xhtml">Eliminar Descuento</a>
+                                            <br/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!--fin discounts-->
+                    <!--employees-->
+                    <li class="col l4 m6 s12 clearfix2">
+                        <div class="card horizontal">
+                            <span class="card-title activator light-blue-text darken-3"><h4>Gestión de Empleados</h4></span>
+                            <div class="card-image s4 waves-effect waves-block waves-light">
+                                <center><img class="responsive-img center activator" width="60" src="../images/empleados.png"/></center>
+                            </div>
+                            <div class="card-stacked">
+                                <div class="card-content">
+                                    <ul class="collection">
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">add</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="addEmployee.xhtml">Agregar Empleado</a>
+                                            <br/>
+                                        </li>
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">edit</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"     
+                                                href="editEmployee.xhtml">Editar Empleado</a>
+                                            <br/>
+                                        </li>
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">delete</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="deleteEmployee.xhtml">Eliminar Empleado</a>
+                                            <br/>
+                                        </li>
+                                        <li class="collection-item waves-effect waves">
+                                            <i class="material-icons circle white">payment</i>
+                                            <a 
+                                                class="btn-flat blue-text text-darken-2"
+                                                href="employee_management.xhtml">Pagar/Calificar Empleados</a>
+                                            <br/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!--fin employees-->
+                </ul>
+            </div>  
+            <div class="blue-text text-accent-2">
+                <p>Session_id = #{administratorBean.session_id}</p>
+                <p>Session_counter = #{administratorBean.session_counter}</p>
+            </div>
+        </center>
+
+        <!-- JS FILES-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
+        <script type="text/javascript" src="../js/materialize.min.js"></script>
+        <script type="text/javascript" src="../js/navBarUtil.js"></script>
+
+        <!-- FOOTER -->
+        <footer class="page-footer  blue darken-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">AutoMarket</h5>
+                        <p class="grey-text text-lighten-4">La empresa mayorista de automóviles es la encargada de vender carros a los concesionarios y comprarlos a la fábrica CKD, estos vehiculos son adquiridos al por mayor ya fabricados y funcionales. Toda empresa mayorista necesita un sistema con el cuál gestionar sus vehículos para vender y las empresas a las cuales les vende los autos (Concesionario)</p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Autores</h5>
+                        <ul>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/JessicaCasas8712">Jessica Casas</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/afacunaa">Andrés Acuña</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/zayos">Michael González</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/juanka588">Juan Camilo Rodriguez</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2016 Arquitectura de Software
+                    <a class="grey-text text-lighten-4 right" href="https://github.com/JessicaCasas8712/Sector-Mayorista">Proyecto</a>
+                </div>
+            </div>
+        </footer>
+    </h:body>
+</html>

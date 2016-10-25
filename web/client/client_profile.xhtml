@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <head>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+         <f:metadata>
+            <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
+            <f:event type="preRenderView" listener="#{loginBean.verify_role('Client')}"/>
+            <f:event type="preRenderView" listener="#{clientBean.setUsername(sessionScope.username)}"/>
+            <f:event type="preRenderView" listener="#{clientBean.setProfile()}"/>
+        </f:metadata>
+        <title>Perfil - Cliente</title>
+     
+    </head>
+
+    <body class="grey lighten-4">
+        <!--MENU-->
+        
+        <nav>
+            <div class="nav-wrapper blue darken-4">
+                <a href="../index.xhtml" class="brand-logo">Automarket NODO2</a>
+                <ul id="nav-mobile" class="right blue darken-4">
+                    <li class="blue-text text-lighten-3"><a href="../car/carsView.xhtml">Automóviles</a></li>
+                    <li class="blue-text text-lighten-3"><a href="discountView.xhtml">Descuentos</a></li>
+                    <li class="blue-text text-lighten-3"><a href="shopping_cart.xhtml">Carrito de Compra</a></li>
+                    <li class="blue-text text-lighten-3"><a href="buying_history.xhtml">Compras</a></li>
+                    <li class="blue-text text-lighten-3"><a href="client_profile.xhtml">Perfil</a></li>                    
+                    <li class="blue-text text-lighten-3"><h:form>
+                            <h:commandButton action="#{loginBean.logout()}" value="Logout" class="blue-text text-darken-3"/>
+                        </h:form></li>
+                </ul>
+            </div>
+        </nav>    
+        <!--FIN MENU-->
+        <center>
+            <div class="container">
+                <div class="card-panel hoverable center-align">
+                    <h3 class="card-title blue-text text-accent-3">¡Bienvenido #{sessionScope.username}!</h3>
+                    <div class="card-content">
+                        <h4 class="blue-text text-darken-4">Nombre:</h4>
+                        <h4 class="blue-text text-accent-2">#{clientBean.name}</h4>
+                        <h4 class="blue-text text-darken-4">NIT:</h4>
+                        <h4 class="blue-text text-accent-2">#{clientBean.nit}</h4>
+                        <h4 class="blue-text text-darken-4">Dirección:</h4>
+                        <h4 class="blue-text text-accent-2">#{clientBean.address}</h4>
+                        <h:form>
+                            <a class="waves-effect waves-light btn modal-trigger indigo darken-4" href="#updateClient" id="openUpdateClient">Editar Información</a>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blue-text text-accent-2">
+                <p>Session_id = #{clientBean.session_id}</p>
+                <p>Session_counter = #{clientBean.session_counter}</p>
+            </div>
+        </center>
+        <div class="modal" id="updateClient" >
+            <div class="modal-content">
+                <h4>Modal Header</h4>
+                <p>A bunch of text</p>
+            </div>
+        </div>
+              
+        <!-- FOOTER -->
+        <footer class="page-footer  blue darken-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">AutoMarket</h5>
+                        <p class="grey-text text-lighten-4">La empresa mayorista de automóviles es la encargada de vender carros a los concesionarios y comprarlos a la fábrica CKD, estos vehiculos son adquiridos al por mayor ya fabricados y funcionales. Toda empresa mayorista necesita un sistema con el cuál gestionar sus vehículos para vender y las empresas a las cuales les vende los autos (Concesionario)</p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Autores</h5>
+                        <ul>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/JessicaCasas8712">Jessica Casas</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/afacunaa">Andrés Acuña</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/zayos">Michael González</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/juanka588">Juan Camilo Rodriguez</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2016 Arquitectura de Software
+                    <a class="grey-text text-lighten-4 right" href="https://github.com/JessicaCasas8712/Sector-Mayorista">Proyecto</a>
+                </div>
+            </div>
+        </footer>
+        <!-- JS FILES-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="../js/initial.js"/>
+    </body>
+</html>
+

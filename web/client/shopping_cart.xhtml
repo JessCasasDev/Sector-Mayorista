@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Carrito de compras</title>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{loginBean.verify_if_logged()}"/>
+            <f:event type="preRenderView" listener="#{loginBean.verify_role('Client')}"/>
+        </f:metadata>
+
+    </h:head>
+    <h:body class="grey lighten-4">
+        <!--MENU-->
+        <nav>
+            <div class="nav-wrapper blue darken-4">
+                <a href="../index.xhtml" class="brand-logo">Automarket</a>
+                <ul id="nav-mobile" class="right blue darken-4">
+                    <li class="blue-text text-lighten-3"><a href="../car/carsView.xhtml">Automóviles</a></li>
+                    <li class="blue-text text-lighten-3"><a href="discountView.xhtml">Descuentos</a></li>
+                    <li class="blue-text text-lighten-3"><a href="shopping_cart.xhtml">Carrito de Compra</a></li>
+                    <li class="blue-text text-lighten-3"><a href="buying_history.xhtml">Compras</a></li>
+                    <li class="blue-text text-lighten-3"><a href="client_profile.xhtml">Perfil</a></li>
+                    <li class="blue-text text-lighten-3"><h:form>
+                            <h:commandButton action="#{loginBean.logout()}" value="Logout" class="blue-text text-darken-3"/>
+                        </h:form></li>
+                </ul>
+            </div>
+        </nav>    
+        <!--FIN MENU-->
+        <center>
+            <div class="container">
+                <h3 class="blue-grey-text text-darken-2 col s12">¡Esto es lo que has escogido hasta el momento!</h3>
+                <table class="highlight">
+                    <tr>
+                        <th>Numero de orden</th>
+                        <th>Resumen de la orden</th>
+                        <th>Fecha de pedido</th>
+                        <th>Fecha de entrega</th>
+                        <th>Saldo pendiente</th>
+                        <th>Pagos hechos</th>
+                        <th>Total de la orden</th>
+                    </tr>
+                    <ui:repeat value="#{shoppingCartBean.displayCart()}" var="cart">
+                        <tr>
+                            <td><h5>#{cart.orderId}</h5></td>
+                            <td><h:outputText value="#{shoppingCartBean.getSumm(cart)}" /> </td>
+                            <td><h6>#{cart.orderDate}</h6></td>
+                            <td><h6>#{cart.deliveryDate}</h6></td>
+                            <td><h6>$ #{shoppingCartBean.getTotal(cart, "True")}</h6></td>
+                            <td><h6>$ #{shoppingCartBean.getAlreadyPaid(cart)}</h6></td>
+                            <td><h6>$ #{shoppingCartBean.getTotal(cart, "False")}</h6></td>
+                        </tr>
+                    </ui:repeat>
+                </table>
+                <a class="waves-effect waves-light btn modal-trigger indigo darken-4" href="../car/carsRemove.xhtml">Modificar Pedido</a>
+                <hr/>
+                <div class="container">
+                    <h:form>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <h3 class="indigo-text text-darken-4">Pagar orden</h3>
+                                <h6>Numero de la orden</h6>
+                                <h:selectOneRadio value="#{shoppingCartBean.orderId}">
+                                    <f:selectItems value="#{shoppingCartBean.orders}" var="orderId" itemValue="#{orderId.orderId}" itemLabel="#{orderId.orderId}"/>
+                                </h:selectOneRadio>
+                                <h6>Método de pago</h6>
+                                <h:selectOneRadio value="#{shoppingCartBean.currency}">
+                                    <f:selectItem itemValue="Efectivo" itemLabel="Efectivo" />
+                                    <f:selectItem itemValue="Tarjeta" itemLabel="Tarjeta" />
+                                </h:selectOneRadio>
+                                <h6>Cantidad a pagar:</h6>
+                                <h:inputText class="validate" value="#{shoppingCartBean.amount}" required="true"/>
+                                <h:commandButton class="waves-effect waves-light btn modal-trigger indigo darken-4" action="#{shoppingCartBean.payShopOrder()}" value="Pagar"/>
+                            </div>
+                        </div>
+                        <p>Mensaje: <h:outputFormat value="#{shoppingCartBean.message}" /></p>
+                    </h:form>
+                </div>
+            </div>
+        </center>
+        <!-- FOOTER -->
+        <footer class="page-footer  blue darken-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">AutoMarket</h5>
+                        <p class="grey-text text-lighten-4">La empresa mayorista de automóviles es la encargada de vender carros a los concesionarios y comprarlos a la fábrica CKD, estos vehiculos son adquiridos al por mayor ya fabricados y funcionales. Toda empresa mayorista necesita un sistema con el cuál gestionar sus vehículos para vender y las empresas a las cuales les vende los autos (Concesionario)</p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Autores</h5>
+                        <ul>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/JessicaCasas8712">Jessica Casas</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/afacunaa">Andrés Acuña</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/zayos">Michael González</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/juanka588">Juan Camilo Rodriguez</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2016 Arquitectura de Software
+                    <a class="grey-text text-lighten-4 right" href="https://github.com/JessicaCasas8712/Sector-Mayorista">Proyecto</a>
+                </div>
+            </div>
+        </footer>
+        <!-- JS FILES-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+    </h:body>
+</html>
+
