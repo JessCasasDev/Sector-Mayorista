@@ -32,31 +32,40 @@
         <!--FIN MENU-->
         <center>
             <div class="container">
-                <h1 class="blue-grey-text text-darken-2 col s12">#{sessionScope.role} - ¡Bienvenido #{sessionScope.username}!</h1>
-                <hr/>
-                <h2 class=" blue-grey-text text-darken-4 col s8">Nombre: </h2>
-                <h3 class="blue-grey-text text-lighten-1 col s6">#{sessionScope.name}</h3>
-                <h2 class=" blue-grey-text text-darken-4 col s8">Documento:  </h2>
-                <h3 class="blue-grey-text text-lighten-1 col s6">#{employeeBean.documentId}</h3>
-                <h2 class=" blue-grey-text text-darken-4 col s8">Fecha de nacimiento:  </h2>
-                <h3 class="blue-grey-text text-lighten-1 col s6">#{employeeBean.birthDate}</h3>
-                <hr/>
-                <h3 class=" blue-grey-text text-darken-4 col s8">Historial:</h3>
-                <table class="highlight">
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Salario</th>
-                        <th>Calificación</th>
-                    </tr>
-                    <ui:repeat value="#{employeeBean.showSalary()}" var="cart">
-                        <tr>
-                            <td><h6>#{cart.date}</h6></td>
-                            <td><h6>$ #{cart.payment}</h6></td>
-                            <td><h6>#{cart.grade} / 5.0</h6></td>
-                        </tr>
-                    </ui:repeat>
-                </table>
-                <h5>Tu calificación promedio es: #{employeeBean.weightedGrade()}</h5>
+                <div class="card-panel hoverable center-align">
+                    <h3 class="card-title blue-text text-accent-3">#{sessionScope.role} - ¡Bienvenido #{sessionScope.username}!</h3>
+                    <div class="card-content">
+                        <div class="card-image">
+                            <img class="responsive-img center activator" width="150" src="../images/worker.jpg"/>
+                        </div>
+                        <h4 class="blue-grey-text text-darken-4 col s8">Nombre: </h4>
+                        <h4 class="blue-grey-text text-lighten-1 col s6">#{sessionScope.name}</h4>
+                        <h4 class="blue-grey-text text-darken-4 col s8">Documento:  </h4>
+                        <h4 class="blue-grey-text text-lighten-1 col s6">#{employeeBean.documentId}</h4>
+                        <h4 class="blue-grey-text text-darken-4 col s8">Fecha de nacimiento:  </h4>
+                        <h4 class="blue-grey-text text-lighten-1 col s6">#{employeeBean.birthDate}</h4>
+                    </div>
+                </div>
+                <div class="card-panel hoverable center-align">
+                    <div class="card-content">
+                        <h4 class="blue-grey-text text-darken-4 col s8">Historial:</h4>
+                        <table class="highlight">
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Salario</th>
+                                <th>Calificación</th>
+                            </tr>
+                            <ui:repeat value="#{employeeBean.showSalary()}" var="cart">
+                                <tr>
+                                    <td><h6>#{cart.date}</h6></td>
+                                    <td><h6>$ #{cart.payment}</h6></td>
+                                    <td><h6>#{cart.grade} / 5.0</h6></td>
+                                </tr>
+                            </ui:repeat>
+                        </table>
+                        <h5>Tu calificación promedio es: #{employeeBean.weightedGrade()}</h5>
+                    </div>
+                </div>
             </div>
             <div class="blue-text text-accent-2">
                 <p>Session_id = #{administratorBean.session_id}</p>

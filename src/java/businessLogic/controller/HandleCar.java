@@ -13,6 +13,7 @@ import dataSourceManagement.DAO.StockElementDAO;
 import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.Discount;
+import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Vehicle;
 import java.util.Collection;
 import java.util.Date;
@@ -42,6 +43,10 @@ public class HandleCar {
             priceDiscounted -= discount.getDiscountAmount();
         }
         return priceDiscounted;
+    }
+    
+    public float getDiscountPriceByVehicle(ShopOrder order, Integer quantity){
+        return order.getTotalSale()/quantity;
     }
     
     public Long searchByVIdAndAvaliablity(int vehicleId){
@@ -92,10 +97,10 @@ public class HandleCar {
         Collection<Discount> discountList;
         discountList = dDAO.searchGroupByVehicleId(vehicle);
         for (Discount discount : discountList) {
-                if (new Date().before(discount.getExpirationDate())) {
-                    total -= discount.getDiscountAmount();
-                }
+            if (new Date().before(discount.getExpirationDate())) {
+                total -= quantity * discount.getDiscountAmount();
             }
+        }
         return total;
     }
 }
