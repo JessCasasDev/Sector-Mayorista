@@ -37,9 +37,10 @@
         <!--FIN MENU-->
         <center>
             <div class="container">
+                <div class="card-panel hoverable center-align">
                 <h3 class="blue-grey-text text-darken-2 col s12">¡Esto es lo que has comprado hasta el momento!</h3>
 
-                <table class="highlight">
+                <table class="highlight centered">
                     <tr>
                         <th>Numero de orden</th>
                         <th>Resumen de la orden</th>
@@ -56,7 +57,7 @@
                             <td><h6>$ #{shoppingCartBean.getTotal(cart, "True")}</h6></td>
                         </tr>
                     </ui:repeat>
-                </table>
+                </table></div>
                 <hr/>
             </div>
         </center>

@@ -38,6 +38,7 @@ public class VehicleBean {
     private String brand;
     private String cost;
     private String sellPrice;
+    private String id;
     private Collection<Discount> discounts;
 
     /**
@@ -64,6 +65,14 @@ public class VehicleBean {
     public Float getSubTotal() {
         return subTotal;
     }
+    
+    public String getId(){
+        return this.id;
+    }
+    
+    public void setId(String id){
+        this.id = id;
+    }
 
     public void setSubTotal(Float subTotal) {
         this.subTotal = subTotal;
@@ -75,6 +84,10 @@ public class VehicleBean {
 
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
+        this.fillData(this.vehicle);
+        ViewCarsBean2 v = new ViewCarsBean2();
+        this.setSubTotal(v.getDiscountedPrice(vehicle));
+        
     }
 
     public String getMessage() {
@@ -166,6 +179,7 @@ public class VehicleBean {
         setBrand(v.getBrand());
         setCost(String.valueOf(v.getCost()));
         setSellPrice(String.valueOf(v.getSellPrice()));
+        setId(String.valueOf(v.getVehicleId().intValue()));
         setImageSRC("../images/" + getSource(v.getColor()));
     }
 
@@ -195,5 +209,7 @@ public class VehicleBean {
                 return "not_available.png";
         }
     }
+
+    
 
 }

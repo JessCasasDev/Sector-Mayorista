@@ -113,7 +113,7 @@ public class ViewCarsBean2 {
         return quantity;
     }
 
-    public float getDiscountedPrice(Vehicle v) {
+    public Float getDiscountedPrice(Vehicle v) {
         HandleCar handleCar = new HandleCar();
         return handleCar.getDiscoutPriceByVehicle(v);
     }

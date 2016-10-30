@@ -25,7 +25,7 @@
         
         <nav>
             <div class="nav-wrapper blue darken-4">
-                <a href="../index.xhtml" class="brand-logo">Automarket NODO2</a>
+                <a href="../index.xhtml" class="brand-logo">Automarket</a>
                 <ul id="nav-mobile" class="right blue darken-4">
                     <li class="blue-text text-lighten-3"><a href="../car/carsView.xhtml">Automóviles</a></li>
                     <li class="blue-text text-lighten-3"><a href="discountView.xhtml">Descuentos</a></li>
@@ -50,9 +50,7 @@
                         <h4 class="blue-text text-accent-2">#{clientBean.nit}</h4>
                         <h4 class="blue-text text-darken-4">Dirección:</h4>
                         <h4 class="blue-text text-accent-2">#{clientBean.address}</h4>
-                        <h:form>
-                            <a class="waves-effect waves-light btn modal-trigger indigo darken-4" href="#updateClient" id="openUpdateClient">Editar Información</a>
-                        </h:form>
+                        
                     </div>
                 </div>
             </div>
@@ -62,13 +60,6 @@
                 <p>Session_counter = #{clientBean.session_counter}</p>
             </div>
         </center>
-        <div class="modal" id="updateClient" >
-            <div class="modal-content">
-                <h4>Modal Header</h4>
-                <p>A bunch of text</p>
-            </div>
-        </div>
-              
         <!-- FOOTER -->
         <footer class="page-footer  blue darken-4">
             <div class="container">
