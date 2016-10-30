@@ -35,20 +35,20 @@ public class HandleAddVehicle {
         System.out.println(client.toString());
         StockElementDAO stockElementDAO = new StockElementDAO();
         int shopOrderId = stockElementDAO.addToCart(vehicleId, client.getClientId(), quantity);
-        for (int i = 0; i < quantity-1; i++) {
+        for (int i = 0; i < quantity - 1; i++) {
             stockElementDAO.addToCart(vehicleId, client.getClientId(), quantity);
         }
         ShopOrderDAO soDao = new ShopOrderDAO();
         soDao.editTotalSale(shopOrderId, getTotalSale(vehicleId, quantity));
     }
-    
+
     public String addToCartAsService(int vehicleId, int quantity, String username) {
         AuthenticationDAO authDao = new AuthenticationDAO();
         ClientDAO clientDAO = new ClientDAO();
         Client client = clientDAO.searchByUsername(authDao.searchByUsername(username));
         StockElementDAO stockElementDAO = new StockElementDAO();
         int shopOrderId = stockElementDAO.addToCart(vehicleId, client.getClientId(), quantity);
-        for (int i = 0; i < quantity-1; i++) {
+        for (int i = 0; i < quantity - 1; i++) {
             stockElementDAO.addToCart(vehicleId, client.getClientId(), quantity);
         }
         ShopOrderDAO soDao = new ShopOrderDAO();
@@ -56,8 +56,8 @@ public class HandleAddVehicle {
         HandleAutoSell has = new HandleAutoSell();
         return has.payOrder(shopOrderId, "Efectivo", soDao.searchByOrderId(shopOrderId).getTotalSale());
     }
-    
-    public float getTotalSale(Integer vehicleId, int quantity){
+
+    public float getTotalSale(Integer vehicleId, int quantity) {
         VehicleDAO vehicleDao = new VehicleDAO();
         Vehicle vehicle = vehicleDao.findVehicle(vehicleId);
         float total = vehicle.getSellPrice() * quantity;

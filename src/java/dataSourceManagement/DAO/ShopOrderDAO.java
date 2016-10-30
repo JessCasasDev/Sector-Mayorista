@@ -41,6 +41,7 @@ public class ShopOrderDAO {
         }
         return order;
     }
+    
 
     public void buyAutos(ShopOrder order, String currency, String state, float amount) {
 

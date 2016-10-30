@@ -32,20 +32,20 @@ public class StockElementDAO {
     public boolean persist(List<StockElement> se) {
         EntityManager em = emf1.createEntityManager();
         boolean transaction = true;
-        
+
         EntityTransaction transaction1 = em.getTransaction();
         transaction1.begin();
-        try {   
-            for(int i=0; i<se.size(); i++){
+        try {
+            for (int i = 0; i < se.size(); i++) {
                 em.persist(se.get(i));
                 /*em.createNativeQuery("INSERT INTO stock_element(location, avaliable,"
-                        + "vehicle_vehicle_id, purchase_purchase_id) VALUES('" +se.getLocation()+"',true,"
-                        + se.getVehicleVehicleId().getVehicleId()+","+
-                        se.getPurchasePurchaseId().getPurchaseId()+");").executeUpdate();*/
-                
+                 + "vehicle_vehicle_id, purchase_purchase_id) VALUES('" +se.getLocation()+"',true,"
+                 + se.getVehicleVehicleId().getVehicleId()+","+
+                 se.getPurchasePurchaseId().getPurchaseId()+");").executeUpdate();*/
+
             }
-            transaction1.commit();       
-            
+            transaction1.commit();
+
         } catch (Exception e) {
             e.printStackTrace();
             transaction = false;
@@ -111,17 +111,19 @@ public class StockElementDAO {
         return avaliable;
 
     }
-    public Integer addToCart(int vehicleId, int clientId, int quantity){
-        int orderId  = 0;
+
+    public Integer addToCart(int vehicleId, int clientId, int quantity) {
+        int orderId = 0;
         StringBuilder sb = new StringBuilder();
         StringBuilder sb2 = new StringBuilder();
         EntityManager em = emf1.createEntityManager();
         EntityManager em2 = emf1.createEntityManager();
+        EntityTransaction transaction = em2.getTransaction();
         sb2.append("SELECT order_id FROM shop_order, client WHERE shop_order.client_id = client.client_id and `state` = \"Seleccionada\" AND client.client_id =  ");
         sb2.append(clientId);
         sb2.append(" ;");
         Query q = em.createNativeQuery(sb2.toString());
-        em2.getTransaction().begin();
+
         sb.append("SELECT element_id FROM vehicle, stock_element WHERE  avaliable = 1 AND vehicle_id = vehicle_vehicle_id and vehicle_vehicle_id = ");
         sb.append(vehicleId);
         sb.append(" ;");
@@ -133,11 +135,12 @@ public class StockElementDAO {
             } catch (Exception e) {
 
             }
+            transaction.begin();
             if (orderId != 0) {
                 se = em2.merge(em2.find(StockElement.class, q2.getResultList().get(0)));
                 se.setShopOrderOrderId(em2.find(ShopOrder.class, orderId));
                 se.setAvaliable(false);
-                em2.getTransaction().commit();
+                transaction.commit();
             } else {
                 ShopOrderDAO shopOrderDAO = new ShopOrderDAO();
                 ShopOrder shopOrder = new ShopOrder();
@@ -152,61 +155,49 @@ public class StockElementDAO {
                 se = em2.merge(em2.find(StockElement.class, q2.getResultList().get(0)));
                 se.setShopOrderOrderId(em2.find(ShopOrder.class, orderId));
                 se.setAvaliable(false);
-                em2.getTransaction().commit();
+                transaction.commit();
             }
             //System.out.println(q.getSingleResult());
         } catch (Exception e) {
-            em2.getTransaction().rollback();
+            transaction.rollback();
         } finally {
             em.close();
             em2.close();
         }
-       // System.out.println(orderId);
-       return se.getShopOrderOrderId().getOrderId();
+        // System.out.println(orderId);
+        return se.getShopOrderOrderId().getOrderId();
     }
 
-    public void removeFromCart(int vehicleId, int clientId,int quantityToRemove) {
+    public void removeFromCart(int vehicleId, int clientId, int quantityToRemove) {
         StringBuilder sb = new StringBuilder();
         EntityManager em = emf1.createEntityManager();
-        
+
         List<Integer> stocks = new ArrayList<Integer>();
-        
+
         sb.append("SELECT element_id FROM client, shop_order ,stock_element, vehicle WHERE client.client_id  = shop_order.client_id AND shop_order_order_id = order_id AND shop_order.`state` = \"Seleccionada\" AND vehicle_vehicle_id = vehicle_id AND client.client_id = ");
         sb.append(clientId);
         sb.append(" AND vehicle_id = ");
         sb.append(vehicleId);
         sb.append(" ;");
-        
         StockElement se;
         Query q = em.createNativeQuery(sb.toString());
+        EntityManager em2 = emf1.createEntityManager();
+        EntityTransaction transaction = em2.getTransaction();
         try {
             stocks = q.getResultList();
-            
+            transaction.begin();
             for (int i = 0; i < quantityToRemove; i++) {
-                EntityManager em2 = emf1.createEntityManager();
-                em2.getTransaction().begin();
-                try {
-                    
-                   
-                    se = em2.merge(em2.find(StockElement.class,  stocks.get(i)));
-                    se.setShopOrderOrderId(null);
-                    se.setAvaliable(true);
-                    em2.getTransaction().commit();
-                } catch (Exception e) {
-                     em2.getTransaction().rollback();
-                }finally{
-                   em2.close(); 
-                }
-                
-                
+                se = em2.merge(em2.find(StockElement.class, stocks.get(i)));
+                se.setShopOrderOrderId(null);
+                se.setAvaliable(true);
             }
-            
+            transaction.commit();
         } catch (Exception e) {
-           
+            System.out.println(e.toString());
+            transaction.rollback();
         } finally {
             em.close();
-            
-        }     
+        }
     }
 
 }
