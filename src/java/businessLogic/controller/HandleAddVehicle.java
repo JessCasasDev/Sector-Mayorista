@@ -65,10 +65,10 @@ public class HandleAddVehicle {
         Collection<Discount> discountList;
         discountList = dDAO.searchGroupByVehicleId(vehicle);
         for (Discount discount : discountList) {
-                if (new Date().before(discount.getExpirationDate())) {
-                    total -= discount.getDiscountAmount();
-                }
+            if (new Date().before(discount.getExpirationDate())) {
+                total -= quantity * discount.getDiscountAmount();
             }
+        }
         return total;
     }
 
