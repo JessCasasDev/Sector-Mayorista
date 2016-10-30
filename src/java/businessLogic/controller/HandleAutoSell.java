@@ -129,7 +129,7 @@ public class HandleAutoSell {
             }
         }
         for (Vehicle x : hm.keySet()) {
-            summary += x.getType() + " " + x.getColor() + " - Cantidad: " + hm.get(x) + " - Precio unidad: $ " + x.getSellPrice() + " - Precio unidad con descuento: $ " + hc.getDiscoutPriceByVehicle(x) + " || " + "\n ";
+            summary += x.getType() + " " + x.getColor() + " - Cantidad: " + hm.get(x) + " - Precio unidad: $ " + x.getSellPrice() + " - Precio unidad con descuento: $ " + hc.getDiscountPriceByVehicle(order, hm.get(x)) + " || " + "\n ";
         }
         return summary;
     }
