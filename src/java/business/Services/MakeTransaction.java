@@ -7,7 +7,12 @@ package business.Services;
 
 import businessLogic.controller.HandleAddVehicle;
 import businessLogic.controller.HandleCar;
+import dataSourceManagement.DAO.AuthenticationDAO;
+import dataSourceManagement.DAO.ClientDAO;
+import dataSourceManagement.DAO.StockElementDAO;
 import dataSourceManagement.DAO.VehicleDAO;
+import dataSourceManagement.entities.Authentication;
+import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.Vehicle;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,14 +68,39 @@ public class MakeTransaction {
     public AutoMResponseMessage sell(String userName, String password, String vehicleId, String quantity) {
         List<Map<String, String>> responseList = new ArrayList<>(1);
         Map<String, String> vMap = new HashMap<>();
-        VehicleDAO vDAO = new VehicleDAO();
-        Vehicle vehicle = vDAO.findVehicle(Integer.valueOf(vehicleId));
-        HandleAddVehicle hav = new HandleAddVehicle();
-        String pago = hav.addToCartAsService(Integer.parseInt(vehicleId), Integer.parseInt(quantity), userName);
-        vMap.put("Tipo vehiculo", vehicleId);
-        vMap.put("Cantidad", quantity);
-        vMap.put("Resumen transaccion", pago);
+        AuthenticationDAO authDao = new AuthenticationDAO();
+        Authentication auth = authDao.searchByUsername(userName);
         
-        return new AutoMResponseMessage(userName+": "+pago, responseList, true);
+        if (!auth.getPassword().equals(password)) {
+            return new AutoMResponseMessage("No se encontro el usuario", null, false);
+        } else {
+            ClientDAO clientDao = new ClientDAO();
+            Client client = clientDao.searchByUsername(auth);
+            if (client == null) {
+                return new AutoMResponseMessage("No se encontro el Cliente", null, false);
+            } else {
+                
+                VehicleDAO vDAO = new VehicleDAO();
+                Vehicle vehicle = vDAO.findVehicle(Integer.valueOf(vehicleId));
+                if (vehicle == null) {
+                    return new AutoMResponseMessage("No se encontro el Vehiculo", null, false);
+                } else {
+                    HandleAddVehicle hav = new HandleAddVehicle();
+                    String pago = hav.addToCartAsService(Integer.parseInt(vehicleId), Integer.parseInt(quantity), userName);
+                    vMap.put("Tipo vehiculo", vehicleId);
+                    vMap.put(VEHICLE_MODEL, String.valueOf(vehicle.getModel()));
+                    vMap.put(VEHICLE_BRAND, String.valueOf(vehicle.getBrand()));
+                    vMap.put(VEHICLE_COLOR, String.valueOf(vehicle.getColor()));
+                    vMap.put(VEHICLE_SELL_PRICE, String.valueOf(vehicle.getSellPrice()));
+                    vMap.put(VEHICLE_TYPE, String.valueOf(vehicle.getType()));
+                    vMap.put(VEHICLE_DESCRIPTION, String.valueOf(vehicle.getDescription()));
+                    vMap.put("Cantidad", String.valueOf(quantity));
+                    vMap.put("Resumen transaccion", pago);
+                    responseList.add(vMap);
+                    return new AutoMResponseMessage(userName + ": " + pago, responseList, true);
+                }
+
+            }
+        }
     }
 }

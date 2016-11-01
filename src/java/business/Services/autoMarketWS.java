@@ -23,7 +23,7 @@ public class autoMarketWS {
      * "name") String txt) { return "Hello " + txt + " !";
     }
      */
-    @WebMethod(operationName = "checkAvailableIds")
+  /*  @WebMethod(operationName = "checkAvailableIds")
     public AutoMResponseMessage checkAvailableIds(String userName, String password) {
         MakeTransaction mkt = new MakeTransaction();
         return mkt.make(userName, password);
@@ -33,7 +33,7 @@ public class autoMarketWS {
     public AutoMResponseMessage getVehicleInformation(String userName, String password, String id) {
         MakeTransaction mkt = new MakeTransaction();
         return mkt.request(userName, password, id);
-    }
+    }*/
     
     @WebMethod(operationName = "sellVehicle")
     public AutoMResponseMessage sellVehicle(String userName, String password, String id, String quantity) {
