@@ -2,13 +2,14 @@ package dataSourceManagement.DAO;
 
 import config.GlobalConfig;
 import dataSourceManagement.entities.Authentication;
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-public class AuthenticationDAO {
+public class AuthenticationDAO implements Serializable{
 
     public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 

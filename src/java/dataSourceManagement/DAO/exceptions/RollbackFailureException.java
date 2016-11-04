@@ -1,6 +1,8 @@
 package dataSourceManagement.DAO.exceptions;
 
-public class RollbackFailureException extends Exception {
+import java.io.Serializable;
+
+public class RollbackFailureException extends Exception implements Serializable{
 
     public RollbackFailureException(String message, Throwable cause) {
         super(message, cause);

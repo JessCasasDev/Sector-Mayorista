@@ -8,6 +8,7 @@ package dataSourceManagement.DAO;
 import config.GlobalConfig;
 import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Employee;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,7 +19,7 @@ import javax.persistence.Query;
  *
  * @author afacunaa
  */
-public class EmployeeDAO {
+public class EmployeeDAO implements Serializable{
 
     public EntityManagerFactory emf3 = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 

@@ -3,12 +3,13 @@ package dataSourceManagement.DAO;
 import config.GlobalConfig;
 import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Client;
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-public class ClientDAO {
+public class ClientDAO implements Serializable{
 
   public EntityManagerFactory emf3 = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 

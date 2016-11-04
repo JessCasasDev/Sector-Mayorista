@@ -9,6 +9,7 @@ import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.DAO.exceptions.NonexistentEntityException;
 import dataSourceManagement.DAO.exceptions.RollbackFailureException;
 import dataSourceManagement.entities.Vehicle;
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author JuanCamilo
  */
-public class HandleVehicleCRUD {
+public class HandleVehicleCRUD implements Serializable{
 
     public boolean createVehicle(String brand, Integer model, String color,
             Float cost, Float sellP, String description, String type) {

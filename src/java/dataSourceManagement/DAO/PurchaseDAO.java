@@ -2,12 +2,13 @@ package dataSourceManagement.DAO;
 
 import config.GlobalConfig;
 import dataSourceManagement.entities.Purchase;
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-public class PurchaseDAO {
+public class PurchaseDAO implements Serializable{
 
     public EntityManagerFactory emf3 = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 

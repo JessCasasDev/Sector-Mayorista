@@ -1,6 +1,8 @@
 package dataSourceManagement.DAO.exceptions;
 
-public class NonexistentEntityException extends Exception {
+import java.io.Serializable;
+
+public class NonexistentEntityException extends Exception implements Serializable{
 
     public NonexistentEntityException(String message, Throwable cause) {
         super(message, cause);

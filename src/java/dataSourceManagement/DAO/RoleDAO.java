@@ -2,12 +2,13 @@ package dataSourceManagement.DAO;
 
 import config.GlobalConfig;
 import dataSourceManagement.entities.Role;
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-public class RoleDAO {
+public class RoleDAO implements Serializable{
 
     public EntityManagerFactory emf = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 

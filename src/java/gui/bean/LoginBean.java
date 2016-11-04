@@ -7,6 +7,7 @@ package gui.bean;
 
 import businessLogic.controller.HandleLogin;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -20,7 +21,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @RequestScoped
-public class LoginBean {
+public class LoginBean implements Serializable{
 
     private String username;
     private String password;

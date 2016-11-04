@@ -10,6 +10,7 @@ import businessLogic.controller.AuthentificationManager;
 import dataSourceManagement.entities.Vehicle;
 import gui.bean.VehicleBean;
 import java.io.IOException;
+import java.io.Serializable;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -17,7 +18,7 @@ import javax.faces.context.FacesContext;
  *
  * @author JuanCamilo
  */
-public class Util {
+public class Util implements Serializable{
 
     private static final String CAR_VIEW = "/car/carView.xhtml";
 

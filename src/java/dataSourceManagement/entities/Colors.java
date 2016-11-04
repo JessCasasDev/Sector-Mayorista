@@ -5,11 +5,13 @@
  */
 package dataSourceManagement.entities;
 
+import java.io.Serializable;
+
 /**
  *
  * @author JuanCamilo
  */
-public class Colors {
+public class Colors implements Serializable{
 
     public static final String YELLOW = "Amarillo";
     public static final String PURPLE = "Morado";

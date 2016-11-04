@@ -1,6 +1,8 @@
 package dataSourceManagement.DAO.exceptions;
 
-public class PreexistingEntityException extends Exception {
+import java.io.Serializable;
+
+public class PreexistingEntityException extends Exception implements Serializable{
 
     public PreexistingEntityException(String message, Throwable cause) {
         super(message, cause);

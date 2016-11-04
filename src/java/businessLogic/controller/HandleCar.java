@@ -15,6 +15,7 @@ import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.Discount;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Vehicle;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,7 @@ import javax.faces.context.FacesContext;
  *
  * @author mssg_
  */
-public class HandleCar {
+public class HandleCar implements Serializable{
     public static final String ID = "id";
     
     public List<Vehicle> getCars(){

@@ -8,8 +8,9 @@ package businessLogic.controller;
 import dataSourceManagement.DAO.ClientDAO;
 import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Client;
+import java.io.Serializable;
 
-public class HandleClient {
+public class HandleClient implements Serializable{
 
     public String createClient(String name, String nit, String address, Authentication auth) {
         Client client = new Client();

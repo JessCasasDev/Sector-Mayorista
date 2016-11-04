@@ -7,6 +7,7 @@ package businessLogic.controller;
 
 import dataSourceManagement.DAO.RoleDAO;
 import dataSourceManagement.entities.Role;
+import java.io.Serializable;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -14,7 +15,7 @@ import javax.faces.context.FacesContext;
  *
  * @author JuanCamilo
  */
-public class AuthentificationManager {
+public class AuthentificationManager implements Serializable{
 
     public static boolean checkPermissions(Class c, String action) {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();

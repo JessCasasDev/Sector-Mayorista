@@ -14,6 +14,7 @@ import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Payment;
 import dataSourceManagement.entities.StockElement;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
@@ -26,7 +27,7 @@ import utils.Util;
  */
 @ManagedBean
 @ViewScoped
-public class ShoppingCartBean {
+public class ShoppingCartBean implements Serializable{
     
     private Integer orderId;
     private Date orderDate;
