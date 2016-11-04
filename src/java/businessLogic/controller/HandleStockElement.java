@@ -6,10 +6,11 @@ import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.entities.Purchase;
 import dataSourceManagement.entities.StockElement;
 import dataSourceManagement.entities.Vehicle;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HandleStockElement {
+public class HandleStockElement implements Serializable{
 
     public boolean createStock(String location, int vehicleId, Integer purchaseId, int quantity) {
         List<StockElement> elements = new ArrayList<>();

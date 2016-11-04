@@ -1,9 +1,10 @@
 package dataSourceManagement.DAO.exceptions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IllegalOrphanException extends Exception {
+public class IllegalOrphanException extends Exception implements Serializable {
 
     private List<String> messages;
 

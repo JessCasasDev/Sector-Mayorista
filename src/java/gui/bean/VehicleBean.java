@@ -10,6 +10,7 @@ import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.entities.Colors;
 import dataSourceManagement.entities.Discount;
 import dataSourceManagement.entities.Vehicle;
+import java.io.Serializable;
 import java.util.Collection;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -23,7 +24,7 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @ViewScoped
 
-public class VehicleBean {
+public class VehicleBean implements Serializable{
 
     public static final String VEHICLE_ID = "vehicle";
     private Vehicle vehicle;

@@ -5,11 +5,13 @@
  */
 package config;
 
+import java.io.Serializable;
+
 /**
  *
  * @author juan
  */
-public class GlobalConfig {
+public class GlobalConfig implements Serializable{
 
     public static final String PERSISTENCE_UNIT = "automarketPU";
     public static int session_counter;

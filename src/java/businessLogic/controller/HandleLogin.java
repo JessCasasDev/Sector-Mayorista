@@ -14,6 +14,7 @@ import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.Employee;
 import dataSourceManagement.entities.Role;
 import java.io.IOException;
+import java.io.Serializable;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.PersistenceContext;
@@ -22,7 +23,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author afacunaa
  */
-public class HandleLogin {
+public class HandleLogin implements Serializable{
     
     public static final String STARTPAGE = "/Sector-Mayorista";
     public static final String INDEXXHTML = "/index.xhtml";

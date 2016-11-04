@@ -7,6 +7,7 @@ package businessLogic.controller;
 
 import dataSourceManagement.DAO.DiscountDAO;
 import dataSourceManagement.entities.Discount;
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author JuanCamilo
  */
-public class DiscountCRUD {
+public class DiscountCRUD implements Serializable{
 
     public void createDiscount(Discount discount) {
         if (AuthentificationManager.checkPermissions(Discount.class, Actions.CREATE)) {

@@ -4,8 +4,9 @@ import dataSourceManagement.DAO.AuthenticationDAO;
 import dataSourceManagement.DAO.RoleDAO;
 import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Role;
+import java.io.Serializable;
 
-public class HandleAuthentication {
+public class HandleAuthentication implements Serializable{
 
     public Authentication createAccount(String username, String password, Integer role) {
         RoleDAO roleDao = new RoleDAO();

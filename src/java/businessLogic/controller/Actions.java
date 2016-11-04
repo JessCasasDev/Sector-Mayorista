@@ -5,11 +5,13 @@
  */
 package businessLogic.controller;
 
+import java.io.Serializable;
+
 /**
  *
  * @author JuanCamilo
  */
-public class Actions {
+public class Actions implements Serializable{
 
     public static final String CREATE = "CR";
     public static final String DELETE = "DE";

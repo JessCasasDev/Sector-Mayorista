@@ -11,6 +11,7 @@ import dataSourceManagement.DAO.MonthlyRegisterDAO;
 import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Employee;
 import dataSourceManagement.entities.MonthlyRegister;
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
  *
  * @author afacunaa
  */
-public class HandleEmployee {
+public class HandleEmployee implements Serializable{
 
     public HandleEmployee() {
     }

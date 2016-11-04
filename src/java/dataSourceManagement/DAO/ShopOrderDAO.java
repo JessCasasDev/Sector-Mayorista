@@ -9,6 +9,7 @@ import config.GlobalConfig;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Payment;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.EntityManager;
@@ -20,7 +21,7 @@ import javax.persistence.Query;
  *
  * @author afacunaa
  */
-public class ShopOrderDAO {
+public class ShopOrderDAO implements Serializable{
 
     public static final String EFECTIVO = "Efectivo";
     public static final String TARJETA = "Tarjeta";

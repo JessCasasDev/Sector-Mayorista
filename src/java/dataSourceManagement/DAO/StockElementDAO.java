@@ -10,6 +10,7 @@ import config.GlobalConfig;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.StockElement;
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,7 +26,7 @@ import javax.persistence.Query;
  *
  * @author afacunaa
  */
-public class StockElementDAO {
+public class StockElementDAO implements Serializable{
 
     public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 

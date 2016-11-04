@@ -8,6 +8,7 @@ package dataSourceManagement.DAO;
 import config.GlobalConfig;
 import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Payment;
+import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,7 +19,7 @@ import javax.persistence.Query;
  *
  * @author afacunaa
  */
-public class PaymentDAO {
+public class PaymentDAO implements Serializable{
 
    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 

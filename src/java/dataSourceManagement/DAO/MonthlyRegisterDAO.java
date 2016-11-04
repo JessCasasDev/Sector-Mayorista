@@ -8,6 +8,7 @@ package dataSourceManagement.DAO;
 import config.GlobalConfig;
 import dataSourceManagement.entities.Employee;
 import dataSourceManagement.entities.MonthlyRegister;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,7 +19,7 @@ import javax.persistence.Query;
  *
  * @author afacunaa
  */
-public class MonthlyRegisterDAO {
+public class MonthlyRegisterDAO implements Serializable{
 
     public EntityManagerFactory emf3 = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 

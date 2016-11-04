@@ -17,6 +17,7 @@ import dataSourceManagement.entities.ShopOrder;
 import dataSourceManagement.entities.Payment;
 import dataSourceManagement.entities.StockElement;
 import dataSourceManagement.entities.Vehicle;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,7 +28,7 @@ import javax.faces.context.FacesContext;
  *
  * @author afacunaa
  */
-public class HandleAutoSell {
+public class HandleAutoSell implements Serializable{
 
     public static final String ID = "id";
     public static final String SELECCIONADA = "Seleccionada";

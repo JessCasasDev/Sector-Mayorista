@@ -4,12 +4,13 @@ import dataSourceManagement.DAO.EmployeeDAO;
 import dataSourceManagement.DAO.PurchaseDAO;
 import dataSourceManagement.entities.Employee;
 import dataSourceManagement.entities.Purchase;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Date;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-public class HandlePurchase {
+public class HandlePurchase implements Serializable{
     public static final String ID = "id";
     
     public Purchase createPurchase(Date date, Integer quantity) throws ParseException {
