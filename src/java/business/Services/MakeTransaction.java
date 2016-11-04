@@ -71,7 +71,7 @@ public class MakeTransaction {
         AuthenticationDAO authDao = new AuthenticationDAO();
         Authentication auth = authDao.searchByUsername(userName);
         
-        if (!auth.getPassword().equals(password)) {
+        if (auth != null && !auth.getPassword().equals(password)) {
             return new AutoMResponseMessage("No se encontro el usuario", null, false);
         } else {
             ClientDAO clientDao = new ClientDAO();
@@ -86,7 +86,15 @@ public class MakeTransaction {
                     return new AutoMResponseMessage("No se encontro el Vehiculo", null, false);
                 } else {
                     HandleAddVehicle hav = new HandleAddVehicle();
-                    String pago = hav.addToCartAsService(Integer.parseInt(vehicleId), Integer.parseInt(quantity), userName);
+                    StockElementDAO sea = new StockElementDAO();
+                    List<Long> o = sea.searchByVIdAndAvaliablity(vehicle.getVehicleId());
+                    for (Long long1 : o) {
+                        System.out.println(o);
+                    }
+                    int totalQuantity = (int)(long)o.get(0);
+                    int quantity2 = Integer.valueOf(quantity);
+                    if(totalQuantity < quantity2) quantity2 = totalQuantity; 
+                    String pago = hav.addToCartAsService(Integer.parseInt(vehicleId), quantity2, userName);
                     vMap.put("Tipo vehiculo", vehicleId);
                     vMap.put(VEHICLE_MODEL, String.valueOf(vehicle.getModel()));
                     vMap.put(VEHICLE_BRAND, String.valueOf(vehicle.getBrand()));
@@ -94,10 +102,11 @@ public class MakeTransaction {
                     vMap.put(VEHICLE_SELL_PRICE, String.valueOf(vehicle.getSellPrice()));
                     vMap.put(VEHICLE_TYPE, String.valueOf(vehicle.getType()));
                     vMap.put(VEHICLE_DESCRIPTION, String.valueOf(vehicle.getDescription()));
-                    vMap.put("Cantidad", String.valueOf(quantity));
+                    vMap.put("Cantidad", String.valueOf(quantity2));
                     vMap.put("Resumen transaccion", pago);
                     responseList.add(vMap);
-                    return new AutoMResponseMessage(userName + ": " + pago, responseList, true);
+                    if(pago.equals("Pago total")) return new AutoMResponseMessage(userName + ": " + pago, responseList, true);
+                    else return new AutoMResponseMessage(userName + ": " + pago + " - Transaccion incompleta", responseList, false);
                 }
 
             }
