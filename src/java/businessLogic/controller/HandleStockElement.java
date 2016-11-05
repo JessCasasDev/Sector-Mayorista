@@ -1,5 +1,6 @@
 package businessLogic.controller;
 
+import business.ServicesConsume.ResponseMessage;
 import dataSourceManagement.DAO.PurchaseDAO;
 import dataSourceManagement.DAO.StockElementDAO;
 import dataSourceManagement.DAO.VehicleDAO;
@@ -20,7 +21,10 @@ public class HandleStockElement implements Serializable{
         VehicleDAO vehicleDao = new VehicleDAO();
         Vehicle vehicle = vehicleDao.findVehicle(vehicleId);
         Purchase purchase = pd.searchById(purchaseId);
-        for (int i = 0; i < quantity; i++) {
+        ResponseMessage rm = buyVehicle(33, vehicleId, quantity);
+        if (!rm.isSuccess())
+            return false;
+        for (int i = 0; i < rm.getData(); i++) {
             stock = new StockElement();
             stock.setLocation(location);
             if (purchase != null)
@@ -34,5 +38,13 @@ public class HandleStockElement implements Serializable{
                 
         return result;
     }
+
+    private static ResponseMessage buyVehicle(java.lang.Integer arg0, java.lang.Integer arg1, java.lang.Integer arg2) {
+        business.ServicesConsume.VehicleSellerWS_Service service = new business.ServicesConsume.VehicleSellerWS_Service();
+        business.ServicesConsume.VehicleSellerWS port = service.getVehicleSellerWSPort();
+        return port.buyVehicle(arg0, arg1, arg2);
+    }
+    
+    
     
 }

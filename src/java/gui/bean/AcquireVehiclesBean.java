@@ -83,6 +83,8 @@ public class AcquireVehiclesBean implements Serializable{
                 boolean st = stock.createStock(location, Integer.parseInt(selectedItem), purchase.getPurchaseId(), getQuantity());
                 if (st) {
                     message = "Compra realizada éxitosamente";
+                } else {
+                    message = "Compra fallida por falta de inventario en la fabrica";
                 }
             } else {
                 message = "Compra fallida";
