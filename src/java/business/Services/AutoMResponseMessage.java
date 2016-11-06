@@ -17,12 +17,72 @@ import java.util.Map;
  */
 public class AutoMResponseMessage {
     private String response;
-    private List<Map<String,String>> data;
+    private String color;
+    private String brand;
+    private String model;
+    private Map<String, String> data;
+    
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getChasis() {
+        return chasis;
+    }
+
+    public void setChasis(String chasis) {
+        this.chasis = chasis;
+    }
+
+    public String getEngine() {
+        return engine;
+    }
+
+    public void setEngine(String engine) {
+        this.engine = engine;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+    private String chasis;
+    private String engine;
+    private String price;
     private boolean succesfull;
 
-    public AutoMResponseMessage(String response, List<Map<String, String>> data, boolean succesfull) {
+    public AutoMResponseMessage(String response, Map<String, String> data, boolean succesfull) {
         this.response = response;
         this.data = data;
+        this.chasis = data.get("vehicle_chasis");
+        this.engine = data.get("vehicle_engine");
+        this.model = data.get("model");
+        this.brand = data.get("brand");
+        this.color = data.get("color");
+        this.price = data.get("sell_price");
         this.succesfull = succesfull;
     }
 
@@ -39,14 +99,14 @@ public class AutoMResponseMessage {
     public void setResponse(String response) {
         this.response = response;
     }
-
-    public String getData() {
+    
+    public Map<String,String> getData() {
         //    return data;
-        return "hola";
+        return data;
         //return Arrays.toString(data.toArray(new Map[data.size()]));
     }
 
-    public void setData(List<Map<String, String>> data) {
+    public void setData(Map<String, String> data) {
         this.data = data;
     }
 

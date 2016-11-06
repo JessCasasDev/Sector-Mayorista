@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  *
@@ -33,7 +34,7 @@ public class MakeTransaction {
     private static final String VEHICLE_TYPE = "type";
     private static final String VEHICLE_ID = "id";
 
-    public AutoMResponseMessage make(String userName, String password) {
+    /*public AutoMResponseMessage make(String userName, String password) {
         List<Vehicle> listProduct;
         List<Map<String, String>> responseList = new ArrayList<>();
         Map<String, String> vMap;
@@ -63,10 +64,10 @@ public class MakeTransaction {
         vMap.put(VEHICLE_DESCRIPTION, String.valueOf(vehicle.getDescription()));
         responseList.add(vMap);
         return new AutoMResponseMessage(userName, responseList, true);
-    }
+    }*/
     
     public AutoMResponseMessage sell(String userName, String password, String vehicleId, String quantity) {
-        List<Map<String, String>> responseList = new ArrayList<>(1);
+        //List<Map<String, String>> responseList = new ArrayList<>(1);
         Map<String, String> vMap = new HashMap<>();
         AuthenticationDAO authDao = new AuthenticationDAO();
         Authentication auth = authDao.searchByUsername(userName);
@@ -102,16 +103,23 @@ public class MakeTransaction {
                     vMap.put(VEHICLE_SELL_PRICE, String.valueOf(vehicle.getSellPrice()));
                     vMap.put(VEHICLE_TYPE, String.valueOf(vehicle.getType()));
                     vMap.put(VEHICLE_DESCRIPTION, String.valueOf(vehicle.getDescription()));
+                    Integer chasis = new Random().nextInt(100000);
+                    Integer engine = new Random().nextInt(100000);
+                    vMap.put(VEHICLE_CHASIS, chasis.toString());
+                    vMap.put(VEHICLE_ENGINE, engine.toString());
+                    vMap.put(VEHICLE_DESCRIPTION, String.valueOf(vehicle.getDescription()));
                     vMap.put(QUANTITY, String.valueOf(quantity2));
                     vMap.put(PAYMENT, pago);
-                    responseList.add(vMap);
-                    if(pago.equals("Pago total")) return new AutoMResponseMessage(userName + ": " + pago, responseList, true);
-                    else return new AutoMResponseMessage(userName + ": " + pago + " - Transaccion incompleta", responseList, false);
+                    //responseList.add(vMap);
+                    if(pago.equals("Pago total")) return new AutoMResponseMessage(userName + ": " + pago, vMap, true);
+                    else return new AutoMResponseMessage(userName + ": " + pago + " - Transaccion incompleta", vMap, false);
                 }
 
             }
         }
     }
+    private static final String VEHICLE_ENGINE = "vehicle_engine";
+    private static final String VEHICLE_CHASIS = "vehicle_chasis";
     private static final String PAYMENT = "payment";
     private static final String QUANTITY = "quantity";
 }
