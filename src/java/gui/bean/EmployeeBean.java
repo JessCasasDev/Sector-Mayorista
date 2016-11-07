@@ -1,6 +1,7 @@
 package gui.bean;
 
 import businessLogic.controller.HandleEmployee;
+import businessLogic.controller.LDAPAutomarket;
 import config.GlobalConfig;
 import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Employee;
@@ -35,10 +36,10 @@ public class EmployeeBean implements Serializable {
     private String message;
     private Integer day;
     private Integer month;
-    private Integer year;    
+    private Integer year;
     private String session_id;
     private int session_counter;
-    
+
     @ManagedProperty(value = "#{userBean}")
     private AuthenticationBean userBean;
 
@@ -73,25 +74,26 @@ public class EmployeeBean implements Serializable {
     public void setAdministrator(int administrator) {
         this.administrator = administrator;
     }
-    public void setSession_counter(int counter){
+
+    public void setSession_counter(int counter) {
         this.session_counter = GlobalConfig.session_counter;
         System.out.println("Session counter Administrator: " + GlobalConfig.session_counter);
     }
-    
-    public void setSession_id(String id){
+
+    public void setSession_id(String id) {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         this.session_id = ec.getSessionId(true);
         System.out.println("Session id Administrator: " + session_id);
     }
-    
-    public String getSession_id(){
+
+    public String getSession_id() {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         this.session_id = ec.getSessionId(true);
         System.out.println("Session id Employee: " + session_id);
         return this.session_id;
     }
-    
-    public int getSession_counter(){
+
+    public int getSession_counter() {
         this.session_counter = GlobalConfig.session_counter;
         return this.session_counter;
     }
@@ -174,9 +176,11 @@ public class EmployeeBean implements Serializable {
 
     public void createEmployee() throws ParseException {
         userBean = new AuthenticationBean();
-        Authentication userCreated = userBean.createAccount(username, password, "3");
-        System.out.println("gui.bean.EmployeeBean.createEmployee() " + date1);
-        if (userCreated != null) {
+        LDAPAutomarket ldap = new LDAPAutomarket();
+        boolean addUser = ldap.addUser(username, password, name);
+        if (addUser) {
+            Authentication userCreated = userBean.createAccount(username, password, "3");
+            System.out.println("gui.bean.EmployeeBean.createEmployee() " + date1);
             HandleEmployee hc = new HandleEmployee();
             BigInteger newid = BigInteger.valueOf(documentId);
             Date date = this.setDateTime(day, month, year);
@@ -198,8 +202,8 @@ public class EmployeeBean implements Serializable {
         String employeeName = (String) ec.getSessionMap().get("username");
         return hc.getSalary(employeeName);
     }
-    
-    public float weightedGrade(){
+
+    public float weightedGrade() {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         HandleEmployee hc = new HandleEmployee();
         String employeeName = (String) ec.getSessionMap().get("username");
@@ -208,10 +212,10 @@ public class EmployeeBean implements Serializable {
         for (MonthlyRegister monthlyRegister : mrList) {
             wgrade += monthlyRegister.getGrade();
         }
-        return (wgrade/mrList.size());
+        return (wgrade / mrList.size());
     }
-    
-    public void displayProfile(){
+
+    public void displayProfile() {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         Integer employeeId = (Integer) ec.getSessionMap().get("id");
         Employee employee = getEmployee(employeeId);
@@ -231,8 +235,8 @@ public class EmployeeBean implements Serializable {
     }
 
     public boolean setEmployee(int selectedItem, String employeeName,
-        String employeeLastName, Integer employeeDocumentId,
-        Integer employeeDay, Integer employeeMonth, Integer employeeYear) {
+            String employeeLastName, Integer employeeDocumentId,
+            Integer employeeDay, Integer employeeMonth, Integer employeeYear) {
         HandleEmployee emp = new HandleEmployee();
         Date date = new Date();
         try {
@@ -242,7 +246,7 @@ public class EmployeeBean implements Serializable {
             Logger.getLogger(EmployeeBean.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-        return emp.editEmployee(selectedItem, employeeName, employeeLastName, employeeDocumentId, date );
+        return emp.editEmployee(selectedItem, employeeName, employeeLastName, employeeDocumentId, date);
     }
 
     public Date setDateTime(int day, int month, int year) throws ParseException {
@@ -261,11 +265,11 @@ public class EmployeeBean implements Serializable {
         HandleEmployee empl = new HandleEmployee();
         return empl.deleteEmployee(id);
     }
-    
-    public Employee getEmployee(Integer id){
+
+    public Employee getEmployee(Integer id) {
         HandleEmployee handle = new HandleEmployee();
         return handle.getEmploye(id);
-            
+
     }
 
 }

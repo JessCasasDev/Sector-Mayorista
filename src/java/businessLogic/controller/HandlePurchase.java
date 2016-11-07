@@ -1,6 +1,5 @@
 package businessLogic.controller;
 
-import business.ServicesConsume.ResponseMessage;
 import dataSourceManagement.DAO.EmployeeDAO;
 import dataSourceManagement.DAO.PurchaseDAO;
 import dataSourceManagement.entities.Employee;

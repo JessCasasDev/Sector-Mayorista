@@ -5,6 +5,8 @@
  */
 package businessLogic.controller;
 
+import com.novell.ldap.LDAPConnection;
+import com.novell.ldap.LDAPException;
 import config.GlobalConfig;
 import dataSourceManagement.DAO.AuthenticationDAO;
 import dataSourceManagement.DAO.ClientDAO;
@@ -15,6 +17,7 @@ import dataSourceManagement.entities.Employee;
 import dataSourceManagement.entities.Role;
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.PersistenceContext;
@@ -23,8 +26,8 @@ import javax.persistence.PersistenceContext;
  *
  * @author afacunaa
  */
-public class HandleLogin implements Serializable{
-    
+public class HandleLogin implements Serializable {
+
     public static final String STARTPAGE = "/Sector-Mayorista";
     public static final String INDEXXHTML = "/index.xhtml";
     public static final String EMPLOYEEEMPLOYEE_PROFILEXHTML = "/employee/employee_profile.xhtml";
@@ -39,6 +42,11 @@ public class HandleLogin implements Serializable{
     @PersistenceContext
     public String login(String username, String password) {
         System.out.println("request user: " + username);
+
+        LDAPAutomarket ldap = new LDAPAutomarket();
+        if (!"true".equals(ldap.login2(username, password))) {
+            return "Usuario incorrecto";
+        }
         AuthenticationDAO authDAO = new AuthenticationDAO();
         Authentication auth = authDAO.searchByUsername(username);
         ClientDAO clientDAO = new ClientDAO();
@@ -46,11 +54,11 @@ public class HandleLogin implements Serializable{
         EmployeeDAO employeeDAO = new EmployeeDAO();
         Employee user2 = employeeDAO.searchByUsername(auth);
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        
+
         if (username == null && password == null) {
             return "Bienvenido";
         }
-                        
+
         if (user1 != null) { //es un cliente
 
             if (!user1.getAuthId().getPassword().equals(password)) {
@@ -85,7 +93,7 @@ public class HandleLogin implements Serializable{
                 ec.getSessionMap().put(ID, user2.getEmployeeId());
                 ec.getSessionMap().put(ROLE, user2.getAuthId().getRoleId().getName());
                 ec.getSessionMap().put(STATE, true);
-                
+
                 try {
                     String actionURL = null;
                     if (Role.ADMINISTRATOR.equals(user2.getAuthId().getRoleId().getName())) {
@@ -120,10 +128,9 @@ public class HandleLogin implements Serializable{
             } else {
                 return "Usuario incorrecto";
             }
-            
-            
+
         }
-        
+
     }
 
     public void logout() {
@@ -138,8 +145,8 @@ public class HandleLogin implements Serializable{
         try {
             String url = extContext.encodeActionURL(
                     FacesContext.getCurrentInstance().getApplication()
-                    .getViewHandler().getActionURL(FacesContext
-                            .getCurrentInstance(), INDEXXHTML));
+                            .getViewHandler().getActionURL(FacesContext
+                                    .getCurrentInstance(), INDEXXHTML));
             GlobalConfig.session_counter--;
             System.out.println("Session Counter del: " + GlobalConfig.session_counter);
             extContext.redirect(url);

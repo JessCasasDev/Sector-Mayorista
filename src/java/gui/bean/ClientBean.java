@@ -1,6 +1,7 @@
 package gui.bean;
 
 import businessLogic.controller.HandleClient;
+import businessLogic.controller.LDAPAutomarket;
 import config.GlobalConfig;
 import dataSourceManagement.DAO.AuthenticationDAO;
 import dataSourceManagement.entities.Authentication;
@@ -24,7 +25,7 @@ public class ClientBean implements Serializable {
     private String message;
     private String session_id;
     private int session_counter;
-    
+
     @ManagedProperty(value = "#{userBean}")
     private AuthenticationBean userBean;
 
@@ -77,15 +78,15 @@ public class ClientBean implements Serializable {
     public String getAddress() {
         return this.address;
     }
-    
-    public String getSession_id(){
+
+    public String getSession_id() {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         this.session_id = ec.getSessionId(true);
         System.out.println("Session id Client: " + session_id);
         return this.session_id;
     }
-    
-    public int getSession_counter(){
+
+    public int getSession_counter() {
         this.session_counter = GlobalConfig.session_counter;
         return this.session_counter;
     }
@@ -101,13 +102,13 @@ public class ClientBean implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
-    
-    public void setSession_counter(int counter){
+
+    public void setSession_counter(int counter) {
         this.session_counter = GlobalConfig.session_counter;
         System.out.println("Session counter Client: " + GlobalConfig.session_counter);
     }
-    
-    public void setSession_id(String id){
+
+    public void setSession_id(String id) {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         this.session_id = ec.getSessionId(true);
         System.out.println("Session id Client: " + session_id);
@@ -115,8 +116,10 @@ public class ClientBean implements Serializable {
 
     public void createClient() {
         userBean = new AuthenticationBean();
-        Authentication userCreated = userBean.createAccount(username, password, "2");
-        if (userCreated != null) {
+        LDAPAutomarket ldap = new LDAPAutomarket();
+        boolean addUser = ldap.addUser(username, password, name);
+        if (addUser) {
+            Authentication userCreated = userBean.createAccount(username, password, "2");
             HandleClient hc = new HandleClient();
             message = hc.createClient(name, nit, address, userCreated);
         } else {
@@ -124,13 +127,14 @@ public class ClientBean implements Serializable {
         }
 
     }
-    public void setProfile(){
+
+    public void setProfile() {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        
+
         HandleClient hc = new HandleClient();
         AuthenticationDAO authDAO = new AuthenticationDAO();
         Authentication auth = authDAO.searchByUsername(this.getUsername());
-        Client client = hc.getClient(auth);    
+        Client client = hc.getClient(auth);
         this.setAddress(client.getAddress());
         this.setNit(client.getNit());
         this.setName(client.getName());
