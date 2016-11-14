@@ -16,7 +16,7 @@ public class GlobalConfig implements Serializable {
 
     public static final String PERSISTENCE_UNIT = "automarketPU";
     public static int session_counter;
-    public static final String LDAP_HOST = "192.168.1.7";
+    public static final String LDAP_HOST = "192.168.2.135";
     public static final String DN = "cn=admin,dc=automarket,dc=com";
     public static final String LDAP_PASSWORD = "12345";
     public static final int LDAP_PORT = LDAPConnection.DEFAULT_PORT;

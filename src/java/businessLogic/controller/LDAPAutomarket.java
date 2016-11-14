@@ -13,12 +13,13 @@ import com.novell.ldap.LDAPException;
 import com.novell.ldap.LDAPModification;
 import java.io.UnsupportedEncodingException;
 import static config.GlobalConfig.*;
+import java.io.Serializable;
 
 /**
  *
  * @author root
  */
-public class LDAPAutomarket {
+public class LDAPAutomarket implements Serializable{
 
     private LDAPConnection lc = new LDAPConnection();
 

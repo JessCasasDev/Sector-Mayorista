@@ -1,8 +1,10 @@
+enable-http-lb-server c1
+
 create-system-properties --target i1 AJP_PORT=8011
 create-system-properties --target i1 AJP_INSTANCE_NAME=nodo1
 
-create-system-properties --target i3 AJP_PORT=8013
-create-system-properties --target i3 AJP_INSTANCE_NAME=nodo3
+create-system-properties --target i2 AJP_PORT=8012
+create-system-properties --target i2 AJP_INSTANCE_NAME=nodo2
 
 create-system-properties --target i4 AJP_PORT=8014
 create-system-properties --target i4 AJP_INSTANCE_NAME=nodo4

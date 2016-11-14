@@ -5,6 +5,7 @@
  */
 package business.Services;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -15,7 +16,7 @@ import java.util.Map;
  *
  * @author mssg_
  */
-public class AutoMResponseMessage {
+public class AutoMResponseMessage implements Serializable {
     private String response;
     private String color;
     private String brand;

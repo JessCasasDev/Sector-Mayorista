@@ -6,6 +6,9 @@
     .materialize-red {
         background-color: #e51c23 !important;
     }
+    html{
+        font-family: GillSans, Calibri, Trebuchet, sans-serif;
+    }
 
     .materialize-red-text {
         color: #e51c23 !important;

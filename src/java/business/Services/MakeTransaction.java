@@ -14,6 +14,7 @@ import dataSourceManagement.DAO.VehicleDAO;
 import dataSourceManagement.entities.Authentication;
 import dataSourceManagement.entities.Client;
 import dataSourceManagement.entities.Vehicle;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.Random;
  *
  * @author mssg_
  */
-public class MakeTransaction {
+public class MakeTransaction implements Serializable{
 
     private static final String VEHICLE_DESCRIPTION = "description";
     private static final String VEHICLE_MODEL = "model";

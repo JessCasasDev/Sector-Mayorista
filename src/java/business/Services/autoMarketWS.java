@@ -5,6 +5,7 @@
  */
 package business.Services;
 
+import java.io.Serializable;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -14,7 +15,7 @@ import javax.jws.WebParam;
  * @author mssg_
  */
 @WebService(serviceName = "autoMarketWS")
-public class autoMarketWS {
+public class autoMarketWS implements Serializable{
 
     /**
      * This is a sample web service operation
