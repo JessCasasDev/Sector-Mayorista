@@ -119,7 +119,7 @@ public class ClientBean implements Serializable {
         LDAPAutomarket ldap = new LDAPAutomarket();
         boolean addUser = ldap.addUser(username, password, name);
         if (addUser) {
-            Authentication userCreated = userBean.createAccount(username, password, "2");
+            Authentication userCreated = userBean.createAccount(username, "********", "2");
             HandleClient hc = new HandleClient();
             message = hc.createClient(name, nit, address, userCreated);
         } else {

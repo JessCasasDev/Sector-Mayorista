@@ -2,7 +2,6 @@
 build/
 bin/
 target/
-libs/
 tmp/
 node_modules/
 jaxws/jaxws-client/src/main/
@@ -13,7 +12,6 @@ build.xml
 *.class
  
 # Package Files #
-*.jar
 *.war
 *.ear
 *.db

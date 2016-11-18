@@ -179,7 +179,7 @@ public class EmployeeBean implements Serializable {
         LDAPAutomarket ldap = new LDAPAutomarket();
         boolean addUser = ldap.addUser(username, password, name);
         if (addUser) {
-            Authentication userCreated = userBean.createAccount(username, password, "3");
+            Authentication userCreated = userBean.createAccount(username, "********", "3");
             System.out.println("gui.bean.EmployeeBean.createEmployee() " + date1);
             HandleEmployee hc = new HandleEmployee();
             BigInteger newid = BigInteger.valueOf(documentId);
