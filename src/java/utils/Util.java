@@ -55,6 +55,17 @@ public class Util implements Serializable {
         return sessionID;
     }
 
+    public static void redirect(Session session) throws IOException {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        externalContext.redirect(session.getCurrentView());
+    }
+
+    public static String getCurrentView() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        String uri = ((HttpServletRequest) externalContext.getRequest()).getRequestURI();
+        return uri;
+    }
+
     /**
      * *
      *
@@ -66,10 +77,13 @@ public class Util implements Serializable {
         try {
             sDAO.create(cSession);
             return true;
+
         } catch (RollbackFailureException ex) {
-            Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Util.class
+                    .getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Util.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
