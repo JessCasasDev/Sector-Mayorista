@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import utils.Util;
 
 /**
  *
@@ -21,7 +22,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @RequestScoped
-public class LoginBean implements Serializable{
+public class LoginBean implements Serializable {
 
     private String username;
     private String password;
@@ -53,6 +54,8 @@ public class LoginBean implements Serializable{
             message2 = (String) ec.getSessionMap().get("user");
         }
 
+        System.out.println("session id " + Util.getSessionID());
+        System.out.println("current view url: " + Util.getCurrentView());
     }
 
     public void login() throws IOException {

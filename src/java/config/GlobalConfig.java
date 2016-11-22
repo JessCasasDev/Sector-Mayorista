@@ -7,8 +7,6 @@ package config;
 
 import com.novell.ldap.LDAPConnection;
 import java.io.Serializable;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  *

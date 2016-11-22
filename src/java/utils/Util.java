@@ -52,7 +52,13 @@ public class Util implements Serializable {
                 = ((HttpServletRequest) FacesContext.getCurrentInstance()
                 .getExternalContext().getRequest())
                 .getHeaders("user-agent").nextElement();
-        return sessionID;
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String ipAddress = request.getHeader("X-FORWARDED-FOR");
+        if (ipAddress == null) {
+            ipAddress = request.getRemoteAddr();
+        }
+        System.out.println("ipAddress:" + ipAddress);
+        return sessionID + ":" + ipAddress;
     }
 
     public static void redirect(Session session) throws IOException {
