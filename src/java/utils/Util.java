@@ -5,20 +5,23 @@
  */
 package utils;
 
-import businessLogic.controller.Actions;
-import businessLogic.controller.AuthentificationManager;
-import dataSourceManagement.entities.Vehicle;
+import dataSourceManagement.DAO.SessionDAO;
+import dataSourceManagement.DAO.exceptions.RollbackFailureException;
+import dataSourceManagement.entities.Session;
 import gui.bean.VehicleBean;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
  * @author JuanCamilo
  */
-public class Util implements Serializable{
+public class Util implements Serializable {
 
     private static final String CAR_VIEW = "/car/carView.xhtml";
 
@@ -31,5 +34,43 @@ public class Util implements Serializable{
                         CAR_VIEW));
         System.out.println("url to redirect: " + url);
         ec.redirect(url);
+    }
+
+    /**
+     * *
+     *
+     * @return null if not session found
+     */
+    public static Session getCurrentSession() {
+        SessionDAO sDAO = new SessionDAO();
+        Session findSession = sDAO.findSession(getSessionID());
+        return findSession;
+    }
+
+    public static String getSessionID() {
+        String sessionID
+                = ((HttpServletRequest) FacesContext.getCurrentInstance()
+                .getExternalContext().getRequest())
+                .getHeaders("user-agent").nextElement();
+        return sessionID;
+    }
+
+    /**
+     * *
+     *
+     * @param cSession session to save
+     * @return if a session has been saved
+     */
+    public static boolean saveCurrentSession(Session cSession) {
+        SessionDAO sDAO = new SessionDAO();
+        try {
+            sDAO.create(cSession);
+            return true;
+        } catch (RollbackFailureException ex) {
+            Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }

@@ -24,15 +24,12 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.transaction.UserTransaction;
 
 /**
  *
  * @author JuanCamilo
  */
 public class VehicleDAO implements Serializable {
-
-    private UserTransaction utx = null;
     
     public EntityManagerFactory emf = Persistence.createEntityManagerFactory(GlobalConfig.PERSISTENCE_UNIT);
 

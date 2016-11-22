@@ -7,6 +7,8 @@ package config;
 
 import com.novell.ldap.LDAPConnection;
 import java.io.Serializable;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -22,4 +24,5 @@ public class GlobalConfig implements Serializable {
     public static final int LDAP_PORT = LDAPConnection.DEFAULT_PORT;
     public static final int LDAP_VERSION = LDAPConnection.LDAP_V3;
     public static final String GROUP_DN = "ou=Sector-Mayorista,dc=automarket,dc=com";
+
 }
